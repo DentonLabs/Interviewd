@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Interviewd.Application;
+using Interviewd.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
@@ -7,14 +9,23 @@ namespace Interviewd.Controllers
     [Route("questions")]
     public class QuestionsController : Controller
     {
-        [HttpGet]
-        public async Task<IEnumerable<string>> GetQuestions()
+        private readonly IQuestionManager _QuestionManager;
+
+        public QuestionsController(IQuestionManager questionManager)
         {
-            return new List<string>()
-            {
-                "test1",
-                "test2"
-            };
+            _QuestionManager = questionManager;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<QuestionDto>> GetQuestions()
+        {
+            return await _QuestionManager.GetQuestions();
+        }
+
+        [HttpPost]
+        public async Task PostQuestion([FromBody]QuestionDto questionDto)
+        {
+            await _QuestionManager.CreateQuestion(questionDto);
         }
     }
 }

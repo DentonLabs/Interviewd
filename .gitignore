@@ -6,6 +6,8 @@ bin
 obj
 .vs
 
+*.user
+
 *.lock.json
 
 # Folder config file
