@@ -46,6 +46,7 @@ namespace Interviewd
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
