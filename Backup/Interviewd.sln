@@ -1,23 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{13F6BDA1-144A-4A1B-9F06-987F009760C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93F66F1E-4A2C-4373-8C1B-D7CB63ACCECD}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd", "src\Interviewd\Interviewd.csproj", "{42ED50C8-1F9B-4BD5-8AF6-95F6B43BCA89}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd", "src\Interviewd\Interviewd.xproj", "{42ED50C8-1F9B-4BD5-8AF6-95F6B43BCA89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Service.Rest", "src\Interviewd.Service.Rest\Interviewd.Service.Rest.csproj", "{68D1B361-ECF2-4C4F-B890-7CAF4B949016}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd.Service.Rest", "src\Interviewd.Service.Rest\Interviewd.Service.Rest.xproj", "{68D1B361-ECF2-4C4F-B890-7CAF4B949016}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Application.Dto", "src\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj", "{467BB172-3338-47FF-A72A-B1F8454683FC}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd.Application.Dto", "src\Interviewd.Application.Dto\Interviewd.Application.Dto.xproj", "{467BB172-3338-47FF-A72A-B1F8454683FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Application", "src\Interviewd.Application\Interviewd.Application.csproj", "{29786E7F-F370-4CE8-A972-E5A398658700}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd.Application", "src\Interviewd.Application\Interviewd.Application.xproj", "{29786E7F-F370-4CE8-A972-E5A398658700}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Domain", "src\Interviewd.Domain\Interviewd.Domain.csproj", "{0DC323E1-F3D1-4377-85A6-45BF2247AFF0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd.Domain", "src\Interviewd.Domain\Interviewd.Domain.xproj", "{0DC323E1-F3D1-4377-85A6-45BF2247AFF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Infrastructure", "src\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj", "{B34437C7-8421-495D-8E27-F4CE6469F974}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Interviewd.Infrastructure", "src\Interviewd.Infrastructure\Interviewd.Infrastructure.xproj", "{B34437C7-8421-495D-8E27-F4CE6469F974}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
