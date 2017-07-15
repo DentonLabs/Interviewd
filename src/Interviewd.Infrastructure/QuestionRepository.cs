@@ -26,7 +26,7 @@ namespace Interviewd.Infrastructure
                 var parameters = new DynamicParameters(
                     new
                     {
-                        Text = question.Text
+                        Text = question.Description
                     });
 
                 parameters.Add("ID", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -51,7 +51,7 @@ namespace Interviewd.Infrastructure
                     new Question
                     {
                         Id = q.Id,
-                        Text = q.Text
+                        Description = q.Description
                     });
             }
         }

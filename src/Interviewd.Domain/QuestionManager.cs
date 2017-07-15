@@ -19,7 +19,7 @@ namespace Interviewd.Domain
         {
             var question = new Question
             {
-                Text = questionDto.Text
+                Description = questionDto.Description
             };
 
             await _QuestionRepository.InsertQuestion(question);
@@ -33,7 +33,7 @@ namespace Interviewd.Domain
                 return new QuestionDto
                 {
                     Id = q.Id,
-                    Text = q.Text
+                    Description = q.Description
                 };
             });
         }
