@@ -9,42 +9,19 @@ using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
-    public class WhenCreatingQuestions
+    public class WhenCreatingQuestions : WhenTesting
     {
-        [Test]
-        public async Task ShouldBeAbleToCreateAQuestion()
-        {
-            var httpClient = new HttpClient();
-            var question = new Question
-            {
-                Name = "test",
-                Description = "test"
-            };
-
-            var body = JsonConvert.SerializeObject(question);
-
-            httpClient.BaseAddress = new Uri("http://localhost:9005");
-            var httpResponseMessage = await httpClient.PostAsync(
-                "questions",
-                new StringContent(body, Encoding.UTF8, "application/json"));
-
-            httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
-        }
-
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion2()
         {
-            var httpClient = new HttpClient();
             var question = new Question
             {
                 Name = "test",
                 Description = "test"
             };
 
-            httpClient.BaseAddress = new Uri("http://localhost:9005");
-
-            var httpResponseMessage = await httpClient.PostAsync(
-                "questions",
+            var httpResponseMessage = await HttpClient.PostAsync(
+                ApiRoutes.QuestionsRoute,
                 question.ToStringContent());
 
             httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
