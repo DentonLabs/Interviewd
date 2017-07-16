@@ -26,18 +26,18 @@ namespace Interviewd.Infrastructure
                 var parameters = new DynamicParameters(
                     new
                     {
-                        Name = question.
+                        Name = question.Name,
                         Description = question.Description
                     });
 
-                parameters.Add("ID", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add("Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                 await connection.ExecuteAsync(
                     "Insert_Question",
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
-                question.Id = parameters.Get<int>("ID").ToString();
+                question.Id = parameters.Get<int>("Id").ToString();
             }
         }
 
