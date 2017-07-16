@@ -26,7 +26,8 @@ namespace Interviewd.Infrastructure
                 var parameters = new DynamicParameters(
                     new
                     {
-                        Text = question.Description
+                        Name = question.
+                        Description = question.Description
                     });
 
                 parameters.Add("ID", dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -35,7 +36,6 @@ namespace Interviewd.Infrastructure
                     "Insert_Question",
                     parameters,
                     commandType: CommandType.StoredProcedure);
-
 
                 question.Id = parameters.Get<int>("ID").ToString();
             }

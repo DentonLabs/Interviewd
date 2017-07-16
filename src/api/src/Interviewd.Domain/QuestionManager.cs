@@ -19,6 +19,7 @@ namespace Interviewd.Domain
         {
             var question = new Question
             {
+                Name = questionDto.Name,
                 Description = questionDto.Description
             };
 
@@ -28,14 +29,12 @@ namespace Interviewd.Domain
         public async Task<IEnumerable<QuestionDto>> GetQuestions()
         {
             var questions = await _QuestionRepository.GetQuestions();
-            return questions.Select(q =>
-            {
-                return new QuestionDto
+            return questions.Select(q => 
+                new QuestionDto
                 {
                     Id = q.Id,
                     Description = q.Description
-                };
-            });
+                });
         }
     }
 }
