@@ -14,8 +14,6 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            true.ShouldBeTrue();
-
             var httpClient = new HttpClient();
             var question = new Question
             {
@@ -29,6 +27,25 @@ namespace Interviewd.Tests.Api
             var httpResponseMessage = await httpClient.PostAsync(
                 "questions",
                 new StringContent(body, Encoding.UTF8, "application/json"));
+
+            httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToCreateAQuestion2()
+        {
+            var httpClient = new HttpClient();
+            var question = new Question
+            {
+                Name = "test",
+                Description = "test"
+            };
+
+            httpClient.BaseAddress = new Uri("http://localhost:9005");
+
+            var httpResponseMessage = await httpClient.PostAsync(
+                "questions",
+                question.ToStringContent());
 
             httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
         }
