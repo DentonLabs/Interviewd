@@ -5,7 +5,7 @@ namespace Interviewd.Domain
 {
     public interface IQuestionRepository
     {
-        Task InsertQuestion(Question question);
+        Task<Question> InsertQuestion(Question question);
 
         Task<IEnumerable<Question>> GetQuestions();
     }

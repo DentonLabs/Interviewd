@@ -1,11 +1,8 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.SemanticComparison;
 using Shouldly;
 
 namespace Interviewd.Tests.Api
@@ -22,6 +19,14 @@ namespace Interviewd.Tests.Api
                 question.ToStringContent());
 
             httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
+
+            var content = await httpResponseMessage.Content.ReadAsStringAsync();
+            var createdQuestion = JsonConvert.DeserializeObject<Question>(content);
+
+            var expectedQuestion = new Likeness<Question, Question>(question)
+                .Without(q => q.Id);
+
+            Assert.AreEqual(expectedQuestion, createdQuestion);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Interviewd.Domain
             _QuestionRepository = questionRepository;
         }
 
-        public async Task CreateQuestion(QuestionDto questionDto)
+        public async Task<QuestionDto> CreateQuestion(QuestionDto questionDto)
         {
             var question = new Question
             {
@@ -23,7 +23,14 @@ namespace Interviewd.Domain
                 Description = questionDto.Description
             };
 
-            await _QuestionRepository.InsertQuestion(question);
+            var createdQuestion = await _QuestionRepository.InsertQuestion(question);
+
+            return new QuestionDto
+            {
+                Id = createdQuestion.Id,
+                Name = createdQuestion.Name,
+                Description = createdQuestion.Description
+            };
         }
 
         public async Task<IEnumerable<QuestionDto>> GetQuestions()

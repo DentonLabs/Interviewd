@@ -23,9 +23,9 @@ namespace Interviewd.Controllers
         }
 
         [HttpPost]
-        public async Task PostQuestion([FromBody]QuestionDto questionDto)
+        public async Task<QuestionDto> PostQuestion([FromBody]QuestionDto questionDto)
         {
-            await _QuestionManager.CreateQuestion(questionDto);
+            return await _QuestionManager.CreateQuestion(questionDto);
         }
     }
 }

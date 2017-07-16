@@ -19,7 +19,7 @@ namespace Interviewd.Infrastructure
             _AppSettings = appSettings.Value;
         }
 
-        public async Task InsertQuestion(Question question)
+        public async Task<Question> InsertQuestion(Question question)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
@@ -38,6 +38,8 @@ namespace Interviewd.Infrastructure
                     commandType: CommandType.StoredProcedure);
 
                 question.Id = parameters.Get<int>("Id").ToString();
+
+                return question;
             }
         }
 

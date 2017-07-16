@@ -6,7 +6,7 @@ namespace Interviewd.Application
 {
     public interface IQuestionManager
     {
-        Task CreateQuestion(QuestionDto questionDto);
+        Task<QuestionDto> CreateQuestion(QuestionDto questionDto);
 
         Task<IEnumerable<QuestionDto>> GetQuestions();
     }
