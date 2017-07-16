@@ -72,7 +72,7 @@
     <Compile Include="Question.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
-    <Compile Include="WhenCreatingQuestions.cs" />
+    <Compile Include="WhenTestingQuestions.cs" />
     <Compile Include="WhenTesting.cs" />
   </ItemGroup>
   <ItemGroup>

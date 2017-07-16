@@ -8,7 +8,7 @@ using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
-    public class WhenCreatingQuestions : WhenTesting
+    public class WhenTestingQuestions : WhenTesting
     {
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
