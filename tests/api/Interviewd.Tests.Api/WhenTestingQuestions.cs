@@ -25,5 +25,20 @@ namespace Interviewd.Tests.Api
 
             Assert.AreEqual(actualQuestion, expectedQuestion);
         }
+
+        [Test]
+        public async Task ShouldBeAbleToGetAQuestion()
+        {
+            var expectedQuestion = await QuestionService.InsertQuestion(Fixture.Create<Question>());
+
+            var httpResponseMessage = await HttpClient.GetAsync(
+                $"{ApiRoutes.QuestionsRoute}/{expectedQuestion.Id}");
+
+            var actualQuestion = await httpResponseMessage
+                .EnsureSuccessStatusCode()
+                .GetLikenessContent<Question>();
+
+            Assert.AreEqual(actualQuestion, expectedQuestion);
+        }
     }
 }
