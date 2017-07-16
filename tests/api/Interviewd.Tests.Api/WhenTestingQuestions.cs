@@ -13,17 +13,17 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            var question = Fixture.Create<Question>();
+            var expectedQuestion = Fixture.Create<Question>();
 
             var httpResponseMessage = await HttpClient.PostAsync(
                 ApiRoutes.QuestionsRoute,
-                question.ToStringContent());
+                expectedQuestion.ToStringContent());
 
-            httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
+            var actualQuestion = await httpResponseMessage
+                .EnsureSuccessStatusCode()
+                .GetLikenessContent<Question>();
 
-            var expectedQuestion = await httpResponseMessage.GetLikenessContent<Question>();
-
-            Assert.AreEqual(expectedQuestion, question);
+            Assert.AreEqual(actualQuestion, expectedQuestion);
         }
     }
 }
