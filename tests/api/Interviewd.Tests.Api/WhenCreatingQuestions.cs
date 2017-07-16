@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.SemanticComparison;
+using Ploeh.SemanticComparison.Fluent;
 using Shouldly;
 
 namespace Interviewd.Tests.Api
@@ -20,13 +21,9 @@ namespace Interviewd.Tests.Api
 
             httpResponseMessage.IsSuccessStatusCode.ShouldBeTrue();
 
-            var content = await httpResponseMessage.Content.ReadAsStringAsync();
-            var createdQuestion = JsonConvert.DeserializeObject<Question>(content);
+            var expectedQuestion = await httpResponseMessage.GetLikenessContent<Question>();
 
-            var expectedQuestion = new Likeness<Question, Question>(question)
-                .Without(q => q.Id);
-
-            Assert.AreEqual(expectedQuestion, createdQuestion);
+            Assert.AreEqual(expectedQuestion, question);
         }
     }
 }

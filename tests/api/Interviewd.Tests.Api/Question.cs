@@ -1,6 +1,6 @@
 ﻿namespace Interviewd.Tests.Api
 {
-    public class Question
+    public class Question : IIdentifiable
     {
         public string Id { get; set; }
 

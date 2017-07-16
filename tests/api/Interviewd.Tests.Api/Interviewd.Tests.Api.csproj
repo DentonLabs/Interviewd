@@ -65,10 +65,13 @@
   <ItemGroup>
     <Compile Include="ApiRoutes.cs" />
     <Compile Include="HttpContentExtensions.cs" />
+    <Compile Include="HttpResponseMessageExtensions.cs" />
+    <Compile Include="IIdentifiable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="QuestionService.cs" />
+    <Compile Include="SemanticComparisonExtensions.cs" />
     <Compile Include="WhenCreatingQuestions.cs" />
     <Compile Include="WhenTesting.cs" />
   </ItemGroup>
