@@ -13,7 +13,7 @@ namespace Interviewd.Tests.Api
     public class WhenCreatingQuestions : WhenTesting
     {
         [Test]
-        public async Task ShouldBeAbleToCreateAQuestion2()
+        public async Task ShouldBeAbleToCreateAQuestion()
         {
             var question = Fixture.Create<Question>();
 
