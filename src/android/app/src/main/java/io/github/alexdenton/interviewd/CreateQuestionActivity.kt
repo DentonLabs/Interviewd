@@ -5,8 +5,14 @@ import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.EditText
 
 class CreateQuestionActivity : AppCompatActivity() {
+
+    lateinit var presenter: CreateQuestionPresenter
+    lateinit var nameField: EditText
+    lateinit var descField: EditText
+    lateinit var submitButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,10 +20,13 @@ class CreateQuestionActivity : AppCompatActivity() {
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val submitButton: Button = findViewById(R.id.createQuestionSubmitButton) // TODO: Use a different naming convention for ids
+        presenter = CreateQuestionPresenter(this)
+        nameField = findViewById(R.id.createQuestionNameField)
+        descField = findViewById(R.id.createQuestionDescField)
+        submitButton = findViewById(R.id.createQuestionSubmitButton) // TODO: Use a different naming convention for ids
 
         submitButton.setOnClickListener {
-            // Do stuff
+            presenter.submitQuestion()
             finish()
         }
     }
