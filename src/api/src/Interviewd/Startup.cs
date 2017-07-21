@@ -1,4 +1,5 @@
-﻿using Interviewd.Application;
+﻿using AutoMapper;
+using Interviewd.Application;
 using Interviewd.Domain;
 using Interviewd.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,7 @@ namespace Interviewd
             services.Configure<AppSettings>(Configuration);
 
             services.AddMvc();
+            services.AddAutoMapper();
 
             services.AddSingleton<IQuestionManager, QuestionManager>();
             services.AddSingleton<IQuestionRepository, QuestionRepository>();
