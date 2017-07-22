@@ -8,5 +8,7 @@ namespace Interviewd.Domain
         Task<Question> InsertQuestion(Question question);
 
         Task<IEnumerable<Question>> GetQuestions();
+
+        Task<Question> GetQuestion(string id);
     }
 }

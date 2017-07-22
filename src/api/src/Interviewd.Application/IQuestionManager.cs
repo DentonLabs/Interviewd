@@ -9,5 +9,7 @@ namespace Interviewd.Application
         Task<QuestionDto> CreateQuestion(QuestionDto questionDto);
 
         Task<IEnumerable<QuestionDto>> GetQuestions();
+
+        Task<QuestionDto> GetQuestion(string id);
     }
 }

@@ -22,6 +22,13 @@ namespace Interviewd.Controllers
             return await _QuestionManager.GetQuestions();
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<QuestionDto> GetQuestion([FromRoute]string id)
+        {
+            return await _QuestionManager.GetQuestion(id);
+        }
+
         [HttpPost]
         public async Task<QuestionDto> PostQuestion([FromBody]QuestionDto questionDto)
         {

@@ -53,8 +53,32 @@ namespace Interviewd.Infrastructure
                     new Question
                     {
                         Id = q.Id,
+                        Name = q.Name,
                         Description = q.Description
                     });
+            }
+        }
+
+        public async Task<Question> GetQuestion(string id)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>(
+                    "Get_Question",
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.StoredProcedure);
+
+                return questionSqlModels.Select(q => 
+                    new Question
+                    {
+                        Id = q.Id,
+                        Name = q.Name,
+                        Description = q.Description
+                    })
+                    .Single();
             }
         }
     }
