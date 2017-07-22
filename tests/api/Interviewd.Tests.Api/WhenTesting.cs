@@ -36,7 +36,7 @@ namespace Interviewd.Tests.Api
             var appSettings = ServiceProvider.GetService<IOptions<AppSettings>>().Value;
 
             HttpClient = new HttpClient();
-            HttpClient.BaseAddress = new Uri(appSettings.ApiUrl);
+            HttpClient.BaseAddress = new Uri(appSettings.ApiUri);
 
             Fixture = new Fixture();
         }
