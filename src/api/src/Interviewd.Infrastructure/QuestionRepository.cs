@@ -33,7 +33,7 @@ namespace Interviewd.Infrastructure
                 parameters.Add("Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                 await connection.ExecuteAsync(
-                    "Insert_Question",
+                    StoredProcedures.InsertQuestion,
                     parameters,
                     commandType: CommandType.StoredProcedure);
 
@@ -47,7 +47,7 @@ namespace Interviewd.Infrastructure
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
-                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>("Get_Questions");
+                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>(StoredProcedures.GetQuestions);
 
                 return questionSqlModels.Select(q => 
                     new Question
@@ -64,7 +64,7 @@ namespace Interviewd.Infrastructure
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
                 var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>(
-                    "Get_Question",
+                    StoredProcedures.GetQuestion,
                     new
                     {
                         Id = id
