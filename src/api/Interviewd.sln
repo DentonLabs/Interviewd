@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Domain", "src\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Infrastructure", "src\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj", "{B34437C7-8421-495D-8E27-F4CE6469F974}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Configuration", "src\Interviewd.Configuration\Interviewd.Configuration.csproj", "{74EA2B79-6138-47A1-B8E1-62F377A29A83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Configuration", "..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj", "{B855C3F6-631A-46EC-8035-F0DFCD443214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +51,10 @@ Global
 		{B34437C7-8421-495D-8E27-F4CE6469F974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B34437C7-8421-495D-8E27-F4CE6469F974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B34437C7-8421-495D-8E27-F4CE6469F974}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74EA2B79-6138-47A1-B8E1-62F377A29A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74EA2B79-6138-47A1-B8E1-62F377A29A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74EA2B79-6138-47A1-B8E1-62F377A29A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74EA2B79-6138-47A1-B8E1-62F377A29A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B855C3F6-631A-46EC-8035-F0DFCD443214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B855C3F6-631A-46EC-8035-F0DFCD443214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B855C3F6-631A-46EC-8035-F0DFCD443214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B855C3F6-631A-46EC-8035-F0DFCD443214}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +66,6 @@ Global
 		{29786E7F-F370-4CE8-A972-E5A398658700} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 		{0DC323E1-F3D1-4377-85A6-45BF2247AFF0} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 		{B34437C7-8421-495D-8E27-F4CE6469F974} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
-		{74EA2B79-6138-47A1-B8E1-62F377A29A83} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
+		{B855C3F6-631A-46EC-8035-F0DFCD443214} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 	EndGlobalSection
 EndGlobal

@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Interviewd.Configuration\Interviewd.Configuration.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj" />
     <ProjectReference Include="..\Interviewd.Domain\Interviewd.Domain.csproj" />
   </ItemGroup>
 
