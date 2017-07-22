@@ -11,17 +11,17 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            var expectedQuestion = Fixture.Create<Question>();
+            var requestQuestion = Fixture.Create<Question>();
 
             var httpResponseMessage = await HttpClient.PostAsync(
                 ApiRoutes.QuestionsRoute,
-                expectedQuestion.ToStringContent());
+                requestQuestion.ToStringContent());
 
-            var actualQuestion = await httpResponseMessage
+            var apiQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
                 .GetLikenessContent<Question>();
 
-            Assert.AreEqual(actualQuestion, expectedQuestion);
+            Assert.AreEqual(apiQuestion, requestQuestion);
         }
 
         [Test]
@@ -29,16 +29,16 @@ namespace Interviewd.Tests.Api
         {
             var questionService = ServiceProvider.GetService<QuestionService>();
 
-            var expectedQuestion = await questionService.InsertQuestion(Fixture.Create<Question>());
+            var dbQuestion = await questionService.InsertQuestion(Fixture.Create<Question>());
 
             var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.QuestionsRoute}/{expectedQuestion.Id}");
+                $"{ApiRoutes.QuestionsRoute}/{dbQuestion.Id}");
 
-            var actualQuestion = await httpResponseMessage
+            var apiQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
                 .GetLikenessContent<Question>();
 
-            Assert.AreEqual(actualQuestion, expectedQuestion);
+            Assert.AreEqual(apiQuestion, dbQuestion);
         }
     }
 }
