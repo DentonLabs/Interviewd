@@ -1,13 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
-using Ploeh.SemanticComparison;
-using Ploeh.SemanticComparison.Fluent;
-using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
+    [TestFixture]
     public class WhenTestingQuestions : WhenTesting
     {
         [Test]
@@ -29,7 +27,9 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAQuestion()
         {
-            var expectedQuestion = await QuestionService.InsertQuestion(Fixture.Create<Question>());
+            var questionService = ServiceProvider.GetService<QuestionService>();
+
+            var expectedQuestion = await questionService.InsertQuestion(Fixture.Create<Question>());
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}/{expectedQuestion.Id}");

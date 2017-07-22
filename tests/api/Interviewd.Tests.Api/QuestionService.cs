@@ -3,14 +3,22 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Extensions.Options;
 
 namespace Interviewd.Tests.Api
 {
     public class QuestionService
     {
-        public static async Task<Question> InsertQuestion(Question question)
+        private readonly AppSettings _AppSettings;
+
+        public QuestionService(IOptions<AppSettings> appSettings)
         {
-            using (var connection = new SqlConnection("Server=localhost\\interviewd;Database=Interviewd;Trusted_Connection=True;MultipleActiveResultSets=true"))
+            _AppSettings = appSettings.Value;
+        }
+        
+        public async Task<Question> InsertQuestion(Question question)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
                 var parameters = new DynamicParameters(
                     new
@@ -32,9 +40,9 @@ namespace Interviewd.Tests.Api
             }
         }
 
-        public static async Task<Question> GetQuestion(string id)
+        public async Task<Question> GetQuestion(string id)
         {
-            using (var connection = new SqlConnection("Server=localhost\\interviewd;Database=Interviewd;Trusted_Connection=True;MultipleActiveResultSets=true"))
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
                 var question = await connection.QueryAsync<Question>(
                     "Get_Question",
