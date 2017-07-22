@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Interviewd.Application;
+using Interviewd.Configuration;
 using Interviewd.Domain;
 using Microsoft.Extensions.Options;
 

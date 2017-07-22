@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Interviewd.Application;
+using Interviewd.Configuration;
 using Interviewd.Domain;
 using Interviewd.Infrastructure;
 using Microsoft.AspNetCore.Builder;

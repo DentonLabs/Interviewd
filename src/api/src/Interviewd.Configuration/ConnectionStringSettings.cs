@@ -1,4 +1,4 @@
-﻿namespace Interviewd.Application
+﻿namespace Interviewd.Configuration
 {
     public class ConnectionStringSettings
     {

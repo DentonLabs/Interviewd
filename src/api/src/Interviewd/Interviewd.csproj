@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj" />
+    <ProjectReference Include="..\Interviewd.Configuration\Interviewd.Configuration.csproj" />
     <ProjectReference Include="..\Interviewd.Domain\Interviewd.Domain.csproj" />
     <ProjectReference Include="..\Interviewd.Application\Interviewd.Application.csproj" />
     <ProjectReference Include="..\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj" />
