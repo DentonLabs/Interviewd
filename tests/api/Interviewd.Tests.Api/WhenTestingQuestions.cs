@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Interviewd.Domain.Model;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;

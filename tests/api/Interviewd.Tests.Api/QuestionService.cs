@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Options;
 using Interviewd.Configuration;
+using Interviewd.Domain.Model;
 
 namespace Interviewd.Tests.Api
 {

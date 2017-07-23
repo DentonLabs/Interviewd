@@ -187,10 +187,8 @@
     <Compile Include="ApiRoutes.cs" />
     <Compile Include="HttpContentExtensions.cs" />
     <Compile Include="HttpResponseMessageExtensions.cs" />
-    <Compile Include="IIdentifiable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
     <Compile Include="QuestionService.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
     <Compile Include="WhenTestingQuestions.cs" />
@@ -207,6 +205,10 @@
     <ProjectReference Include="..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj">
       <Project>{ae350ea9-0703-40ef-99fc-cd8c6e8170d2}</Project>
       <Name>Interviewd.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\shared\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj">
+      <Project>{ed4077a9-9cf4-415b-b6da-2b60c72c2c80}</Project>
+      <Name>Interviewd.Domain.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,6 @@
-﻿namespace Interviewd.Domain
+﻿namespace Interviewd.Domain.Model
 {
-    public class Question
+    public class Question : IIdentifiable
     {
         public string Id { get; set; }
 

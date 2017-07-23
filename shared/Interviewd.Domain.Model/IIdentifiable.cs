@@ -1,4 +1,4 @@
-﻿namespace Interviewd.Tests.Api
+﻿namespace Interviewd.Domain.Model
 {
     public interface IIdentifiable
     {
