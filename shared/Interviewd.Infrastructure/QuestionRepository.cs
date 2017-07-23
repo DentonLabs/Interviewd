@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Interviewd.Configuration;
 using Interviewd.Domain;
+using Interviewd.Domain.Model;
 using Microsoft.Extensions.Options;
 
 namespace Interviewd.Infrastructure

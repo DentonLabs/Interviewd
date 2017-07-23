@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Interviewd.Domain.Model;
 
 namespace Interviewd.Domain
 {

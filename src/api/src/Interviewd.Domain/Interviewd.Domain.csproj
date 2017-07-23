@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj" />
     <ProjectReference Include="..\Interviewd.Application\Interviewd.Application.csproj" />
   </ItemGroup>
 

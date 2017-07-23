@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Interviewd.Application.Dto;
 using Interviewd.Domain;
+using Interviewd.Domain.Model;
 using Interviewd.Infrastructure;
 
 namespace Interviewd
