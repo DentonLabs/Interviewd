@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
-using System.Reflection;
+using Interviewd.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

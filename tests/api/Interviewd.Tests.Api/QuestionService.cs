@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Options;
+using Interviewd.Configuration;
 
 namespace Interviewd.Tests.Api
 {
@@ -15,7 +16,7 @@ namespace Interviewd.Tests.Api
         {
             _AppSettings = appSettings.Value;
         }
-        
+
         public async Task<Question> InsertQuestion(Question question)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
