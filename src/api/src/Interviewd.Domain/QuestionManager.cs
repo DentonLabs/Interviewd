@@ -5,6 +5,7 @@ using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
+using Interviewd.Infrastructure.Abstraction;
 
 namespace Interviewd.Domain
 {

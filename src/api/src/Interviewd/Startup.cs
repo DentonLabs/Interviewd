@@ -3,6 +3,7 @@ using Interviewd.Application;
 using Interviewd.Configuration;
 using Interviewd.Domain;
 using Interviewd.Infrastructure;
+using Interviewd.Infrastructure.Abstraction;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

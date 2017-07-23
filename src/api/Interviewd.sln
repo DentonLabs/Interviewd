@@ -19,9 +19,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Domain", "src\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Configuration", "..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj", "{B855C3F6-631A-46EC-8035-F0DFCD443214}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Domain.Model", "..\..\shared\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj", "{D27C5455-0136-42F4-A49C-9EDBFD351D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Domain.Model", "..\..\shared\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj", "{D27C5455-0136-42F4-A49C-9EDBFD351D9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Infrastructure", "..\..\shared\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj", "{F7E16AEC-599B-401A-B8E1-B66BE175F972}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Infrastructure.Abstraction", "..\..\shared\Interviewd.Infrastructure.Abstraction\Interviewd.Infrastructure.Abstraction.csproj", "{5E145F1C-B648-4239-B659-9A2FF0A24F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{F7E16AEC-599B-401A-B8E1-B66BE175F972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7E16AEC-599B-401A-B8E1-B66BE175F972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7E16AEC-599B-401A-B8E1-B66BE175F972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E145F1C-B648-4239-B659-9A2FF0A24F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E145F1C-B648-4239-B659-9A2FF0A24F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E145F1C-B648-4239-B659-9A2FF0A24F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E145F1C-B648-4239-B659-9A2FF0A24F77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,5 +80,6 @@ Global
 		{B855C3F6-631A-46EC-8035-F0DFCD443214} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 		{D27C5455-0136-42F4-A49C-9EDBFD351D9A} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 		{F7E16AEC-599B-401A-B8E1-B66BE175F972} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
+		{5E145F1C-B648-4239-B659-9A2FF0A24F77} = {13F6BDA1-144A-4A1B-9F06-987F009760C7}
 	EndGlobalSection
 EndGlobal

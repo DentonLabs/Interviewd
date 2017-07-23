@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Interviewd.Domain.Model;
 
-namespace Interviewd.Domain
+namespace Interviewd.Infrastructure.Abstraction
 {
     public interface IQuestionRepository
     {
