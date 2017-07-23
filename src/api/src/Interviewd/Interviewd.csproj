@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>Interviewd</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -19,8 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj" />
     <ProjectReference Include="..\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj" />
-    <ProjectReference Include="..\Interviewd.Domain\Interviewd.Domain.csproj" />
     <ProjectReference Include="..\Interviewd.Application\Interviewd.Application.csproj" />
+    <ProjectReference Include="..\Interviewd.Domain\Interviewd.Domain.csproj" />
     <ProjectReference Include="..\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj" />
   </ItemGroup>
 
