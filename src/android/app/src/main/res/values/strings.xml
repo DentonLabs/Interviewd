@@ -4,4 +4,5 @@
     <string name="enter_a_name">Enter a name</string>
     <string name="enter_a_description">Enter a Description</string>
     <string name="submit">Submit</string>
+    <string name="enter_a_duration_mins">Enter a duration (mins)</string>
 </resources>

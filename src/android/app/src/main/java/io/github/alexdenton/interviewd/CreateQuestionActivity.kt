@@ -11,6 +11,7 @@ class CreateQuestionActivity : AppCompatActivity() {
 
     lateinit var presenter: CreateQuestionPresenter
     lateinit var nameField: EditText
+    lateinit var durField: EditText
     lateinit var descField: EditText
     lateinit var submitButton: Button
 
@@ -22,6 +23,7 @@ class CreateQuestionActivity : AppCompatActivity() {
 
         presenter = CreateQuestionPresenter(this)
         nameField = findViewById(R.id.createQuestionNameField)
+        durField = findViewById(R.id.createQuestionDurationField)
         descField = findViewById(R.id.createQuestionDescField)
         submitButton = findViewById(R.id.createQuestionSubmitButton) // TODO: Use a different naming convention for ids
 

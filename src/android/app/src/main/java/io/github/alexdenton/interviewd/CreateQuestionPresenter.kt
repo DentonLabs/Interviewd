@@ -10,5 +10,8 @@ class CreateQuestionPresenter(val activity: CreateQuestionActivity) {
     fun submitQuestion() = questionSubmit.submit(getQuestionFromFields())
 
     private fun getQuestionFromFields(): Question =
-            Question(activity.nameField.text.toString(), activity.descField.text.toString(), 0)
+            Question(activity.nameField.text.toString(), activity.descField.text.toString(), activity.durField.text.toString().toInt())
+
+
+    
 }
