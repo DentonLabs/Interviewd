@@ -1,14 +1,31 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Interviewd.Domain.Model;
+using Interviewd.Infrastructure.Abstraction;
 
 namespace Interviewd.Domain
 {
     public class InterviewTemplateManager : IInterviewTemplateManager
     {
-        public Task<InterviewTemplateDto> CreateInterviewTemplate(InterviewTemplateDto interviewTemplateDto)
+        private readonly IMapper _Mapper;
+
+        private readonly IInterviewTemplateRepository _InterviewTemplateRepository;
+
+        public InterviewTemplateManager(
+            IMapper mapper,
+            IInterviewTemplateRepository interviewTemplateRepository)
         {
-            throw new System.NotImplementedException();
+            _Mapper = mapper;
+            _InterviewTemplateRepository = interviewTemplateRepository;
+        }
+
+        public async Task<InterviewTemplateDto> CreateInterviewTemplate(InterviewTemplateDto interviewTemplateDto)
+        {
+            var interviewTemplate = _Mapper.Map<InterviewTemplate>(interviewTemplateDto);
+            var createdInterviewTemplate = await _InterviewTemplateRepository.InsertInterviewTemplate(interviewTemplate);
+            return _Mapper.Map<InterviewTemplateDto>(createdInterviewTemplate);
         }
     }
 }
