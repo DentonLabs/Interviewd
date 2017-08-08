@@ -15,6 +15,9 @@ namespace Interviewd
 
             CreateMap<Question, QuestionSqlModel>()
                 .ReverseMap();
+
+            CreateMap<InterviewTemplateDto, InterviewTemplate>()
+                .ReverseMap();
         }
     }
 }

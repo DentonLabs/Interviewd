@@ -54,6 +54,9 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Interviewd.Common">
+      <HintPath>..\..\..\shared\Interviewd.Common\bin\Debug\netstandard1.5\Interviewd.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
@@ -213,8 +216,8 @@
     <Compile Include="HttpResponseMessageExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestionService.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
+    <Compile Include="WhenTestingInterviewTemplates.cs" />
     <Compile Include="WhenTestingQuestions.cs" />
     <Compile Include="WhenTesting.cs" />
   </ItemGroup>
@@ -241,6 +244,10 @@
     <ProjectReference Include="..\..\..\shared\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj">
       <Project>{6EEB8B97-F9E5-4955-B27D-1C92A44920D5}</Project>
       <Name>Interviewd.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\api\src\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj">
+      <Project>{9EE1D34E-2CDF-4C93-A035-E65192558226}</Project>
+      <Name>Interviewd.Application.Dto</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

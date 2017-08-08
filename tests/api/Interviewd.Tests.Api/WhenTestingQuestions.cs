@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Interviewd.Infrastructure.Abstraction;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            var requestQuestion = Fixture.Create<Question>();
+            var requestQuestion = Fixture.Create<QuestionDto>();
 
             var httpResponseMessage = await HttpClient.PostAsync(
                 ApiRoutes.QuestionsRoute,
@@ -21,7 +22,7 @@ namespace Interviewd.Tests.Api
 
             var apiQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
-                .GetLikenessContent<Question>();
+                .GetLikenessContent<QuestionDto>();
 
             Assert.AreEqual(apiQuestion, requestQuestion);
         }
@@ -38,7 +39,7 @@ namespace Interviewd.Tests.Api
 
             var apiQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
-                .GetLikenessContent<Question>();
+                .GetLikenessContent<QuestionDto>();
 
             Assert.AreEqual(apiQuestion, dbQuestion);
         }

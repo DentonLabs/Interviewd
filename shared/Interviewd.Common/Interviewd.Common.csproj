@@ -4,8 +4,4 @@
     <TargetFramework>netstandard1.5</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Interviewd.Common\Interviewd.Common.csproj" />
-  </ItemGroup>
-
 </Project>

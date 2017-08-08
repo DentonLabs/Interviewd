@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Interviewd.Domain.Model;
+using Interviewd.Common;
 using Ploeh.SemanticComparison;
 using Ploeh.SemanticComparison.Fluent;
 

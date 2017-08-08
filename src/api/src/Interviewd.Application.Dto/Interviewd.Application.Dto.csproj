@@ -10,4 +10,10 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Interviewd.Common">
+      <HintPath>..\..\..\..\shared\Interviewd.Common\bin\Debug\netstandard1.5\Interviewd.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

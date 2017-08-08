@@ -16,6 +16,7 @@ namespace Interviewd.Controllers
             _InterviewTemplateManager = interviewTemplateManager;
         }
 
+        [HttpPost]
         public async Task<InterviewTemplateDto> PostInterviewTemplate([FromBody] InterviewTemplateDto interviewTemplateDto)
         {
             return await _InterviewTemplateManager.CreateInterviewTemplate(interviewTemplateDto);

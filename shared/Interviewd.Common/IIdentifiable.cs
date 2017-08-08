@@ -1,4 +1,4 @@
-﻿namespace Interviewd.Domain.Model
+﻿namespace Interviewd.Common
 {
     public interface IIdentifiable
     {

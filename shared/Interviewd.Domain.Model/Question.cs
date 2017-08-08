@@ -1,4 +1,6 @@
-﻿namespace Interviewd.Domain.Model
+﻿using Interviewd.Common;
+
+namespace Interviewd.Domain.Model
 {
     public class Question : IIdentifiable
     {

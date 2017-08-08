@@ -36,6 +36,8 @@ namespace Interviewd
             services.AddMvc();
             services.AddAutoMapper();
 
+            services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
+            services.AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>();
             services.AddSingleton<IQuestionManager, QuestionManager>();
             services.AddSingleton<IQuestionRepository, QuestionRepository>();
         }
