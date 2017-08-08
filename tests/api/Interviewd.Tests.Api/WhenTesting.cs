@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Interviewd.Infrastructure.Abstraction;
+using Interviewd.Infrastructure;
 
 namespace Interviewd.Tests.Api
 {
@@ -29,7 +31,7 @@ namespace Interviewd.Tests.Api
             ServiceProvider = new ServiceCollection()
                 .AddOptions()
                 .Configure<AppSettings>(configuration)
-                .AddSingleton<QuestionService>()
+                .AddSingleton<IQuestionRepository, QuestionRepository>()
                 .BuildServiceProvider();
 
             var appSettings = ServiceProvider.GetService<IOptions<AppSettings>>().Value;

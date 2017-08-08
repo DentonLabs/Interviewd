@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Interviewd.Domain.Model;
+using Interviewd.Infrastructure.Abstraction;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
@@ -28,9 +29,9 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAQuestion()
         {
-            var questionService = ServiceProvider.GetService<QuestionService>();
+            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
 
-            var dbQuestion = await questionService.InsertQuestion(Fixture.Create<Question>());
+            var dbQuestion = await questionRepository.InsertQuestion(Fixture.Create<Question>());
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}/{dbQuestion.Id}");

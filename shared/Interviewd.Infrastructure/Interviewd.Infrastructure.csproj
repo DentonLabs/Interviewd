@@ -12,22 +12,14 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="1.1.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\api\src\Interviewd.Domain\Interviewd.Domain.csproj" />
     <ProjectReference Include="..\Interviewd.Configuration\Interviewd.Configuration.csproj" />
     <ProjectReference Include="..\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj" />
     <ProjectReference Include="..\Interviewd.Infrastructure.Abstraction\Interviewd.Infrastructure.Abstraction.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Extensions.Options">
-      <HintPath>..\..\..\..\Users\alex.denton\.nuget\packages\microsoft.extensions.options\1.1.2\lib\netstandard1.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks">
-      <HintPath>..\..\..\..\Users\alex.denton\.nuget\packages\system.threading.tasks\4.3.0\ref\netstandard1.3\System.Threading.Tasks.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

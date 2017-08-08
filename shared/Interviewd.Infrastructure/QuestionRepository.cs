@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Interviewd.Configuration;
-using Interviewd.Domain;
 using Interviewd.Domain.Model;
+using Interviewd.Infrastructure.Abstraction;
 using Microsoft.Extensions.Options;
 
 namespace Interviewd.Infrastructure
