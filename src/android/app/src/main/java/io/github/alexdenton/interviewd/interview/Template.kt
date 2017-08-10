@@ -3,10 +3,10 @@ package io.github.alexdenton.interviewd.interview
 import io.github.alexdenton.interviewd.question.Question
 
 /**
- * Created by ryan on 7/24/17.
+ * Created by ryan on 8/10/17.
  */
-data class Interview(
-        val candidate: Candidate,
+
+data class Template(
         val name: String,
         val questions: List<Question>
 )
