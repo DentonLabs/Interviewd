@@ -5,16 +5,16 @@ import io.github.alexdenton.interviewd.question.Question
 /**
  * Created by ryan on 7/24/17.
  */
-class InterviewCreator(var name: String) {
-    constructor(interview: Interview) : this(interview.name) {
-        for (question in interview.questions) addQuestion(question)
+class TemplateCreator(var name: String) {
+    constructor(template: Template) : this(template.name) {
+        for (question in template.questions) addQuestion(question)
     }
 
     val internalList = mutableListOf<Question>()
 
     fun addQuestion(question: Question) = internalList.add(question)
 
-    fun create(): Interview = Interview(name, internalList.toList())
+    fun create(): Template = Template(name, internalList.toList())
 
     fun swap(indexOne: Int, indexTwo: Int) = internalList.apply {
         val temp: Question = this[indexOne]
