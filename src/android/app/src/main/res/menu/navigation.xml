@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_questions"
+        android:icon="@drawable/ic_question_black_24dp"
+        android:title="@string/title_questions" />
+
+    <item
+        android:id="@+id/navigation_templates"
+        android:icon="@drawable/ic_template_black_24dp"
+        android:title="@string/title_interview_templates" />
+
+    <item
+        android:id="@+id/navigation_candidates"
+        android:icon="@drawable/ic_candidate_black_24dp"
+        android:title="@string/title_candidates" />
+
+</menu>
