@@ -9,5 +9,7 @@
         public const string GetQuestions = "Get_Questions";
 
         public const string InsertInterviewTemplate = "Insert_InterviewTemplate";
+
+        public const string InsertInterviewTemplateQuestions = "Insert_InterviewTemplateQuestions";
     }
 }

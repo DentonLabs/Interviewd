@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
@@ -25,6 +26,7 @@ namespace Interviewd.Domain
         {
             var interviewTemplate = _Mapper.Map<InterviewTemplate>(interviewTemplateDto);
             var createdInterviewTemplate = await _InterviewTemplateRepository.InsertInterviewTemplate(interviewTemplate);
+            await _InterviewTemplateRepository.InsertInterviewTemplateQuestions(interviewTemplate.Questions.Select(q => q.Id));
             return _Mapper.Map<InterviewTemplateDto>(createdInterviewTemplate);
         }
     }
