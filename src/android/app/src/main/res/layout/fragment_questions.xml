@@ -10,16 +10,45 @@
         android:id="@+id/questions_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingEnd="8dp"
-        android:paddingBottom="8dp"
         android:layout_marginBottom="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/questions_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/questions_recyclerView" />
+
+    <TextView
+        android:id="@+id/questions_failedToGetQuestionsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/cant_find_your_questions"
+        android:textColor="#22000000"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/questions_recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/questions_recyclerView"
+        app:layout_constraintStart_toStartOf="@+id/questions_recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/questions_recyclerView" />
 </android.support.constraint.ConstraintLayout>

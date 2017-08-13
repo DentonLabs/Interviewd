@@ -1,7 +1,5 @@
 package io.github.alexdenton.interviewd
 
-import android.content.Context
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,7 @@ import io.github.alexdenton.interviewd.question.Question
 /**
  * Created by ryan on 8/11/17.
  */
-class QuestionsAdapter(val questions: List<Question>) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
+class QuestionsAdapter(var questions: List<Question>) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): QuestionViewHolder {
         val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.card_question, parent, false)
 
