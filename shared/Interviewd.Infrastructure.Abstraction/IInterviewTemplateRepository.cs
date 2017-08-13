@@ -8,6 +8,6 @@ namespace Interviewd.Infrastructure.Abstraction
     {
         Task<InterviewTemplate> InsertInterviewTemplate(InterviewTemplate interviewTemplate);
 
-        Task InsertInterviewTemplateQuestions(IEnumerable<string> questionIds);
+        Task InsertInterviewTemplateQuestions(string interviewTemplateId, IEnumerable<string> questionIds);
     }
 }

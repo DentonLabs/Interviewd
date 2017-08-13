@@ -57,6 +57,9 @@
     <Reference Include="Interviewd.Common">
       <HintPath>..\..\..\shared\Interviewd.Common\bin\Debug\netstandard1.5\Interviewd.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Jmansar.SemanticComparisonExtensions, Version=0.2.0.34918, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SemanticComparisonExtensions.0.2.0\lib\net40\Jmansar.SemanticComparisonExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.1.1.2\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>

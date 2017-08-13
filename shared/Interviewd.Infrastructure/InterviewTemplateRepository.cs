@@ -44,7 +44,7 @@ namespace Interviewd.Infrastructure
             }
         }
 
-        public async Task InsertInterviewTemplateQuestions(IEnumerable<string> questionIds)
+        public async Task InsertInterviewTemplateQuestions(string interviewTemplateId, IEnumerable<string> questionIds)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
@@ -52,7 +52,8 @@ namespace Interviewd.Infrastructure
                     StoredProcedures.InsertInterviewTemplateQuestions,
                     new
                     {
-                        Ids = new IdCustomParameter(questionIds.Select(id => Convert.ToInt32(id)))
+                        InterviewTemplateId = interviewTemplateId,
+                        QuestionIds = new IdCustomParameter(questionIds.Select(id => Convert.ToInt32(id)))
                     },
                     commandType: CommandType.StoredProcedure);
             }

@@ -26,8 +26,15 @@ namespace Interviewd.Domain
         {
             var interviewTemplate = _Mapper.Map<InterviewTemplate>(interviewTemplateDto);
             var createdInterviewTemplate = await _InterviewTemplateRepository.InsertInterviewTemplate(interviewTemplate);
-            await _InterviewTemplateRepository.InsertInterviewTemplateQuestions(interviewTemplate.Questions.Select(q => q.Id));
-            return _Mapper.Map<InterviewTemplateDto>(createdInterviewTemplate);
+            var responseInterviewTemplate = _Mapper.Map<InterviewTemplateDto>(createdInterviewTemplate);
+
+            if (interviewTemplate.Questions != null)
+            {
+                await _InterviewTemplateRepository.InsertInterviewTemplateQuestions(createdInterviewTemplate.Id, interviewTemplate.Questions.Select(q => q.Id));
+                responseInterviewTemplate.QuestionIds = interviewTemplateDto.QuestionIds;
+            }
+
+            return responseInterviewTemplate;
         }
     }
 }
