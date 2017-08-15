@@ -13,8 +13,8 @@ import org.junit.Assert.assertEquals
 class TemplateCreatorTest {
 
     val exampleName: String = "Some Test Name"
-    val exampleQuestion1: Question = Question("Some Question", "Some description with text or something", 30)
-    val exampleQuestion2: Question = Question("Some other question", "More descriptions of things and stuff", 45)
+    val exampleQuestion1: Question = Question(1, "Some Question", "Some description with text or something", 30)
+    val exampleQuestion2: Question = Question(2, "Some other question", "More descriptions of things and stuff", 45)
     val exampleTemplate: Template = Template(exampleName, listOf(exampleQuestion1, exampleQuestion2))
 
     @Test

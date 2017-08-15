@@ -8,4 +8,5 @@ import io.reactivex.Single
  */
 interface TemplatesRepository {
     fun getAllTemplates(): Single<List<Template>>
+    fun createTemplate(template: Template): Single<Template>
 }

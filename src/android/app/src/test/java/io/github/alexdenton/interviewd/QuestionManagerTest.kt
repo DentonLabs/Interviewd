@@ -9,7 +9,7 @@ import org.junit.Assert.assertEquals
 class QuestionManagerTest {
 
     class MockQuestionSubmit : QuestionSubmit {
-        var question: Question = Question("Some Default", "Text or something", 55)
+        var question: Question = Question(1, "Some Default", "Text or something", 55)
         override fun submit(question: Question) {
             this.question = question
         }
@@ -21,7 +21,7 @@ class QuestionManagerTest {
 
     @Test
     fun submittedQuestionShouldBeReceivedUnmodified() {
-        val expected = Question("Test Name", "Test Description", 43)
+        val expected = Question(2, "Test Name", "Test Description", 43)
         questionManager.submit(expected)
         val actual = mockQuestionSubmit.question
 

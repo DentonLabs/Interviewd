@@ -10,5 +10,5 @@ data class QuestionDto(
         val name: String,
         val description: String
 ) {
-    fun toQuestion(): Question = Question(name, description, 10) //TODO: Replace this once the api supports time estimates
+    fun toQuestion(): Question = Question(id, name, description, 10) //TODO: Replace this once the api supports time estimates
 }
