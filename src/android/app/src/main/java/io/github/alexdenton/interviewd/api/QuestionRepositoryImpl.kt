@@ -28,16 +28,12 @@ class QuestionRepositoryImpl : QuestionRepository {
             .build()
     val client: InterviewdApiService = retrofit.create(InterviewdApiService::class.java)
 
-    override fun getQuestion(id: Int): Question {
-        TODO()
-    }
+    override fun getQuestion(id: Int): Single<Question>
+            = client.getQuestion(id)
+            .map { it.toQuestion() }
 
-    override fun getAllQuestions(): Single<List<Question>> {
-
-        return client.getQuestions()
-                .map { it.map { it.toQuestion() } }
-
-    }
-
+    override fun getAllQuestions(): Single<List<Question>>
+            = client.getQuestions()
+            .map { it.map { it.toQuestion() } }
 
 }
