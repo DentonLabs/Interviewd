@@ -1,6 +1,7 @@
 package io.github.alexdenton.interviewd.api
 
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
+import io.github.alexdenton.interviewd.api.dto.TemplateDto
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Call
@@ -17,4 +18,7 @@ interface InterviewdApiService {
 
     @GET("/questions/{id}")
     fun getQuestion(@Path("id") id: Int): Single<QuestionDto>
+
+    @GET("/templates")
+    fun getTemplates(): Single<List<TemplateDto>>
 }
