@@ -4,6 +4,7 @@ import android.util.Log
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.question.Question
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -11,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class QuestionsPresenter(val repo: QuestionRepository, val fragment: QuestionsFragment) {
 
-    fun getAllQuestions() = repo.getAllQuestions()
+    fun getAllQuestions(): Disposable = repo.getAllQuestions()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list -> foundQuestions(list) },

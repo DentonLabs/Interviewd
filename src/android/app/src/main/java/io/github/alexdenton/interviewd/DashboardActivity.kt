@@ -15,6 +15,12 @@ class DashboardActivity : AppCompatActivity() {
                         .commit()
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.navigation_templates -> {
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.dashboard_fragmentContainer, TemplatesFragment())
+                        .commit()
+                return@OnNavigationItemSelectedListener true
+            }
             else -> {
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.dashboard_fragmentContainer, PlaceholderFragment())
