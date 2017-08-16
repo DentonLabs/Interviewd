@@ -1,6 +1,8 @@
 package io.github.alexdenton.interviewd
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -17,6 +19,7 @@ class QuestionsFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     lateinit var errorTextView: TextView
+    lateinit var addFab: FloatingActionButton
     val numCols = 2
     var questions: List<Question> = emptyList()
     val presenter: QuestionsPresenter = QuestionsPresenter(QuestionRepositoryImpl(), this)
@@ -29,11 +32,12 @@ class QuestionsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.questions_recyclerView)
         progressBar = view.findViewById(R.id.questions_progressBar)
         errorTextView = view.findViewById(R.id.questions_failedToGetQuestionsText)
+        addFab = view.findViewById(R.id.questions_addFab)
 
         recyclerView.layoutManager = GridLayoutManager(context, numCols)
         recyclerView.adapter = QuestionsAdapter(questions)
 
-
+        addFab.setOnClickListener { onClickAddFab() }
 
         presenter.getAllQuestions()
 
@@ -50,6 +54,10 @@ class QuestionsFragment : Fragment() {
         questions = list
         recyclerView.adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
+    }
+
+    fun onClickAddFab() {
+        startActivity(Intent(context, CreateQuestionActivity::class.java))
     }
 
 }

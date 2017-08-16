@@ -6,6 +6,7 @@ import android.support.v4.app.NavUtils
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import io.github.alexdenton.interviewd.api.QuestionRepositoryImpl
 
 class CreateQuestionActivity : AppCompatActivity() {
 
@@ -21,20 +22,17 @@ class CreateQuestionActivity : AppCompatActivity() {
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = CreateQuestionPresenter(this)
+        presenter = CreateQuestionPresenter(this, QuestionRepositoryImpl())
         nameField = findViewById(R.id.createQuestionNameField)
         durField = findViewById(R.id.createQuestionDurationField)
         descField = findViewById(R.id.createQuestionDescField)
         submitButton = findViewById(R.id.createQuestionSubmitButton) // TODO: Use a different naming convention for ids
 
-        submitButton.setOnClickListener {
-            presenter.submitQuestion()
-            finish()
-        }
+        submitButton.setOnClickListener { presenter.submitQuestion() }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+        when (item?.itemId) {
             R.id.home -> {
                 NavUtils.navigateUpFromSameTask(this)
                 return true

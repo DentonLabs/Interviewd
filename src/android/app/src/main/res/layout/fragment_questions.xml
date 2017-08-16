@@ -6,6 +6,18 @@
     tools:context="io.github.alexdenton.interviewd.QuestionsFragment">
 
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/questions_addFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/questions_recyclerView"
         android:layout_width="match_parent"
