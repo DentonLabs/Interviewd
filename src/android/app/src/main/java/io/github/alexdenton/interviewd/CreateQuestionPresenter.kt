@@ -3,7 +3,6 @@ package io.github.alexdenton.interviewd
 import android.widget.Toast
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.question.Question
-import io.github.alexdenton.interviewd.question.QuestionSubmitImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
