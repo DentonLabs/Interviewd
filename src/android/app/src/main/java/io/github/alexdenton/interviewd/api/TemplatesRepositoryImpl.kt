@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class TemplatesRepositoryImpl : TemplatesRepository {
 
-    val local: String = "http://10.0.2.2:9005"
+    val local: String = "http://192.168.86.26:9005"
 
     val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(local)

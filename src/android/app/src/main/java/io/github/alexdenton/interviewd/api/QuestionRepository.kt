@@ -9,4 +9,5 @@ import io.reactivex.Single
 interface QuestionRepository {
     fun getQuestion(id: Int): Single<Question>
     fun getAllQuestions(): Single<List<Question>>
+    fun createQuestion(question: Question): Single<Question>
 }
