@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import io.github.alexdenton.interviewd.api.TemplatesRepositoryImpl
+import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
 import io.github.alexdenton.interviewd.interview.Template
 
 
@@ -24,7 +24,7 @@ class TemplatesFragment : Fragment() {
     lateinit var errorTextView: TextView
     var templates: List<Template> = emptyList()
     val numCols = 2
-    val presenter = TemplatesPresenter(TemplatesRepositoryImpl(), this)
+    val presenter = TemplatesPresenter(TemplateRetrofitRepository(), this)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

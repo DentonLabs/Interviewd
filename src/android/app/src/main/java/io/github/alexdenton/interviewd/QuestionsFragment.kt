@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import io.github.alexdenton.interviewd.api.QuestionRepositoryImpl
+import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
 import io.github.alexdenton.interviewd.question.Question
 
 class QuestionsFragment : Fragment() {
@@ -22,7 +22,7 @@ class QuestionsFragment : Fragment() {
     lateinit var addFab: FloatingActionButton
     val numCols = 2
     var questions: List<Question> = emptyList()
-    val presenter: QuestionsPresenter = QuestionsPresenter(QuestionRepositoryImpl(), this)
+    val presenter: QuestionsPresenter = QuestionsPresenter(QuestionRetrofitRepository(), this)
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

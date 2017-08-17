@@ -6,7 +6,7 @@ import io.reactivex.Single
 /**
  * Created by ryan on 8/14/17.
  */
-interface TemplatesRepository {
+interface TemplateRepository {
     fun getAllTemplates(): Single<List<Template>>
     fun createTemplate(template: Template): Single<Template>
 }

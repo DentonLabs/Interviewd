@@ -6,7 +6,7 @@ import android.support.v4.app.NavUtils
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import io.github.alexdenton.interviewd.api.QuestionRepositoryImpl
+import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
 
 class CreateQuestionActivity : AppCompatActivity() {
 
@@ -22,7 +22,7 @@ class CreateQuestionActivity : AppCompatActivity() {
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = CreateQuestionPresenter(this, QuestionRepositoryImpl())
+        presenter = CreateQuestionPresenter(this, QuestionRetrofitRepository())
         nameField = findViewById(R.id.createQuestionNameField)
         durField = findViewById(R.id.createQuestionDurationField)
         descField = findViewById(R.id.createQuestionDescField)

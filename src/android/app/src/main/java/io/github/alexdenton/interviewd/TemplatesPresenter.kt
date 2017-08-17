@@ -1,7 +1,7 @@
 package io.github.alexdenton.interviewd
 
 import android.util.Log
-import io.github.alexdenton.interviewd.api.TemplatesRepository
+import io.github.alexdenton.interviewd.api.TemplateRepository
 import io.github.alexdenton.interviewd.interview.Template
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 8/14/17.
  */
-class TemplatesPresenter(val repo: TemplatesRepository, val fragment: TemplatesFragment) {
+class TemplatesPresenter(val repo: TemplateRepository, val fragment: TemplatesFragment) {
 
     fun getAllTemplates() = repo.getAllTemplates()
             .subscribeOn(Schedulers.io())
