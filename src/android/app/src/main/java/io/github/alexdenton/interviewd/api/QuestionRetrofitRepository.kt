@@ -1,6 +1,7 @@
 package io.github.alexdenton.interviewd.api
 
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
+import android.content.Context
 import io.github.alexdenton.interviewd.question.Question
 import io.reactivex.Single
 
@@ -9,9 +10,9 @@ import io.reactivex.Single
  */
 
 
-class QuestionRetrofitRepository : QuestionRepository {
+class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
 
-    val client: InterviewdApiService = RetrofitFactory().create(RetrofitFactory.Mode.Local)
+    val client: InterviewdApiService = RetrofitFactory(context).create(RetrofitFactory.Mode.Demo)
 
     override fun getQuestion(id: Int): Single<Question>
             = client.getQuestion(id)

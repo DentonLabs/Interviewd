@@ -24,11 +24,13 @@ class TemplatesFragment : Fragment() {
     lateinit var errorTextView: TextView
     var templates: List<Template> = emptyList()
     val numCols = 2
-    val presenter = TemplatesPresenter(TemplateRetrofitRepository(), this)
+    lateinit var presenter: TemplatesPresenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_templates, container, false)
+
+        presenter = TemplatesPresenter(TemplateRetrofitRepository(context), this)
 
         recyclerView = view.findViewById(R.id.templates_recyclerView)
         progressBar = view.findViewById(R.id.templates_progressBar)

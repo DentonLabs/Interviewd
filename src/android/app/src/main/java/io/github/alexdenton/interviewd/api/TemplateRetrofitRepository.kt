@@ -1,5 +1,6 @@
 package io.github.alexdenton.interviewd.api
 
+import android.content.Context
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import io.github.alexdenton.interviewd.api.dto.TemplateDto
 import io.github.alexdenton.interviewd.interview.Template
@@ -9,9 +10,9 @@ import io.reactivex.Single
 /**
  * Created by ryan on 8/14/17.
  */
-class TemplateRetrofitRepository : TemplateRepository {
+class TemplateRetrofitRepository(context: Context) : TemplateRepository {
 
-    val client: InterviewdApiService = RetrofitFactory().create(RetrofitFactory.Mode.Local)
+    val client: InterviewdApiService = RetrofitFactory(context).create(RetrofitFactory.Mode.Demo)
 
     override fun getAllTemplates(): Single<List<Template>>
             = client.getTemplates()

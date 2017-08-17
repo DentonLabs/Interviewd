@@ -22,12 +22,14 @@ class QuestionsFragment : Fragment() {
     lateinit var addFab: FloatingActionButton
     val numCols = 2
     var questions: List<Question> = emptyList()
-    val presenter: QuestionsPresenter = QuestionsPresenter(QuestionRetrofitRepository(), this)
+    lateinit var presenter: QuestionsPresenter
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_questions, container, false)
+
+        presenter = QuestionsPresenter(QuestionRetrofitRepository(view.context), this)
 
         recyclerView = view.findViewById(R.id.questions_recyclerView)
         progressBar = view.findViewById(R.id.questions_progressBar)
@@ -51,7 +53,7 @@ class QuestionsFragment : Fragment() {
     }
 
     fun onFoundQuestions(list: List<Question>) {
-        questions = list
+        recyclerView.adapter = QuestionsAdapter(list)
         recyclerView.adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
     }

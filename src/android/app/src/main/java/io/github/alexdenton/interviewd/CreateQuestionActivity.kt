@@ -22,7 +22,7 @@ class CreateQuestionActivity : AppCompatActivity() {
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = CreateQuestionPresenter(this, QuestionRetrofitRepository())
+        presenter = CreateQuestionPresenter(this, QuestionRetrofitRepository(this))
         nameField = findViewById(R.id.createQuestionNameField)
         durField = findViewById(R.id.createQuestionDurationField)
         descField = findViewById(R.id.createQuestionDescField)
