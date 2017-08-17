@@ -5,9 +5,6 @@ import io.github.alexdenton.interviewd.api.dto.TemplateDto
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
 import io.reactivex.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Created by ryan on 8/14/17.

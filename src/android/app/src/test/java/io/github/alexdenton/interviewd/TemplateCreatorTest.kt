@@ -3,8 +3,8 @@ package io.github.alexdenton.interviewd
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.interview.TemplateCreator
 import io.github.alexdenton.interviewd.question.Question
-import org.junit.Test
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 /**
  * Created by ryan on 7/24/17.
