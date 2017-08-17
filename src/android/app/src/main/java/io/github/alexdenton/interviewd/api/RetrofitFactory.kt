@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RetrofitFactory {
 
-    private val normal: String = TODO("Fill with normal url")
+    private val normal: String = "Not yet implemented" // TODO: Replace this with the server's domain name once it goes public
     private val local = "http://192.168.86.26:9005"
 
     fun create(mode: Mode): InterviewdApiService = when (mode) {
