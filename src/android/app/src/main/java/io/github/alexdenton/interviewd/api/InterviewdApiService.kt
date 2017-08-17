@@ -2,9 +2,7 @@ package io.github.alexdenton.interviewd.api
 
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import io.github.alexdenton.interviewd.api.dto.TemplateDto
-import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

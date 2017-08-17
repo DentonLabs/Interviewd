@@ -14,14 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class QuestionRetrofitRepository : QuestionRepository {
-    val local: String = "http://192.168.86.26:9005"
 
-    val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(local)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-    val client: InterviewdApiService = retrofit.create(InterviewdApiService::class.java)
+    val client: InterviewdApiService = RetrofitFactory().create(RetrofitFactory.Mode.Local)
 
     override fun getQuestion(id: Int): Single<Question>
             = client.getQuestion(id)
