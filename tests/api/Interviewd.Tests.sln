@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Tests.Api", "Interviewd.Tests.Api\Interviewd.Tests.Api.csproj", "{BA4CF1CE-03C7-438D-9B7D-AE8900387824}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Application.Dto", "..\..\src\api\src\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj", "{9EE1D34E-2CDF-4C93-A035-E65192558226}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Common", "..\..\shared\Interviewd.Common\Interviewd.Common.csproj", "{B5F71C70-67A0-441E-BC27-A039F88D10A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interview.Mapping", "..\..\shared\Interview.Mapping\Interview.Mapping.csproj", "{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,8 +53,15 @@ Global
 		{B5F71C70-67A0-441E-BC27-A039F88D10A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5F71C70-67A0-441E-BC27-A039F88D10A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5F71C70-67A0-441E-BC27-A039F88D10A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D361611F-7325-47C1-8792-961B998CC5EA}
 	EndGlobalSection
 EndGlobal

@@ -51,6 +51,9 @@
     <StartupObject>Interviewd.Tests.Api.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
     </Reference>
@@ -232,6 +235,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\Interview.Mapping\Interview.Mapping.csproj">
+      <Project>{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}</Project>
+      <Name>Interview.Mapping</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj">
       <Project>{ae350ea9-0703-40ef-99fc-cd8c6e8170d2}</Project>
       <Name>Interviewd.Configuration</Name>

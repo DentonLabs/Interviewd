@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using AutoMapper;
 using Interviewd.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Interviewd.Infrastructure.Abstraction;
 using Interviewd.Infrastructure;
+using Interview.Mapping;
 
 namespace Interviewd.Tests.Api
 {
@@ -19,6 +21,8 @@ namespace Interviewd.Tests.Api
         protected Fixture Fixture;
 
         protected IServiceProvider ServiceProvider;
+
+        protected IMapper Mapper;
 
         [OneTimeSetUp]
         public void Setup()
@@ -40,6 +44,13 @@ namespace Interviewd.Tests.Api
             HttpClient.BaseAddress = new Uri(appSettings.ApiUri);
 
             Fixture = new Fixture();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+
+            Mapper = config.CreateMapper();
         }
     }
 }

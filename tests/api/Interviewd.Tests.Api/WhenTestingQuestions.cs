@@ -5,6 +5,7 @@ using Interviewd.Infrastructure.Abstraction;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
+using Ploeh.SemanticComparison.Fluent;
 
 namespace Interviewd.Tests.Api
 {
@@ -37,11 +38,15 @@ namespace Interviewd.Tests.Api
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}/{dbQuestion.Id}");
 
-            var apiQuestion = await httpResponseMessage
+            var responseQuestionDto = await httpResponseMessage
                 .EnsureSuccessStatusCode()
-                .GetLikenessContent<QuestionDto>();
+                .GetContent<QuestionDto>();
 
-            Assert.AreEqual(apiQuestion, dbQuestion);
+            var responseQuestion = Mapper.Map<Question>(responseQuestionDto)
+                .AsSource()
+                .OfLikeness<Question>();
+
+            responseQuestion.ShouldEqual(dbQuestion);
         }
     }
 }
