@@ -57,6 +57,9 @@
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="DeepEqual, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeepEqual.1.6.0.0\lib\net40\DeepEqual.dll</HintPath>
+    </Reference>
     <Reference Include="Interviewd.Common">
       <HintPath>..\..\..\shared\Interviewd.Common\bin\Debug\netstandard1.5\Interviewd.Common.dll</HintPath>
     </Reference>

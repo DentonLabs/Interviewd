@@ -1,11 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DeepEqual.Syntax;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Interviewd.Infrastructure.Abstraction;
+using Jmansar.SemanticComparisonExtensions;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.SemanticComparison.Fluent;
+using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
@@ -47,6 +52,32 @@ namespace Interviewd.Tests.Api
                 .OfLikeness<Question>();
 
             responseQuestion.ShouldEqual(dbQuestion);
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToGetAllQuestions()
+        {
+            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
+
+            var dbQuestions = new List<Question>
+            {
+                await questionRepository.InsertQuestion(Fixture.Create<Question>()),
+                await questionRepository.InsertQuestion(Fixture.Create<Question>()),
+                await questionRepository.InsertQuestion(Fixture.Create<Question>())
+            };
+
+            var httpResponseMessage = await HttpClient.GetAsync(
+                $"{ApiRoutes.QuestionsRoute}");
+
+            var responseQuestionDtos = await httpResponseMessage
+                .EnsureSuccessStatusCode()
+                .GetContent<IEnumerable<QuestionDto>>();
+
+            var responseQuestions = Mapper.Map<IEnumerable<Question>>(responseQuestionDtos);
+
+            responseQuestions = responseQuestions.Where(rq => dbQuestions.Any(dq => dq.Id == rq.Id));
+
+            Assert.IsTrue(responseQuestions.CompareCollectionsUsingLikeness(dbQuestions));
         }
     }
 }
