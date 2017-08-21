@@ -41,6 +41,7 @@ class QuestionsFragment : Fragment() {
 
         addFab.setOnClickListener { onClickAddFab() }
 
+
         presenter.getAllQuestions()
 
         return view

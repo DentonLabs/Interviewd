@@ -19,4 +19,8 @@
     <string name="cant_find_your_questions">Can\'t find your questions :(</string>
     <string name="placeholder">Placeholder</string>
     <string name="cant_find_your_templates">Can\'t find your templates :(</string>
+    <string name="position_title">Position Title</string>
+    <string name="estimated_duration">Estimated duration:</string>
+    <string name="estimate">Est.</string>
+    <string name="add_question">Add question</string>
 </resources>

@@ -1,7 +1,9 @@
 package io.github.alexdenton.interviewd
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,6 +24,7 @@ class TemplatesFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
     lateinit var errorTextView: TextView
+    lateinit var addTemplateFab: FloatingActionButton
     var templates: List<Template> = emptyList()
     val numCols = 2
     lateinit var presenter: TemplatesPresenter
@@ -35,6 +38,9 @@ class TemplatesFragment : Fragment() {
         recyclerView = view.findViewById(R.id.templates_recyclerView)
         progressBar = view.findViewById(R.id.templates_progressBar)
         errorTextView = view.findViewById(R.id.templates_failedToGetTemplatesText)
+        addTemplateFab = view.findViewById(R.id.templates_addTemplateFab)
+
+        addTemplateFab.setOnClickListener { startActivity(Intent(context, CreateTemplateActivity::class.java)) }
 
         recyclerView.layoutManager = GridLayoutManager(context, numCols)
         recyclerView.adapter = TemplatesAdapter(templates)
@@ -52,9 +58,11 @@ class TemplatesFragment : Fragment() {
 
 
     fun onFoundTemplates(list: List<Template>) {
-        templates = list
+        recyclerView.adapter = TemplatesAdapter(list)
         recyclerView.adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
     }
+
+
 
 }
