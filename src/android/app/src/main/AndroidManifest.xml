@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".InterviewdApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,13 +21,19 @@
         </activity>
         <activity
             android:name=".CreateQuestionActivity"
-            android:parentActivityName=".DashboardActivity"></activity>
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
-        <activity android:name=".CreateTemplateActivity"
-            android:parentActivityName=".DashboardActivity"></activity>
+        <activity
+            android:name=".CreateTemplateActivity"
+            android:parentActivityName=".DashboardActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".QuestionBankActivity"
+            android:parentActivityName=".CreateTemplateActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
