@@ -2,6 +2,7 @@ package io.github.alexdenton.interviewd.bus
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
+import io.github.alexdenton.interviewd.bus.events.FlushEvent
 import io.github.alexdenton.interviewd.question.Question
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -15,7 +16,9 @@ object RxBus {
 
     fun post(event: Any) = subject.accept(event)
 
-    fun <T> getEvents(eventType: Class<T>): Observable<T> = subject.ofType(eventType)
+    fun <T> toObservable(eventType: Class<T>): Observable<T> = subject.ofType(eventType)
+
+    fun clear() = post(FlushEvent())
 }
 
 

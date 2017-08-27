@@ -14,6 +14,7 @@ import io.github.alexdenton.interviewd.bus.events.SendToQuestionBankEvent
 
 class QuestionBankActivity : AppCompatActivity() {
 
+
     lateinit var recyclerView: RecyclerView
     lateinit var presenter: QuestionBankPresenter
     val numRows = 2

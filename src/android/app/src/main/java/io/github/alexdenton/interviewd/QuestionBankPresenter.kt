@@ -22,7 +22,7 @@ class QuestionBankPresenter(val repo: QuestionRepository, val activity: Question
             .subscribe({ list -> foundQuestions(list) },
                     { throwable -> couldNotConnect(throwable) }))
 
-    fun getCheckedQuestions() = RxBus.getEvents(SendToQuestionBankEvent::class.java)
+    fun getCheckedQuestions() = RxBus.toObservable(SendToQuestionBankEvent::class.java)
             .subscribe({ (questionBank) -> setCheckedQuestions(questionBank) },
                     { throwable -> Log.w("Bork", throwable) })
 

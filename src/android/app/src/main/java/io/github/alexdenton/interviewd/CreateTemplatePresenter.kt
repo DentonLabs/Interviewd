@@ -7,7 +7,6 @@ import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
 import io.github.alexdenton.interviewd.bus.RxBus
 import io.github.alexdenton.interviewd.bus.events.SendToCreateTemplateEvent
-import io.github.alexdenton.interviewd.bus.events.SendToQuestionBankEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +25,7 @@ class CreateTemplatePresenter(val activity: CreateTemplateActivity, val repo: Te
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ -> submitSuccess() })
 
-    fun updatePickedQuestions() = RxBus.getEvents(SendToCreateTemplateEvent::class.java)
+    fun updatePickedQuestions() = RxBus.toObservable(SendToCreateTemplateEvent::class.java)
             .subscribe({ updateSuccess(it.list) },
                     { onError(it) })
 
