@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
@@ -25,6 +26,7 @@ class CreateTemplateActivity : AppCompatActivity() {
 
     lateinit var presenter: CreateTemplatePresenter
     lateinit var adapter: CreateTemplateAdapter
+    lateinit var touchHelper: CreateTemplateTouchHelper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +42,12 @@ class CreateTemplateActivity : AppCompatActivity() {
         addQuestionButton = findViewById(R.id.createTemplate_addQuestionButton)
         presenter = CreateTemplatePresenter(this, TemplateRetrofitRepository(this))
         adapter = CreateTemplateAdapter(presenter.questionsFromBank)
+        touchHelper = CreateTemplateTouchHelper(adapter)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+        touchHelper.attachToRecyclerView(recyclerView)
+
 
         submitButton.setOnClickListener { presenter.submitTemplate() }
         addQuestionButton.setOnClickListener { presenter.startAddingQuestions() }
@@ -99,4 +104,5 @@ class CreateTemplateActivity : AppCompatActivity() {
     fun onUpdateSuccess() {
         recyclerView.adapter.notifyDataSetChanged()
     }
+
 }
