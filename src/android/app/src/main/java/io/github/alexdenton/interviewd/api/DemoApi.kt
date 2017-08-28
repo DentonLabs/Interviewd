@@ -3,8 +3,10 @@ package io.github.alexdenton.interviewd.api
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.github.alexdenton.interviewd.api.dto.CandidateDto
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import io.github.alexdenton.interviewd.api.dto.TemplateDto
+import io.github.alexdenton.interviewd.interview.Candidate
 import io.reactivex.Single
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -16,6 +18,7 @@ class DemoApi(val context: Context) : InterviewdApiService {
     val gson: Gson = Gson()
     val questionsFilename = "questions"
     val templatesFilename = "templates"
+    val candidatesFilename = "candidates"
 
     init {
         if (!context.fileList().contains(questionsFilename))
@@ -23,6 +26,9 @@ class DemoApi(val context: Context) : InterviewdApiService {
 
         if (!context.fileList().contains(templatesFilename))
             context.openFileOutput(templatesFilename, Context.MODE_PRIVATE).close()
+
+        if (!context.fileList().contains(candidatesFilename))
+            context.openFileOutput(candidatesFilename, Context.MODE_PRIVATE).close()
     }
 
 
@@ -98,6 +104,51 @@ class DemoApi(val context: Context) : InterviewdApiService {
         list = mutableList.toList()
 
         val writer = OutputStreamWriter(context.openFileOutput(templatesFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(toAdd)
+    }
+
+    override fun getCandidates(): Single<List<CandidateDto>> {
+        val reader = context.openFileInput(candidatesFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") return Single.error(Throwable("No Candidates available"))
+
+        var list: List<CandidateDto> = gson.fromJson(json, object : TypeToken<List<CandidateDto>>() {}.type)
+
+        return Single.just(list)
+    }
+
+    override fun getCandidate(id: Int): Single<CandidateDto> {
+        val reader = InputStreamReader(context.openFileInput(candidatesFilename))
+        val json = reader.readText()
+        reader.close()
+
+        if(json == "") return Single.error(Throwable("No Candidates available"))
+
+        val list: List<CandidateDto> = gson.fromJson(json, object : TypeToken<List<CandidateDto>>() {}.type)
+
+        return Single.just(list.find { candidate -> candidate.id == id })
+    }
+
+    override fun createCandidate(candidate: CandidateDto): Single<CandidateDto> {
+        val reader = context.openFileInput(candidatesFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<CandidateDto> = gson.fromJson(json, object : TypeToken<List<CandidateDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        val toAdd = CandidateDto(mutableList.size + 1, candidate.firstName, candidate.lastName)
+        mutableList.add(toAdd)
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(candidatesFilename, Context.MODE_PRIVATE))
         gson.toJson(list, writer)
         writer.close()
 

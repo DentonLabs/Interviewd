@@ -23,4 +23,7 @@
     <string name="estimated_duration">Estimated duration:</string>
     <string name="estimate">Est.</string>
     <string name="add_question">Add question</string>
+    <string name="cant_find_your_candidates">Can\'t find your Candidates :(</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
 </resources>
