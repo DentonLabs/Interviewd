@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.createtemplate.questionbank
 
 import android.util.Log
 import io.github.alexdenton.interviewd.api.QuestionRepository

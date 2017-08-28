@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.createtemplate.questionbank
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,11 +6,11 @@ import android.support.v4.app.NavUtils
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
+import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
 import io.github.alexdenton.interviewd.question.Question
 import io.github.alexdenton.interviewd.bus.RxBus
 import io.github.alexdenton.interviewd.bus.events.SendToCreateTemplateEvent
-import io.github.alexdenton.interviewd.bus.events.SendToQuestionBankEvent
 
 class QuestionBankActivity : AppCompatActivity() {
 

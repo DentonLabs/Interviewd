@@ -1,11 +1,11 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.dashboard
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.FlushEvent
+import io.github.alexdenton.interviewd.dashboard.questions.QuestionsFragment
+import io.github.alexdenton.interviewd.R
+import io.github.alexdenton.interviewd.dashboard.templates.TemplatesFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {

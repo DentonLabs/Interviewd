@@ -20,19 +20,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CreateQuestionActivity"
-            android:parentActivityName=".DashboardActivity" />
+            android:name=".createquestion.CreateQuestionActivity"
+            android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".dashboard.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".CreateTemplateActivity"
-            android:parentActivityName=".DashboardActivity"
+            android:name=".createtemplate.CreateTemplateActivity"
+            android:parentActivityName=".dashboard.DashboardActivity"
             android:launchMode="singleTop"/>
         <activity
-            android:name=".QuestionBankActivity"
-            android:parentActivityName=".CreateTemplateActivity"
+            android:name=".createtemplate.questionbank.QuestionBankActivity"
+            android:parentActivityName=".createtemplate.CreateTemplateActivity"
             android:launchMode="singleTop" />
     </application>
 

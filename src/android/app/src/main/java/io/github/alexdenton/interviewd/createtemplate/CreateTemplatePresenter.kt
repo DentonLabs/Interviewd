@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.createtemplate
 
 import android.util.Log
 import android.widget.Toast

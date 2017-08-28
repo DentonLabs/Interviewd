@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.createtemplate
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.question.Question
 
 /**

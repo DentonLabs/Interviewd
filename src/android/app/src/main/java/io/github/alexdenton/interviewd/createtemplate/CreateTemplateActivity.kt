@@ -1,20 +1,21 @@
-package io.github.alexdenton.interviewd
+package io.github.alexdenton.interviewd.createtemplate
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import io.github.alexdenton.interviewd.*
 import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
 import io.github.alexdenton.interviewd.question.Question
 import io.github.alexdenton.interviewd.bus.RxBus
 import io.github.alexdenton.interviewd.bus.events.SendQuestionListEvent
 import io.github.alexdenton.interviewd.bus.events.SendToQuestionBankEvent
+import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankActivity
 
 class CreateTemplateActivity : AppCompatActivity() {
 
