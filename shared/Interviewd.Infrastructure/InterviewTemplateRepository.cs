@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapper;
 using Interviewd.Configuration;
 using Interviewd.Domain.Model;
@@ -16,9 +17,14 @@ namespace Interviewd.Infrastructure
     {
         private readonly AppSettings _AppSettings;
 
-        public InterviewTemplateRepository(IOptions<AppSettings> appSettings)
+        private readonly IMapper _Mapper;
+
+        public InterviewTemplateRepository(
+            IOptions<AppSettings> appSettings,
+            IMapper mapper)
         {
             _AppSettings = appSettings.Value;
+            _Mapper = mapper;
         }
 
         public async Task<InterviewTemplate> InsertInterviewTemplate(InterviewTemplate interviewTemplate)
@@ -56,6 +62,35 @@ namespace Interviewd.Infrastructure
                         QuestionIds = new IdCustomParameter(questionIds.Select(id => Convert.ToInt32(id)))
                     },
                     commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public async Task<InterviewTemplate> GetInterviewTemplate(string interviewTemplateId)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var interviewTemplateSqlModel = (await connection.QueryAsync<InterviewTemplateSqlModel>(
+                    StoredProcedures.GetInterviewTemplate,
+                    new
+                    {
+                        InterviewTemplateId = interviewTemplateId,
+                    },
+                    commandType: CommandType.StoredProcedure))
+                    .Single();
+
+                var interviewTemplateQuestionSqlModels = await connection.QueryAsync<QuestionSqlModel>(
+                    StoredProcedures.GetInterviewTemplateQuestions,
+                    new
+                    {
+                        InterviewTemplateId = interviewTemplateId
+                    },
+                    commandType: CommandType.StoredProcedure);
+
+                var interviewTemplateQuestions = _Mapper.Map<IEnumerable<Question>>(interviewTemplateQuestionSqlModels);
+                var interviewTemplate = _Mapper.Map<InterviewTemplate>(interviewTemplateSqlModel);
+                interviewTemplate.Questions = interviewTemplateQuestions;
+
+                return interviewTemplate;
             }
         }
     }

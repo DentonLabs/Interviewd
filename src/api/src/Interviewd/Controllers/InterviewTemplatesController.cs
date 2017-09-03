@@ -21,5 +21,12 @@ namespace Interviewd.Controllers
         {
             return await _InterviewTemplateManager.CreateInterviewTemplate(interviewTemplateDto);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<InterviewTemplateDto> GetInterviewTemplate([FromRoute] string id)
+        {
+            return await _InterviewTemplateManager.GetInterviewTemplate(id);
+        }
     }
 }

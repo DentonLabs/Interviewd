@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Interviewd.Infrastructure.Abstraction\Interviewd.Infrastructure.Abstraction.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\..\Users\alex.denton\.nuget\packages\automapper\6.1.1\lib\netstandard1.3\AutoMapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

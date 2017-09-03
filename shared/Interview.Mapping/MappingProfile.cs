@@ -17,7 +17,7 @@ namespace Interview.Mapping
                 .ReverseMap();
 
             CreateMap<InterviewTemplateDto, InterviewTemplate>()
-                .ForMember(d => d.Questions,
+                .ForMember(o => o.Questions,
                     config => config.MapFrom(s =>
                         s.QuestionIds.Select(id =>
                             new Question
@@ -25,6 +25,9 @@ namespace Interview.Mapping
                                 Id = id
                             })))
                 .ReverseMap();
+
+            CreateMap<InterviewTemplateSqlModel, InterviewTemplate>()
+                .ForMember(o => o.Name, config => config.MapFrom(o => o.Name));
         }
     }
 }

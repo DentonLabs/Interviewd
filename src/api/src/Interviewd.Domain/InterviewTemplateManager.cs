@@ -36,5 +36,11 @@ namespace Interviewd.Domain
 
             return responseInterviewTemplate;
         }
+
+        public async Task<InterviewTemplateDto> GetInterviewTemplate(string interviewTemplateId)
+        {
+            var interviewTemplate = await _InterviewTemplateRepository.GetInterviewTemplate(interviewTemplateId);
+            return _Mapper.Map<InterviewTemplateDto>(interviewTemplate);
+        }
     }
 }

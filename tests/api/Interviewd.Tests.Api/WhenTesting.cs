@@ -13,7 +13,6 @@ using Interview.Mapping;
 
 namespace Interviewd.Tests.Api
 {
-    [TestFixture]
     public class WhenTesting
     {
         protected HttpClient HttpClient;
@@ -36,6 +35,8 @@ namespace Interviewd.Tests.Api
                 .AddOptions()
                 .Configure<AppSettings>(configuration)
                 .AddSingleton<IQuestionRepository, QuestionRepository>()
+                .AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>()
+                .AddSingleton<IMapper>(new Mapper(new MapperConfiguration(c => c.AddProfile(new MappingProfile()))))
                 .BuildServiceProvider();
 
             var appSettings = ServiceProvider.GetService<IOptions<AppSettings>>().Value;

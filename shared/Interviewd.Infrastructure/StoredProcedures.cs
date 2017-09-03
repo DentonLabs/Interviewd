@@ -11,5 +11,9 @@
         public const string InsertInterviewTemplate = "Insert_InterviewTemplate";
 
         public const string InsertInterviewTemplateQuestions = "Insert_InterviewTemplateQuestions";
+
+        public const string GetInterviewTemplate = "Get_InterviewTemplate";
+
+        public const string GetInterviewTemplateQuestions = "Get_InterviewTemplateQuestions";
     }
 }
