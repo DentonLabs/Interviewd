@@ -30,6 +30,9 @@ namespace Interview.Mapping
 
             CreateMap<InterviewTemplateSqlModel, InterviewTemplate>()
                 .ForMember(o => o.Name, config => config.MapFrom(o => o.Name));
+
+            CreateMap<CandidateDto, Candidate>()
+                .ReverseMap();
         }
     }
 }

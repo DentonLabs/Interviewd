@@ -40,6 +40,8 @@ namespace Interviewd
             services.AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>();
             services.AddSingleton<IQuestionManager, QuestionManager>();
             services.AddSingleton<IQuestionRepository, QuestionRepository>();
+            services.AddSingleton<ICandidateManager, CandidateManager>();
+            services.AddSingleton<ICandidateRepository, CandidateRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

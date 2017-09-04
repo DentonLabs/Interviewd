@@ -226,6 +226,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
+    <Compile Include="WhenTestingCandidates.cs" />
     <Compile Include="WhenTestingInterviewTemplates.cs" />
     <Compile Include="WhenTestingQuestions.cs" />
     <Compile Include="WhenTesting.cs" />
