@@ -19,5 +19,7 @@
         public const string InsertCandidate = "Insert_Candidate";
 
         public const string GetCandidates = "Get_Candidates";
+
+        public const string InsertInterview = "Insert_Interview";
     }
 }
