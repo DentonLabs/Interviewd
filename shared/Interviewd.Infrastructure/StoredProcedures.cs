@@ -17,5 +17,7 @@
         public const string GetInterviewTemplateQuestions = "Get_InterviewTemplateQuestions";
 
         public const string InsertCandidate = "Insert_Candidate";
+
+        public const string GetCandidates = "Get_Candidates";
     }
 }

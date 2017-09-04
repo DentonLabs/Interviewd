@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
@@ -25,6 +26,12 @@ namespace Interviewd.Domain
         {
             var createdCandidate = await _CandidateRepository.InsertCandidate(_Mapper.Map<Candidate>(candidateDto));
             return _Mapper.Map<CandidateDto>(createdCandidate);
+        }
+
+        public async Task<IEnumerable<CandidateDto>> GetAllCandidates()
+        {
+            var candidates = await _CandidateRepository.GetAllCandidates();
+            return _Mapper.Map<IEnumerable<CandidateDto>>(candidates);
         }
     }
 }

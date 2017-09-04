@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,11 @@ namespace Interviewd.Controllers
         public async Task<CandidateDto> PostCandidate([FromBody]CandidateDto candidateDto)
         {
             return await _CandidateManager.CreateCandidate(candidateDto);
+        }
+
+        public async Task<IEnumerable<CandidateDto>> GetAllCandidates()
+        {
+            return await _CandidateManager.GetAllCandidates();
         }
     }
 }
