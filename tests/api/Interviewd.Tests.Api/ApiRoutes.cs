@@ -7,5 +7,7 @@
         public const string InterviewTemplatesRoute = "templates";
 
         public const string CandidatesRoute = "candidates";
+
+        public const string InterviewsRoute = "interviews";
     }
 }
