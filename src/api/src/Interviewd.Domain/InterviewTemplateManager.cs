@@ -40,7 +40,8 @@ namespace Interviewd.Domain
         public async Task<InterviewTemplateDto> GetInterviewTemplate(string interviewTemplateId)
         {
             var interviewTemplate = await _InterviewTemplateRepository.GetInterviewTemplate(interviewTemplateId);
-            return _Mapper.Map<InterviewTemplateDto>(interviewTemplate);
+            var interviewTemplateDto = _Mapper.Map<InterviewTemplateDto>(interviewTemplate);
+            return interviewTemplateDto;
         }
     }
 }
