@@ -33,6 +33,9 @@ namespace Interview.Mapping
 
             CreateMap<CandidateDto, Candidate>()
                 .ReverseMap();
+
+            CreateMap<CandidateSqlModel, Candidate>()
+                .ReverseMap();
         }
     }
 }
