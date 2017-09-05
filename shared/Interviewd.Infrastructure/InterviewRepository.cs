@@ -5,6 +5,7 @@ using Dapper;
 using Interviewd.Configuration;
 using Interviewd.Domain.Model;
 using Interviewd.Infrastructure.Abstraction;
+using Microsoft.Extensions.Options;
 
 namespace Interviewd.Infrastructure
 {
@@ -12,9 +13,9 @@ namespace Interviewd.Infrastructure
     {
         private readonly AppSettings _AppSettings;
 
-        public InterviewRepository(AppSettings appSettings)
+        public InterviewRepository(IOptions<AppSettings> appSettings)
         {
-            _AppSettings = appSettings;
+            _AppSettings = appSettings.Value;
         }
 
         public async Task<Interview> InsertInterview()

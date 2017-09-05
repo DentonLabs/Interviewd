@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\shared\Interview.Mapping\Interview.Mapping.csproj" />
     <ProjectReference Include="..\..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj" />
     <ProjectReference Include="..\..\..\..\shared\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\Interviewd.Mapping\Interviewd.Mapping.csproj" />
     <ProjectReference Include="..\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj" />
     <ProjectReference Include="..\Interviewd.Application\Interviewd.Application.csproj" />
     <ProjectReference Include="..\Interviewd.Domain\Interviewd.Domain.csproj" />

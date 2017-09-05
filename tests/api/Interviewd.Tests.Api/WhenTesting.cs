@@ -9,7 +9,7 @@ using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Interviewd.Infrastructure.Abstraction;
 using Interviewd.Infrastructure;
-using Interview.Mapping;
+using Interviewd.Mapping;
 
 namespace Interviewd.Tests.Api
 {

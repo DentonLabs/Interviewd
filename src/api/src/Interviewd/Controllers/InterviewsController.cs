@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
 {
+    [Route("interviews")]
     public class InterviewsController : Controller
     {
         private readonly IInterviewManager _InterviewManager;

@@ -4,7 +4,7 @@ using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Interviewd.Infrastructure;
 
-namespace Interview.Mapping
+namespace Interviewd.Mapping
 {
     public class MappingProfile : Profile
     {
@@ -35,6 +35,9 @@ namespace Interview.Mapping
                 .ReverseMap();
 
             CreateMap<CandidateSqlModel, Candidate>()
+                .ReverseMap();
+
+            CreateMap<Interview, InterviewDto>()
                 .ReverseMap();
         }
     }

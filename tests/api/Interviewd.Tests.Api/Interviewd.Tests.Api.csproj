@@ -240,10 +240,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\Interview.Mapping\Interview.Mapping.csproj">
-      <Project>{DEB7DDEE-E29B-4344-888F-FED0BE9D1E24}</Project>
-      <Name>Interview.Mapping</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\shared\Interviewd.Configuration\Interviewd.Configuration.csproj">
       <Project>{ae350ea9-0703-40ef-99fc-cd8c6e8170d2}</Project>
       <Name>Interviewd.Configuration</Name>
@@ -259,6 +255,10 @@
     <ProjectReference Include="..\..\..\shared\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj">
       <Project>{6EEB8B97-F9E5-4955-B27D-1C92A44920D5}</Project>
       <Name>Interviewd.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\shared\Interviewd.Mapping\Interviewd.Mapping.csproj">
+      <Project>{A7CB4449-7AD0-45F0-A785-93976BACE4EC}</Project>
+      <Name>Interviewd.Mapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\api\src\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj">
       <Project>{9EE1D34E-2CDF-4C93-A035-E65192558226}</Project>
