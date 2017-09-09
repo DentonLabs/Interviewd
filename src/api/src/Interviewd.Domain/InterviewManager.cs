@@ -9,18 +9,20 @@ namespace Interviewd.Domain
 {
     public class InterviewManager : IInterviewManager
     {
-        private readonly IInterviewRepository _InterviewRepository;
-
         private readonly IMapper _Mapper;
+
+        private readonly IInterviewRepository _InterviewRepository;
 
         private readonly IInterviewTemplateRepository _InterviewTemplateRepository;
 
         public InterviewManager(
             IMapper mapper,
-            IInterviewRepository interviewRepository)
+            IInterviewRepository interviewRepository,
+            IInterviewTemplateRepository interviewTemplateRepository)
         {
             _Mapper = mapper;
             _InterviewRepository = interviewRepository;
+            _InterviewTemplateRepository = interviewTemplateRepository;
         }
 
         public async Task<InterviewDto> CreateInterview(string templateId = null)

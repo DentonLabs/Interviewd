@@ -17,7 +17,7 @@ namespace Interviewd.Controllers
 
         public async Task<InterviewDto> PostInterview([FromQuery]string templateId)
         {
-            return await _InterviewManager.CreateInterview();
+            return await _InterviewManager.CreateInterview(templateId);
         }
     }
 }
