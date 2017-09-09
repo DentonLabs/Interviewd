@@ -22,9 +22,16 @@ namespace Interviewd.Controllers
             return await _CandidateManager.CreateCandidate(candidateDto);
         }
 
+        [HttpGet]
         public async Task<IEnumerable<CandidateDto>> GetAllCandidates()
         {
             return await _CandidateManager.GetAllCandidates();
+        }
+
+        [HttpGet]
+        public async Task<CandidateDto> GetCandidate(string id)
+        {
+            return await _CandidateManager.GetCandidate(id);
         }
     }
 }

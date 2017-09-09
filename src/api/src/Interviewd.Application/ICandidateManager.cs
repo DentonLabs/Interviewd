@@ -8,6 +8,8 @@ namespace Interviewd.Application
     {
         Task<CandidateDto> CreateCandidate(CandidateDto candidateDto);
 
+        Task<CandidateDto> GetCandidate(string id);
+
         Task<IEnumerable<CandidateDto>> GetAllCandidates();
     }
 }

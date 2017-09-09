@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dapper;
@@ -46,6 +47,23 @@ namespace Interviewd.Infrastructure
                 candidate.Id = parameters.Get<int>("Id").ToString();
 
                 return candidate;
+            }
+        }
+
+        public async Task<Candidate> GetCandidate(string id)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var candidateSqlModel = (await connection.QueryAsync<CandidateSqlModel>(
+                    StoredProcedures.GetCandidate,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.StoredProcedure))
+                    .Single();
+
+                return _Mapper.Map<Candidate>(candidateSqlModel);
             }
         }
 

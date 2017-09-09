@@ -8,6 +8,8 @@ namespace Interviewd.Infrastructure.Abstraction
     {
         Task<Candidate> InsertCandidate(Candidate candidate);
 
+        Task<Candidate> GetCandidate(string id);
+
         Task<IEnumerable<Candidate>> GetAllCandidates();
     }
 }
