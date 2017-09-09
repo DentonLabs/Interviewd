@@ -1,5 +1,8 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Interviewd.Configuration;
@@ -36,6 +39,21 @@ namespace Interviewd.Infrastructure
                 interview.Id = parameters.Get<int>("Id").ToString();
 
                 return interview;
+            }
+        }
+
+        public async Task InsertInterviewQuestions(string interviewId, IEnumerable<string> questionIds)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                await connection.ExecuteAsync(
+                    StoredProcedures.InsertInterviewQuestions,
+                    new
+                    {
+                        InterviewId = interviewId,
+                        QuestionIds = new IdCustomParameter(questionIds.Select(id => Convert.ToInt32(id)))
+                    },
+                    commandType: CommandType.StoredProcedure);
             }
         }
     }
