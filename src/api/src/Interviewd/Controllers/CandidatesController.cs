@@ -29,7 +29,8 @@ namespace Interviewd.Controllers
         }
 
         [HttpGet]
-        public async Task<CandidateDto> GetCandidate(string id)
+        [Route("{id}")]
+        public async Task<CandidateDto> GetCandidate([FromRoute]string id)
         {
             return await _CandidateManager.GetCandidate(id);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DeepEqual.Syntax;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Interviewd.Infrastructure.Abstraction;
@@ -45,7 +46,7 @@ namespace Interviewd.Tests.Api
             };
 
             var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.CandidatesRoute}");
+                ApiRoutes.CandidatesRoute);
 
             var responseCandidateDtos = await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -56,6 +57,23 @@ namespace Interviewd.Tests.Api
             responseCandidates = responseCandidates.Where(rc => dbCandidates.Any(dc => dc.Id == rc.Id));
 
             Assert.IsTrue(responseCandidates.CompareCollectionsUsingLikeness(dbCandidates));
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToGetCandidate()
+        {
+            var candidateRepository = ServiceProvider.GetService<ICandidateRepository>();
+            var dbCandidate = Fixture.Create<Candidate>();
+            dbCandidate = await candidateRepository.InsertCandidate(dbCandidate);
+
+            var httpResponseMessage = await HttpClient.GetAsync(
+                $"{ApiRoutes.CandidatesRoute}/{dbCandidate.Id}");
+
+            var responseCandidateDto = await httpResponseMessage
+                .EnsureSuccessStatusCode()
+                .GetLikenessContent<CandidateDto>();
+
+            responseCandidateDto.ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
         }
     }
 }
