@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import io.github.alexdenton.interviewd.dashboard.questions.QuestionsFragment
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.dashboard.candidates.CandidatesFragment
+import io.github.alexdenton.interviewd.dashboard.interviews.InterviewsFragment
 import io.github.alexdenton.interviewd.dashboard.templates.TemplatesFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
@@ -33,7 +34,7 @@ class DashboardActivity : AppCompatActivity() {
             }
             else -> {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.dashboard_fragmentContainer, PlaceholderFragment())
+                        .replace(R.id.dashboard_fragmentContainer, InterviewsFragment())
                         .commit()
                 return@OnNavigationItemSelectedListener true
             }
