@@ -12,7 +12,7 @@ import io.github.alexdenton.interviewd.question.Question
 /**
  * Created by ryan on 8/23/17.
  */
-class QuestionBankAdapter(val questionBank: List<Question>) : RecyclerView.Adapter<QuestionBankAdapter.QuestionBankViewHolder>() {
+class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerView.Adapter<QuestionBankAdapter.QuestionBankViewHolder>() {
 
     val checkedQuestions: MutableList<Question> = mutableListOf()
 
@@ -49,7 +49,10 @@ class QuestionBankAdapter(val questionBank: List<Question>) : RecyclerView.Adapt
         notifyDataSetChanged()
     }
 
-    //fun getPositionClicked(): Observable<Int> = onClickSubject
+    fun clear(){
+        checkedQuestions.clear()
+        questionBank.clear()
+    }
 
     class QuestionBankViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameView: TextView = itemView.findViewById(R.id.card_bankQuestionName)

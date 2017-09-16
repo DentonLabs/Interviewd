@@ -37,7 +37,12 @@
         <activity
             android:name=".createcandidate.CreateCandidateActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".dashboard.DashboardActivity"/>
+            android:parentActivityName=".dashboard.DashboardActivity" />
+
+        <activity
+            android:name=".createinterview.CreateInterviewActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".dashboard.DashboardActivity" />
     </application>
 
 </manifest>

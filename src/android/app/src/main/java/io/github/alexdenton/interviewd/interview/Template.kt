@@ -9,4 +9,6 @@ import io.github.alexdenton.interviewd.question.Question
 data class Template(
         val name: String,
         val questions: List<Question>
-)
+){
+    override fun toString(): String = name
+}

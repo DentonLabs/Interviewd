@@ -1,6 +1,7 @@
 package io.github.alexdenton.interviewd.dashboard.interviews
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -14,6 +15,7 @@ import android.widget.TextView
 
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.api.InterviewRetrofitRepository
+import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
 import io.github.alexdenton.interviewd.interview.Interview
 
 
@@ -47,6 +49,8 @@ class InterviewsFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
 
         presenter.getAllInterviews()
+
+        addFab.setOnClickListener { startActivity(Intent(context, CreateInterviewActivity::class.java)) }
 
         return view
     }
