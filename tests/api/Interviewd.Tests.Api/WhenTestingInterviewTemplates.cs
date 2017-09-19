@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Jmansar.SemanticComparisonExtensions;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api
 {

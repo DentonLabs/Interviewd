@@ -34,5 +34,12 @@ namespace Interviewd.Tests.Api
                 .Without(o => o.Id)
                 .Create();
         }
+
+        public InterviewDto StubInterviewDto()
+        {
+            return _Fixture.Build<InterviewDto>()
+                    .Without(o => o.Id)
+                    .Create();
+        }
     }
 }

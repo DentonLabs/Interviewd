@@ -12,10 +12,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAnEmptyInterview()
         {
-            var requestInterview = 
-                Fixture.Build<InterviewDto>()
-                    .Without(o => o.Id)
-                    .Create();
+            var requestInterview = Stubber.StubInterviewDto();
 
             var httpResponseMessage = await ApiClient.PostInterview(requestInterview);
 
