@@ -16,5 +16,17 @@ namespace Interviewd.Tests.Api
                 .OfLikeness<T>()
                 .Without(t => t.Id);
         }
+
+        public static Likeness<T, T> ToLikeness<T>(this T value, bool compareId = false) where T : IIdentifiable
+        {
+            var likeness = value.AsSource().OfLikeness<T>();
+
+            if (!compareId)
+            {
+                likeness.Without(o => o.Id);
+            }
+
+            return likeness;
+        }
     }
 }

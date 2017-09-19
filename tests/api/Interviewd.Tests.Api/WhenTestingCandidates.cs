@@ -48,13 +48,11 @@ namespace Interviewd.Tests.Api
         {
             var dbCandidate = await Arranger.CreateCandidate();
 
-            var httpResponseMessage = await ApiClient.GetCandidate(dbCandidate.Id);
+            var responseCandidateDto = await ApiClient.GetCandidate(dbCandidate.Id)
+                .AwaitGetSuccessfulResponse<CandidateDto>();
 
-            var responseCandidateDto = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<CandidateDto>();
-
-            responseCandidateDto.ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
+            responseCandidateDto.ToLikeness()
+                .ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
         }
     }
 }
