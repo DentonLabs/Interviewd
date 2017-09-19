@@ -17,13 +17,10 @@ namespace Interviewd.Tests.Api
         {
             var requestQuestion = Stubber.StubQuestionDto();
 
-            var httpResponseMessage = await ApiClient.PostQuestion(requestQuestion);
+            var responseQuestion = await ApiClient.PostQuestion(requestQuestion)
+                .AwaitGetSuccessfulResponse<QuestionDto>();
 
-            var responseQuestion = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<QuestionDto>();
-
-            responseQuestion.ShouldEqual(requestQuestion);
+            responseQuestion.ToLikeness().ShouldEqual(requestQuestion);
         }
 
         [Test]
@@ -31,13 +28,10 @@ namespace Interviewd.Tests.Api
         {
             var dbQuestion = await Arranger.CreateQuestion();
 
-            var httpResponseMessage = await ApiClient.GetQuestion(dbQuestion.Id);
+            var responseQuestionDto = await ApiClient.GetQuestion(dbQuestion.Id)
+                .AwaitGetSuccessfulResponse<QuestionDto>();
 
-            var responseQuestionDto = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<QuestionDto>();
-
-            responseQuestionDto.ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
+            responseQuestionDto.ToLikeness().ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
         }
 
         [Test]
@@ -45,11 +39,8 @@ namespace Interviewd.Tests.Api
         {
             var dbQuestions = await Arranger.CreateQuestions();
 
-            var httpResponseMessage = await ApiClient.GetAllQuestions();
-
-            var responseQuestionDtos = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetContent<IEnumerable<QuestionDto>>();
+            var responseQuestionDtos = await ApiClient.GetAllQuestions()
+                .AwaitGetSuccessfulResponse<QuestionDto>();
 
             var responseQuestions = Mapper.Map<IEnumerable<Question>>(responseQuestionDtos);
 
