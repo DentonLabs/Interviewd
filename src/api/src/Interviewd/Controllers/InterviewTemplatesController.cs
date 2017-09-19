@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,12 @@ namespace Interviewd.Controllers
         public async Task<InterviewTemplateDto> GetInterviewTemplate([FromRoute] string id)
         {
             return await _InterviewTemplateManager.GetInterviewTemplate(id);
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates()
+        {
+            return await _InterviewTemplateManager.GetInterviewTemplates();
         }
     }
 }

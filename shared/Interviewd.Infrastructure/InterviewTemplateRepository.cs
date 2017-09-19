@@ -65,6 +65,18 @@ namespace Interviewd.Infrastructure
             }
         }
 
+        public async Task<IEnumerable<InterviewTemplate>> GetInterviewTemplates()
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var interviewTemplateSqlModels = await connection.QueryAsync<InterviewTemplateSqlModel>(
+                    StoredProcedures.GetInterviewTemplates,
+                    commandType: CommandType.StoredProcedure);
+
+                return _Mapper.Map<IEnumerable<InterviewTemplate>>(interviewTemplateSqlModels);
+            }
+        }
+
         public async Task<InterviewTemplate> GetInterviewTemplate(string interviewTemplateId)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))

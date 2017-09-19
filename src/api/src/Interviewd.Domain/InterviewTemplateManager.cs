@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Interviewd.Application;
@@ -42,6 +43,13 @@ namespace Interviewd.Domain
             var interviewTemplate = await _InterviewTemplateRepository.GetInterviewTemplate(interviewTemplateId);
             var interviewTemplateDto = _Mapper.Map<InterviewTemplateDto>(interviewTemplate);
             return interviewTemplateDto;
+        }
+
+        public async Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates()
+        {
+            var interviewTemplates = await _InterviewTemplateRepository.GetInterviewTemplates();
+
+            return _Mapper.Map<IEnumerable<InterviewTemplateDto>>(interviewTemplates);
         }
     }
 }
