@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DeepEqual.Syntax;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
-using Interviewd.Infrastructure.Abstraction;
 using Jmansar.SemanticComparisonExtensions;
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api
 {

@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DeepEqual.Syntax;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
-using Interviewd.Infrastructure.Abstraction;
 using Jmansar.SemanticComparisonExtensions;
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.SemanticComparison.Fluent;
-using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
@@ -20,15 +16,15 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            var requestQuestion = Fixture.Create<QuestionDto>();
+            var requestQuestion = Stubber.StubQuestionDto();
 
             var httpResponseMessage = await ApiClient.PostQuestion(requestQuestion);
 
-            var apiQuestion = await httpResponseMessage
+            var responseQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
                 .GetLikenessContent<QuestionDto>();
 
-            Assert.AreEqual(apiQuestion, requestQuestion);
+            responseQuestion.ShouldEqual(requestQuestion);
         }
 
         [Test]
