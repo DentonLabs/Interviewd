@@ -33,13 +33,10 @@ namespace Interviewd.Domain
 
         public async Task<InterviewDto> GetInterview(string id)
         {
+            var interview = await _InterviewRepository.GetInterview(id);
             var interviewQuestions = await _InterviewRepository.GetInterviewQuestions(id);
 
-            var interview = new Interview
-            {
-                Id = id,
-                Questions = interviewQuestions
-            };
+            interview.Questions = interviewQuestions;
 
             return _Mapper.Map<InterviewDto>(interview);
         }

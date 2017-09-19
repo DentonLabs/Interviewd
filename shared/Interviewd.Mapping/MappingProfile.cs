@@ -41,6 +41,14 @@ namespace Interviewd.Mapping
                 .ReverseMap();
 
             CreateMap<InterviewSqlModel, Interview>()
+                .ForMember(o => o.Candidate, config => config.ResolveUsing(o => 
+                    new Candidate
+                    {
+                        Id = o.CandidateId,
+                        GivenName = o.CandidateGivenName,
+                        Surname = o.CandidateSurname
+                    }
+                ))
                 .ReverseMap();
         }
     }

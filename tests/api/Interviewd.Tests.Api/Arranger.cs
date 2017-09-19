@@ -46,7 +46,9 @@ namespace Interviewd.Tests.Api
 
         public async Task<Interview> CreateInterview()
         {
-            var interview = await _InterviewRepository.InsertInterview();
+            var candidate = await CreateCandidate();
+            var interview = await _InterviewRepository.InsertInterview(candidate.Id);
+            interview.Candidate = candidate;
 
             interview.Questions = await CreateQuestions();
             

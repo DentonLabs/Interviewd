@@ -66,6 +66,7 @@ namespace Interviewd.Tests.Api
 
             responseInterviewDto
                 .ToLikeness(true)
+                .WithInnerLikeness(o => o.Candidate, o => o.Candidate)
                 .WithCollectionInnerLikeness(
                     o => o.Questions,
                     o => o.Questions)
@@ -84,7 +85,9 @@ namespace Interviewd.Tests.Api
 
             Assert.IsTrue(responseInterviewDtos.CompareCollectionsUsingLikeness(
                 Mapper.Map<IEnumerable<InterviewDto>>(dbInterviews),
-                i => i.Without(o => o.Questions)));
+                i => i
+                    .WithInnerLikeness(o => o.Candidate, o => o.Candidate)
+                    .Without(o => o.Questions)));
         }
     }
 }

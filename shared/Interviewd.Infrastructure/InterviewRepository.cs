@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dapper;
@@ -36,6 +37,23 @@ namespace Interviewd.Infrastructure
                     commandType: CommandType.StoredProcedure);
 
                 return _Mapper.Map<IEnumerable<Interview>>(interviewSqlModels);
+            }
+        }
+
+        public async Task<Interview> GetInterview(string id)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var interviewSqlModel = (await connection.QueryAsync<InterviewSqlModel>(
+                    StoredProcedures.GetInterview,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.StoredProcedure))
+                    .Single();
+
+                return _Mapper.Map<Interview>(interviewSqlModel);
             }
         }
 
