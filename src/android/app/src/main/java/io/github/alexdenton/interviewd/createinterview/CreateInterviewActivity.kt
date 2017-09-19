@@ -15,8 +15,8 @@ import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
 import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
 import io.github.alexdenton.interviewd.bus.RxBus
 import io.github.alexdenton.interviewd.bus.events.TemplateSelectedEvent
-import io.github.alexdenton.interviewd.createtemplate.CreateTemplateAdapter
-import io.github.alexdenton.interviewd.createtemplate.CreateTemplateTouchHelper
+import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormAdapter
+import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormTouchHelper
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankAdapter
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
@@ -55,8 +55,8 @@ class CreateInterviewActivity : AppCompatActivity() {
         addQuestionButton = findViewById(R.id.createInterview_addQuestionButton)
         loadTemplateButton = findViewById(R.id.createInterview_loadTemplateButton)
 
-        val adapter = CreateTemplateAdapter(presenter.questions)
-        val touchHelper = CreateTemplateTouchHelper(adapter)
+        val adapter = TemplateFormAdapter(presenter.questions)
+        val touchHelper = TemplateFormTouchHelper(adapter)
         touchHelper.attachToRecyclerView(recyclerView)
 
         recyclerView.adapter = adapter

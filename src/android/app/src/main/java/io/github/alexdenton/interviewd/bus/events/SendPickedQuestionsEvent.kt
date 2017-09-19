@@ -3,6 +3,6 @@ package io.github.alexdenton.interviewd.bus.events
 import io.github.alexdenton.interviewd.question.Question
 
 /**
- * Created by ryan on 8/25/17.
+ * Created by ryan on 9/18/17.
  */
-data class SendToCreateTemplateEvent(val list: List<Question>)
+data class SendPickedQuestionsEvent(val pickedQuestions: List<Question>)

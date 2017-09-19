@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.createtemplate
+package io.github.alexdenton.interviewd.createtemplate.templateform
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
@@ -14,9 +14,9 @@ import io.github.alexdenton.interviewd.question.Question
 /**
  * Created by ryan on 8/18/17.
  */
-class CreateTemplateAdapter(val bankedQuestions: MutableList<Question>) : RecyclerView.Adapter<CreateTemplateAdapter.BankedQuestionViewHolder>(){
+class TemplateFormAdapter(val bankedQuestions: MutableList<Question>) : RecyclerView.Adapter<TemplateFormAdapter.BankedQuestionViewHolder>(){
 
-    var touchHelper: CreateTemplateTouchHelper? = null
+    var touchHelper: TemplateFormTouchHelper? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BankedQuestionViewHolder {
         val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.list_banked_question, parent, false)

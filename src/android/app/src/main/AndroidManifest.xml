@@ -31,10 +31,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".createtemplate.questionbank.QuestionBankActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".createtemplate.CreateTemplateActivity" />
-        <activity
             android:name=".createcandidate.CreateCandidateActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />

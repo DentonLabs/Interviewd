@@ -1,34 +1,32 @@
 package io.github.alexdenton.interviewd.createtemplate
 
-import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
+import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import io.github.alexdenton.interviewd.*
-import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
-import io.github.alexdenton.interviewd.question.Question
+import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.SendQuestionListEvent
-import io.github.alexdenton.interviewd.bus.events.SendToQuestionBankEvent
-import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankActivity
+import io.github.alexdenton.interviewd.bus.events.FlushEvent
+import io.github.alexdenton.interviewd.bus.events.NavigateUpEvent
+import io.github.alexdenton.interviewd.bus.events.SwitchToQuestionBankEvent
+import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankFragment
+import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormFragment
 
 class CreateTemplateActivity : AppCompatActivity() {
 
-    lateinit var titleField: EditText
-    lateinit var estText: TextView
-    lateinit var recyclerView: RecyclerView
-    lateinit var submitButton: Button
-    lateinit var addQuestionButton: Button
+    val templateFormFragment = TemplateFormFragment()
+    val questionBankFragment = QuestionBankFragment()
 
-    lateinit var presenter: CreateTemplatePresenter
-    lateinit var adapter: CreateTemplateAdapter
-    lateinit var touchHelper: CreateTemplateTouchHelper
+    val navigateUpDisposable = RxBus.toObservable(NavigateUpEvent::class.java)
+            .subscribe({ leave() },
+                    { throwable -> throwable.printStackTrace() })
 
+    val addQuestionDisposable = RxBus.toObservable(SwitchToQuestionBankEvent::class.java)
+            .subscribe({ switchToQuestionBank() },
+                    { throwable -> throwable.printStackTrace() })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,74 +34,49 @@ class CreateTemplateActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        titleField = findViewById(R.id.createTemplate_titleField)
-        estText = findViewById(R.id.createTemplate_estDurationText)
-        recyclerView = findViewById(R.id.createTemplate_recyclerView)
-        submitButton = findViewById(R.id.createTemplate_submitButton)
-        addQuestionButton = findViewById(R.id.createTemplate_addQuestionButton)
-        presenter = CreateTemplatePresenter(this, TemplateRetrofitRepository(this))
-        adapter = CreateTemplateAdapter(presenter.questionsFromBank)
-        touchHelper = CreateTemplateTouchHelper(adapter)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-        touchHelper.attachToRecyclerView(recyclerView)
-
-
-        submitButton.setOnClickListener { presenter.submitTemplate() }
-        addQuestionButton.setOnClickListener { presenter.startAddingQuestions() }
+        addFragment(templateFormFragment)
 
     }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        RxBus.post(SendQuestionListEvent(presenter.questionsFromBank))
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        RxBus.toObservable(SendQuestionListEvent::class.java)
-                .subscribe {
-                    presenter.questionsFromBank.clear()
-                    presenter.questionsFromBank.addAll(it.list)
-                    adapter.notifyDataSetChanged()
-                }
-                .dispose()
-
-        super.onRestoreInstanceState(savedInstanceState)
-    }
-
-    override fun onStart() {
-        presenter.updatePickedQuestions()
-        super.onStart()
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                if (supportFragmentManager.backStackEntryCount > 0)
+                    supportFragmentManager.popBackStack()
+                else {
+                    leave()
+                }
+                return true
+            }
+        }
+
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        RxBus.clear()
-        return super.onSupportNavigateUp()
-    }
-
-    override fun onBackPressed() {
-        RxBus.clear()
-        super.onBackPressed()
-    }
-
-    fun onSubmitSuccess() {
+    private fun leave() {
+        NavUtils.navigateUpFromSameTask(this)
+        addQuestionDisposable.dispose()
+        navigateUpDisposable.dispose()
+        RxBus.post(FlushEvent())
         finish()
     }
 
-    fun switchToQuestionBank(pickedQuestions: List<Question>) {
-        val intent = Intent(this, QuestionBankActivity::class.java)
-        RxBus.post(SendToQuestionBankEvent(pickedQuestions))
-        startActivity(intent)
+    infix fun test(value: Int) = value
+
+    private fun switchToQuestionBank() {
+        supportFragmentManager.inTransaction {
+            replace(R.id.createTemplate_fragmentContainer, questionBankFragment)
+            addToBackStack(null)
+        }
     }
 
-    fun onUpdateSuccess() {
-        recyclerView.adapter.notifyDataSetChanged()
+    fun addFragment(fragment: Fragment)
+            = supportFragmentManager.inTransaction { add(R.id.createTemplate_fragmentContainer, fragment) }
+
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+        val fragmentTransaction = beginTransaction()
+        fragmentTransaction.func()
+        fragmentTransaction.commit()
     }
 
 }

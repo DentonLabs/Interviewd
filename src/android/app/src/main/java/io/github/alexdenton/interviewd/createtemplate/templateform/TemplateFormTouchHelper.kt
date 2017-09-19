@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.createtemplate
+package io.github.alexdenton.interviewd.createtemplate.templateform
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -7,7 +7,7 @@ import io.github.alexdenton.interviewd.question.Question
 /**
  * Created by ryan on 8/28/17.
  */
-class CreateTemplateTouchHelper(val adapter: CreateTemplateAdapter)
+class TemplateFormTouchHelper(val adapter: TemplateFormAdapter)
     : ItemTouchHelper(object : SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
     override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
         val from = viewHolder?.adapterPosition!!
