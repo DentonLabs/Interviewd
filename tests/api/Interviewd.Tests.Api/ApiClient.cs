@@ -69,6 +69,11 @@ namespace Interviewd.Tests.Api
                 $"{ApiRoutes.InterviewsRoute}/{id}");
         }
 
+        public async Task<HttpResponseMessage> GetAllInterviews()
+        {
+            return await _HttpClient.GetAsync(ApiRoutes.InterviewsRoute);
+        }
+
         public async Task<HttpResponseMessage> PostCandidate(CandidateDto candidateDto)
         {
             return await _HttpClient.PostAsync(

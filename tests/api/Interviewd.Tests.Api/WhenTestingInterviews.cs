@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Jmansar.SemanticComparisonExtensions;
@@ -51,6 +52,19 @@ namespace Interviewd.Tests.Api
                     o => o.Questions,
                     o => o.Questions)
                 .ShouldEqual(dbInterviewDto);
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToGetAllInterviews()
+        {
+            var dbInterviews = await Arranger.CreateInterviews();
+
+            var responseInterviewDtos = await ApiClient.GetAllInterviews()
+                .AwaitGetSuccessfulResponse<IEnumerable<InterviewDto>>();
+
+            responseInterviewDtos = responseInterviewDtos.Where(i => dbInterviews.Any(di => di.Id == i.Id));
+
+            responseInterviewDtos.CompareCollectionsUsingLikeness(Mapper.Map<IEnumerable<InterviewDto>>(dbInterviews));
         }
     }
 }

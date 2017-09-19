@@ -32,21 +32,22 @@ namespace Interviewd.Tests.Api
             _Fixture = new Fixture();
         }
 
+        public async Task<IEnumerable<Interview>> CreateInterviews()
+        {
+            var interviews = new List<Interview>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                interviews.Add(await CreateInterview());
+            }
+
+            return interviews;
+        }
+
         public async Task<Interview> CreateInterview()
         {
-            var question1 = _Fixture.Build<Question>()
-                .Without(o => o.Id)
-                .Create();
-
-            var question2 = _Fixture.Build<Question>()
-                .Without(o => o.Id)
-                .Create();
-
-            await _QuestionRepository.InsertQuestion(question1);
-            await _QuestionRepository.InsertQuestion(question2);
-
             var interview = await _InterviewRepository.InsertInterview();
-            interview.Questions = new List<Question> { question1, question2 };
+            interview.Questions = await CreateQuestions();
             await _InterviewRepository.InsertInterviewQuestions(
                 interview.Id, 
                 interview.Questions.Select(q => q.Id));
@@ -60,7 +61,7 @@ namespace Interviewd.Tests.Api
 
             for (var i = 0; i < 3; i++)
             {
-                questions.Add(await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>()));
+                questions.Add(await CreateQuestion());
             }
 
             return questions;
@@ -72,7 +73,7 @@ namespace Interviewd.Tests.Api
 
             for (int i = 0; i < 3; i++)
             {
-                dbCandidates.Add(await _CandidateRepository.InsertCandidate(_Fixture.Create<Candidate>()));
+                dbCandidates.Add(await CreateCandidate());
             }
 
             return dbCandidates;
