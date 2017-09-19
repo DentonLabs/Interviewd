@@ -81,5 +81,11 @@ namespace Interviewd.Tests.Api
             return await _HttpClient.GetAsync(
                 ApiRoutes.CandidatesRoute);
         }
+
+        public async Task<HttpResponseMessage> GetCandidate(string id)
+        {
+            return await _HttpClient.GetAsync(
+                $"{ApiRoutes.CandidatesRoute}/{id}");
+        }
     }
 }

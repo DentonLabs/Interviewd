@@ -52,12 +52,9 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetCandidate()
         {
-            var candidateRepository = ServiceProvider.GetService<ICandidateRepository>();
-            var dbCandidate = Fixture.Create<Candidate>();
-            dbCandidate = await candidateRepository.InsertCandidate(dbCandidate);
+            var dbCandidate = await Arranger.CreateCandidate();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.CandidatesRoute}/{dbCandidate.Id}");
+            var httpResponseMessage = await ApiClient.GetCandidate(dbCandidate.Id);
 
             var responseCandidateDto = await httpResponseMessage
                 .EnsureSuccessStatusCode()
