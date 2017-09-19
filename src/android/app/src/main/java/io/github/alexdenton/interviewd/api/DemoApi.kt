@@ -4,9 +4,11 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.github.alexdenton.interviewd.api.dto.CandidateDto
+import io.github.alexdenton.interviewd.api.dto.InterviewDto
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import io.github.alexdenton.interviewd.api.dto.TemplateDto
 import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.interview.InterviewStatus
 import io.reactivex.Single
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -19,6 +21,7 @@ class DemoApi(val context: Context) : InterviewdApiService {
     val questionsFilename = "questions"
     val templatesFilename = "templates"
     val candidatesFilename = "candidates"
+    val interviewsFilename = "interviews"
 
     init {
         if (!context.fileList().contains(questionsFilename))
@@ -29,6 +32,9 @@ class DemoApi(val context: Context) : InterviewdApiService {
 
         if (!context.fileList().contains(candidatesFilename))
             context.openFileOutput(candidatesFilename, Context.MODE_PRIVATE).close()
+
+        if (!context.fileList().contains(interviewsFilename))
+            context.openFileOutput(interviewsFilename, Context.MODE_PRIVATE).close()
     }
 
 
@@ -153,5 +159,71 @@ class DemoApi(val context: Context) : InterviewdApiService {
         writer.close()
 
         return Single.just(toAdd)
+    }
+
+    override fun getInterviews(): Single<List<InterviewDto>> {
+        val reader = context.openFileInput(interviewsFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") return Single.error(Throwable("No Interviews available"))
+
+        var list: List<InterviewDto> = gson.fromJson(json, object : TypeToken<List<InterviewDto>>() {}.type)
+
+        return Single.just(list)
+    }
+
+    override fun getInterview(id: Int): Single<InterviewDto> {
+        val reader = InputStreamReader(context.openFileInput(interviewsFilename))
+        val json = reader.readText()
+        reader.close()
+
+        if(json == "") return Single.error(Throwable("No Interviews available"))
+
+        val list: List<InterviewDto> = gson.fromJson(json, object : TypeToken<List<InterviewDto>>() {}.type)
+
+        return Single.just(list.find { interview -> interview.id == id })
+    }
+
+    override fun createInterview(interview: InterviewDto): Single<InterviewDto> {
+        val reader = context.openFileInput(interviewsFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<InterviewDto> = gson.fromJson(json, object : TypeToken<List<InterviewDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        val toAdd = InterviewDto(mutableList.size + 1, interview.candidate, interview.name, interview.questions, interview.status)
+        mutableList.add(toAdd)
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(interviewsFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(toAdd)
+    }
+
+    override fun markInterviewAsComplete(id: Int): Single<InterviewDto> {
+        val reader = context.openFileInput(interviewsFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<InterviewDto> = gson.fromJson(json, object  : TypeToken<List<InterviewDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        mutableList.map { if (it.id == id) it.status = InterviewStatus.COMPLETE}
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(interviewsFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(list.single { it.id == id })
+
     }
 }
