@@ -28,10 +28,7 @@ namespace Interviewd.Tests.Api
         {
             var dbInterviewTemplate = await Arranger.CreateInterviewTemplate();
 
-            var requestInterview = 
-                Fixture.Build<InterviewDto>()
-                    .Without(o => o.Id)
-                    .Create();
+            var requestInterview = Stubber.StubInterviewDto();
 
             var httpResponseMessage = await ApiClient.PostInterview(requestInterview, dbInterviewTemplate.Id);
 
