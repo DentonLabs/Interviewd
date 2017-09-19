@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Jmansar.SemanticComparisonExtensions;
@@ -51,6 +52,19 @@ namespace Interviewd.Tests.Api
                 .ToLikeness(true)
                 .WithCollectionSequenceEquals(o => o.QuestionIds)
                 .ShouldEqual(dbInterviewTemplateDto);
+        }
+
+        [Test]
+        public async Task ShouldBeAbleToGetAllInterviewTemplates()
+        {
+            var dbInterviewTemplates = await Arranger.CreateInterviewTemplates();
+
+            var responseInteviewTemplateDtos = await ApiClient.GetInterviewTemplates()
+                .AwaitGetSuccessfulResponse<IEnumerable<InterviewTemplateDto>>();
+
+            responseInteviewTemplateDtos
+                .CompareCollectionsUsingLikeness(
+                    Mapper.Map<IEnumerable<InterviewTemplateDto>>(dbInterviewTemplates));
         }
     }
 }

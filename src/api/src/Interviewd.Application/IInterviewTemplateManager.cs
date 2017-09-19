@@ -8,7 +8,7 @@ namespace Interviewd.Application
     {
         Task<InterviewTemplateDto> CreateInterviewTemplate(InterviewTemplateDto interviewTemplateDto);
 
-        Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates()
+        Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates();
 
         Task<InterviewTemplateDto> GetInterviewTemplate(string interviewTemplateId);
     }
