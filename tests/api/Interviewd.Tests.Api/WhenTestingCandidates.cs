@@ -36,14 +36,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAllCandidates()
         {
-            var candidateRepository = ServiceProvider.GetService<ICandidateRepository>();
-
-            var dbCandidates = new List<Candidate>
-            {
-                await candidateRepository.InsertCandidate(Fixture.Create<Candidate>()),
-                await candidateRepository.InsertCandidate(Fixture.Create<Candidate>()),
-                await candidateRepository.InsertCandidate(Fixture.Create<Candidate>()),
-            };
+            var dbCandidates = await Arranger.CreateCandidates();
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 ApiRoutes.CandidatesRoute);

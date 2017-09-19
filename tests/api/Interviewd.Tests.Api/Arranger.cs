@@ -15,16 +15,20 @@ namespace Interviewd.Tests.Api
 
         private readonly IInterviewTemplateRepository _InterviewTemplateRepository;
 
+        private readonly ICandidateRepository _CandidateRepository;
+
         private readonly IFixture _Fixture;
 
         public Arranger(
             IInterviewRepository interviewRepository,
             IQuestionRepository questionRepository,
-            IInterviewTemplateRepository interviewTemplateRepository)
+            IInterviewTemplateRepository interviewTemplateRepository,
+            ICandidateRepository candidateRepository)
         {
             _InterviewRepository = interviewRepository;
             _QuestionRepository = questionRepository;
             _InterviewTemplateRepository = interviewTemplateRepository;
+            _CandidateRepository = candidateRepository;
             _Fixture = new Fixture();
         }
 
@@ -60,6 +64,18 @@ namespace Interviewd.Tests.Api
             }
 
             return questions;
+        }
+
+        public async Task<IEnumerable<Candidate>> CreateCandidates()
+        {
+            var dbCandidates = new List<Candidate>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                dbCandidates.Add(await _CandidateRepository.InsertCandidate(_Fixture.Create<Candidate>()));
+            }
+
+            return dbCandidates;
         }
 
         public async Task<Question> CreateQuestion()
