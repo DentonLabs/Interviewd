@@ -57,14 +57,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAllQuestions()
         {
-            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
-
-            var dbQuestions = new List<Question>
-            {
-                await questionRepository.InsertQuestion(Fixture.Create<Question>()),
-                await questionRepository.InsertQuestion(Fixture.Create<Question>()),
-                await questionRepository.InsertQuestion(Fixture.Create<Question>())
-            };
+            var dbQuestions = Arranger.CreateQuestions();
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}");

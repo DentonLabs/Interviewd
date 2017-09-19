@@ -50,6 +50,18 @@ namespace Interviewd.Tests.Api
             return interview;
         }
 
+        public async Task<IEnumerable<Question>> CreateQuestions()
+        {
+            var questions = new List<Question>();
+
+            for (var i = 0; i < 3; i++)
+            {
+                questions.Add(await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>()));
+            }
+
+            return questions;
+        }
+
         public async Task<InterviewTemplate> CreateInterviewTemplate()
         {
             var interviewTemplate =
