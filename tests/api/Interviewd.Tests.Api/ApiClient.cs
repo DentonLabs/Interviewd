@@ -47,5 +47,12 @@ namespace Interviewd.Tests.Api
         {
             return await _HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{id}");
         }
+
+        public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto)
+        {
+            return await _HttpClient.PostAsync(
+                ApiRoutes.InterviewsRoute,
+                interviewDto.ToStringContent());
+        }
     }
 }

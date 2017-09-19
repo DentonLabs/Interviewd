@@ -17,9 +17,7 @@ namespace Interviewd.Tests.Api
                     .Without(o => o.Id)
                     .Create();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.InterviewsRoute,
-                requestInterview.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostInterview(requestInterview);
 
             var responseInterview = await httpResponseMessage
                 .EnsureSuccessStatusCode()
