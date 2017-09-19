@@ -40,18 +40,17 @@ namespace Interviewd.Tests.Api
         {
             var dbInterview = await Arranger.CreateInterview();
 
-            var httpResponseMessage = await ApiClient.GetInterview(dbInterview.Id);
+            var responseInterviewDto = await ApiClient.GetInterview(dbInterview.Id) 
+                .AwaitGetSuccessfulResponse<InterviewDto>();
 
-            var responseInterviewDto = (await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<InterviewDto>())
+            var dbInterviewDto = Mapper.Map<InterviewDto>(dbInterview);
+
+            responseInterviewDto
+                .ToLikeness()
                 .WithCollectionInnerLikeness(
                     o => o.Questions,
-                    o => o.Questions);
-
-            var test = Mapper.Map<InterviewDto>(dbInterview);
-
-            responseInterviewDto.ShouldEqual(test);
+                    o => o.Questions)
+                .ShouldEqual(dbInterviewDto);
         }
     }
 }
