@@ -22,9 +22,7 @@ namespace Interviewd.Tests.Api
                 .Without(o => o.Id)
                 .Create();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.CandidatesRoute,
-                requestCandidate.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostCandidate(requestCandidate);
 
             var responseCandidate = await httpResponseMessage
                 .EnsureSuccessStatusCode()
