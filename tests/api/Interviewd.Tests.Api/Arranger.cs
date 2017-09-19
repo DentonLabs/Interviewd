@@ -77,10 +77,7 @@ namespace Interviewd.Tests.Api
 
             interviewTemplate = await _InterviewTemplateRepository.InsertInterviewTemplate(interviewTemplate);
 
-            var question1 = await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
-            var question2 = await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
-
-            interviewTemplate.Questions = new List<Question> { question1, question2 };
+            interviewTemplate.Questions = await CreateQuestions();
 
             await _InterviewTemplateRepository.InsertInterviewTemplateQuestions(
                 interviewTemplate.Id,

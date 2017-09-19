@@ -61,24 +61,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAnInterviewTemplate()
         {
-            var interviewTemplateRepository = ServiceProvider.GetService<IInterviewTemplateRepository>();
-
-            var dbInterviewTemplate = await interviewTemplateRepository.InsertInterviewTemplate(
-                Fixture.Build<InterviewTemplate>()
-                    .Without(o => o.Id)
-                    .Without(o => o.Questions)
-                    .Create());
-
-            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
-
-            var dbQuestion1 = await questionRepository.InsertQuestion(Fixture.Create<Question>());
-            var dbQuestion2 = await questionRepository.InsertQuestion(Fixture.Create<Question>());
-
-            await interviewTemplateRepository.InsertInterviewTemplateQuestions(
-                dbInterviewTemplate.Id,
-                new List<string> { dbQuestion1.Id, dbQuestion2.Id });
-
-            dbInterviewTemplate.Questions = new List<Question> { dbQuestion1, dbQuestion2 };
+            var dbInterviewTemplate = await Arranger.CreateInterviewTemplate();
 
             var responseInterviewTemplate = 
                 (await (await HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{dbInterviewTemplate.Id}"))
