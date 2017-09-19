@@ -13,19 +13,15 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateAnInterviewTemplateWithoutQuestions()
         {
-            var requestInterviewTemplate = 
-                Fixture.Build<InterviewTemplateDto>()
-                    .Without(o => o.QuestionIds)
-                    .Without(o => o.Id)
-                    .Create();
+            var requestInterviewTemplate = Stubber.StubInterviewTemplateDto();
 
             var httpResponseMessage = await ApiClient.PostInterviewTemplate(requestInterviewTemplate);
 
-            var apiInterviewTemplate = await httpResponseMessage
+            var responseInterviewTemplate = await httpResponseMessage
                 .EnsureSuccessStatusCode()
                 .GetLikenessContent<InterviewTemplateDto>();
 
-            Assert.AreEqual(apiInterviewTemplate, requestInterviewTemplate);
+            responseInterviewTemplate.ShouldEqual(requestInterviewTemplate);
         }
 
         [Test]
