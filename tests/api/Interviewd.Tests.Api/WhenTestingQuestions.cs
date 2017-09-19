@@ -5,7 +5,6 @@ using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Jmansar.SemanticComparisonExtensions;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 using Ploeh.SemanticComparison.Fluent;
 
 namespace Interviewd.Tests.Api
@@ -36,13 +35,9 @@ namespace Interviewd.Tests.Api
 
             var responseQuestionDto = await httpResponseMessage
                 .EnsureSuccessStatusCode()
-                .GetContent<QuestionDto>();
+                .GetLikenessContent<QuestionDto>();
 
-            var responseQuestion = Mapper.Map<Question>(responseQuestionDto)
-                .AsSource()
-                .OfLikeness<Question>();
-
-            responseQuestion.ShouldEqual(dbQuestion);
+            responseQuestionDto.ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
         }
 
         [Test]
