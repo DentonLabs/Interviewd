@@ -30,11 +30,8 @@ namespace Interviewd.Tests.Api
         {
             var dbCandidates = await Arranger.CreateCandidates();
 
-            var httpResponseMessage = await ApiClient.GetAllCandidates();
-
-            var responseCandidateDtos = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetContent<IEnumerable<CandidateDto>>();
+            var responseCandidateDtos = await ApiClient.GetAllCandidates()
+                .AwaitGetSuccessfulResponse<CandidateDto>();
 
             var responseCandidates = Mapper.Map<IEnumerable<Candidate>>(responseCandidateDtos);
 
@@ -51,8 +48,7 @@ namespace Interviewd.Tests.Api
             var responseCandidateDto = await ApiClient.GetCandidate(dbCandidate.Id)
                 .AwaitGetSuccessfulResponse<CandidateDto>();
 
-            responseCandidateDto.ToLikeness()
-                .ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
+            responseCandidateDto.ToLikeness().ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
         }
     }
 }
