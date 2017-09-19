@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Dapper;
 using Interviewd.Configuration;
 using Interviewd.Domain.Model;
@@ -16,9 +17,32 @@ namespace Interviewd.Infrastructure
     {
         private readonly AppSettings _AppSettings;
 
-        public InterviewRepository(IOptions<AppSettings> appSettings)
+        private readonly IMapper _Mapper;
+
+        public InterviewRepository(
+            IOptions<AppSettings> appSettings,
+            IMapper mapper)
         {
             _AppSettings = appSettings.Value;
+            _Mapper = mapper;
+        }
+
+        public async Task<IEnumerable<Question>> GetInterviewQuestions(string id)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>
+                    (
+                        StoredProcedures.GetInterviewQuestions,
+                        new
+                        {
+                            Id = id
+                        },
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                return _Mapper.Map<IEnumerable<Question>>(questionSqlModels);
+            }
         }
 
         public async Task<Interview> InsertInterview()

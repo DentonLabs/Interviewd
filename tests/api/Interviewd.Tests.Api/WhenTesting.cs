@@ -35,6 +35,7 @@ namespace Interviewd.Tests.Api
                 .AddOptions()
                 .Configure<AppSettings>(configuration)
                 .AddSingleton<IQuestionRepository, QuestionRepository>()
+                .AddSingleton<IInterviewRepository, InterviewRepository>()
                 .AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>()
                 .AddSingleton<ICandidateRepository, CandidateRepository>()
                 .AddSingleton<IMapper>(new Mapper(new MapperConfiguration(c => c.AddProfile(new MappingProfile()))))

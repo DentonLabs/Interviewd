@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Interviewd.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
@@ -15,9 +16,17 @@ namespace Interviewd.Controllers
             _InterviewManager = interiewManager;
         }
 
+        [HttpPost]
         public async Task<InterviewDto> PostInterview([FromQuery]string templateId)
         {
             return await _InterviewManager.CreateInterview(templateId);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<InterviewDto> GetInterview([FromRoute] string id)
+        {
+            return await _InterviewManager.GetInterview(id);
         }
     }
 }

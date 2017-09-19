@@ -22,6 +22,8 @@
 
         public const string GetCandidate = "Get_Candidate";
 
+        public const string GetInterviewQuestions = "Get_InterviewQuestions";
+
         public const string InsertInterview = "Insert_Interview";
 
         public const string InsertInterviewQuestions = "Insert_InterviewQuestions";

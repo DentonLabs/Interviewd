@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Interviewd.Domain.Model;
 using Interviewd.Infrastructure.Abstraction;
 
 namespace Interviewd.Domain
@@ -23,6 +24,19 @@ namespace Interviewd.Domain
             _Mapper = mapper;
             _InterviewRepository = interviewRepository;
             _InterviewTemplateRepository = interviewTemplateRepository;
+        }
+
+        public async Task<InterviewDto> GetInterview(string id)
+        {
+            var interviewQuestions = await _InterviewRepository.GetInterviewQuestions(id);
+
+            var interview = new Interview
+            {
+                Id = id,
+                Questions = interviewQuestions
+            };
+
+            return _Mapper.Map<InterviewDto>(interview);
         }
 
         public async Task<InterviewDto> CreateInterview(string templateId = null)

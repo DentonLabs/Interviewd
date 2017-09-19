@@ -94,18 +94,24 @@ namespace Interviewd.Tests.Api
             await questionRepository.InsertQuestion(question2);
 
             var dbInterview = await interviewRepository.InsertInterview();
+            dbInterview.Questions = new List<Question> { question1, question2 };
             await interviewRepository.InsertInterviewQuestions(
                 dbInterview.Id, 
-                new List<string> { question1.Id, question2.Id });
+                dbInterview.Questions.Select(q => q.Id));
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.InterviewsRoute}/{dbInterview.Id}");
 
-            var responseInterviewDto = await httpResponseMessage
+            var responseInterviewDto = (await httpResponseMessage
                 .EnsureSuccessStatusCode()
-                .GetLikenessContent<InterviewDto>();
+                .GetLikenessContent<InterviewDto>())
+                .WithCollectionInnerLikeness(
+                    o => o.Questions,
+                    o => o.Questions);
 
-            responseInterviewDto.ShouldEqual(Mapper.Map<InterviewDto>(dbInterview));
+            var test = Mapper.Map<InterviewDto>(dbInterview);
+
+            responseInterviewDto.ShouldEqual(test);
         }
     }
 }
