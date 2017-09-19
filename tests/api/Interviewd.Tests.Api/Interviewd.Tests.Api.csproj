@@ -229,7 +229,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
-    <Compile Include="Sheller.cs" />
+    <Compile Include="Stubber.cs" />
     <Compile Include="WhenTestingCandidates.cs" />
     <Compile Include="WhenTestingInterviews.cs" />
     <Compile Include="WhenTestingInterviewTemplates.cs" />

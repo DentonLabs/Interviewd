@@ -18,9 +18,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToCreateACandidate()
         {
-            var requestCandidate = Fixture.Build<CandidateDto>()
-                .Without(o => o.Id)
-                .Create();
+            var requestCandidate = Stubber.StubCandidateDto();
 
             var httpResponseMessage = await ApiClient.PostCandidate(requestCandidate);
 

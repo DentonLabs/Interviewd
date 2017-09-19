@@ -25,6 +25,8 @@ namespace Interviewd.Tests.Api
 
         protected Arranger Arranger;
 
+        protected Stubber Stubber;
+
         protected ApiClient ApiClient;
 
         [OneTimeSetUp]
@@ -44,6 +46,7 @@ namespace Interviewd.Tests.Api
                 .AddSingleton<ICandidateRepository, CandidateRepository>()
                 .AddSingleton<IMapper>(new Mapper(new MapperConfiguration(c => c.AddProfile(new MappingProfile()))))
                 .AddSingleton<Arranger, Arranger>()
+                .AddSingleton<Stubber, Stubber>()
                 .AddSingleton<ApiClient, ApiClient>()
                 .BuildServiceProvider();
 
@@ -53,6 +56,7 @@ namespace Interviewd.Tests.Api
             HttpClient.BaseAddress = new Uri(appSettings.ApiUri);
 
             Arranger = ServiceProvider.GetService<Arranger>();
+            Stubber = ServiceProvider.GetService<Stubber>();
             ApiClient = ServiceProvider.GetService<ApiClient>();
 
             Fixture = new Fixture();
