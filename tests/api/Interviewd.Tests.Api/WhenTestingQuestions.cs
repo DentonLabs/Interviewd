@@ -36,9 +36,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAQuestion()
         {
-            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
-
-            var dbQuestion = await questionRepository.InsertQuestion(Fixture.Create<Question>());
+            var dbQuestion = await Arranger.CreateQuestion();
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}/{dbQuestion.Id}");
@@ -57,7 +55,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAllQuestions()
         {
-            var dbQuestions = Arranger.CreateQuestions();
+            var dbQuestions = await Arranger.CreateQuestions();
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.QuestionsRoute}");

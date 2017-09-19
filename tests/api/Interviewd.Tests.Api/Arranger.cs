@@ -62,6 +62,11 @@ namespace Interviewd.Tests.Api
             return questions;
         }
 
+        public async Task<Question> CreateQuestion()
+        {
+            return await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
+        }
+
         public async Task<InterviewTemplate> CreateInterviewTemplate()
         {
             var interviewTemplate =
