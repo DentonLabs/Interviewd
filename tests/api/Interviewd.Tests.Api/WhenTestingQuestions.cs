@@ -22,9 +22,7 @@ namespace Interviewd.Tests.Api
         {
             var requestQuestion = Fixture.Create<QuestionDto>();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.QuestionsRoute,
-                requestQuestion.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostQuestion(requestQuestion);
 
             var apiQuestion = await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -38,8 +36,7 @@ namespace Interviewd.Tests.Api
         {
             var dbQuestion = await Arranger.CreateQuestion();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.QuestionsRoute}/{dbQuestion.Id}");
+            var httpResponseMessage = await ApiClient.GetQuestion(dbQuestion.Id);
 
             var responseQuestionDto = await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -57,8 +54,7 @@ namespace Interviewd.Tests.Api
         {
             var dbQuestions = await Arranger.CreateQuestions();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.QuestionsRoute}");
+            var httpResponseMessage = await ApiClient.GetAllQuestions();
 
             var responseQuestionDtos = await httpResponseMessage
                 .EnsureSuccessStatusCode()

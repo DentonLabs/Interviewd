@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
-using Interviewd.Domain.Model;
-using Interviewd.Infrastructure.Abstraction;
 using Jmansar.SemanticComparisonExtensions;
-using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
 

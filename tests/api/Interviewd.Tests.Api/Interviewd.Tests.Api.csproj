@@ -220,6 +220,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiClient.cs" />
     <Compile Include="ApiRoutes.cs" />
     <Compile Include="Arranger.cs" />
     <Compile Include="DbClient.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SemanticComparisonExtensions.cs" />
+    <Compile Include="Sheller.cs" />
     <Compile Include="WhenTestingCandidates.cs" />
     <Compile Include="WhenTestingInterviews.cs" />
     <Compile Include="WhenTestingInterviewTemplates.cs" />
