@@ -49,17 +49,22 @@ namespace Interviewd.Tests.Api
             return await _HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{id}");
         }
 
-        public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto, string interviewTemplateId = null)
+        public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto, string interviewTemplateId = null, string candidateId = null)
         {
-            var route = new StringBuilder(ApiRoutes.InterviewsRoute);
+            var queryStringBuilder = new QueryStringBuilder();
 
             if (interviewTemplateId != null)
             {
-                route.Append($"?templateId={interviewTemplateId}");
+                queryStringBuilder.AddParameter("templateId", interviewTemplateId);
+            }
+
+            if (candidateId != null)
+            {
+                queryStringBuilder.AddParameter("candidateId", candidateId);
             }
 
             return await _HttpClient.PostAsync(
-                route.ToString(),
+                queryStringBuilder.ToString(),
                 interviewDto.ToStringContent());
         }
 

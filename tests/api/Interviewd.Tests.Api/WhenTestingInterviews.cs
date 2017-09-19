@@ -37,6 +37,21 @@ namespace Interviewd.Tests.Api
         }
 
         [Test]
+        public async Task ShouldBeAbleToCreateInterviewWithCandidate()
+        {
+            var requestInterviewDto = Stubber.StubInterviewDto();
+
+            var dbCandidate = await Arranger.CreateCandidate();
+
+            requestInterviewDto.Candidate = Mapper.Map<CandidateDto>(dbCandidate);
+
+            var responseInterviewDto = await ApiClient.PostInterview(requestInterviewDto, candidateId: dbCandidate.Id)
+                .AwaitGetSuccessfulResponse<InterviewDto>();
+
+            responseInterviewDto.ToLikeness().ShouldEqual(requestInterviewDto);
+        }
+
+        [Test]
         public async Task ShouldBeAbleToGetAnInterview()
         {
             var dbInterview = await Arranger.CreateInterview();

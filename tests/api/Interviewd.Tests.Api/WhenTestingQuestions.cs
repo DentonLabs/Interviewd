@@ -5,7 +5,6 @@ using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Jmansar.SemanticComparisonExtensions;
 using NUnit.Framework;
-using Ploeh.SemanticComparison.Fluent;
 
 namespace Interviewd.Tests.Api
 {
