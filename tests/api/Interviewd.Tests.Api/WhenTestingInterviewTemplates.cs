@@ -19,9 +19,7 @@ namespace Interviewd.Tests.Api
                     .Without(o => o.Id)
                     .Create();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.InterviewTemplatesRoute,
-                requestInterviewTemplate.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostInterviewTemplate(requestInterviewTemplate);
 
             var apiInterviewTemplate = await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -42,9 +40,7 @@ namespace Interviewd.Tests.Api
             var questions = await Arranger.CreateQuestions();
             requestInterviewTemplate.QuestionIds = questions.Select(q => q.Id);
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.InterviewTemplatesRoute,
-                requestInterviewTemplate.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostInterviewTemplate(requestInterviewTemplate);
 
             var apiInterviewTemplate = (await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -58,6 +54,8 @@ namespace Interviewd.Tests.Api
         public async Task ShouldBeAbleToGetAnInterviewTemplate()
         {
             var dbInterviewTemplate = await Arranger.CreateInterviewTemplate();
+
+            var 
 
             var responseInterviewTemplate = 
                 (await (await HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{dbInterviewTemplate.Id}"))
