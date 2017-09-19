@@ -16,13 +16,10 @@ namespace Interviewd.Tests.Api
         {
             var requestCandidate = Stubber.StubCandidateDto();
 
-            var httpResponseMessage = await ApiClient.PostCandidate(requestCandidate);
+            var responseCandidate = await ApiClient.PostCandidate(requestCandidate)
+                .AwaitGetSuccessfulResponse<CandidateDto>();
 
-            var responseCandidate = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<CandidateDto>();
-
-            responseCandidate.ShouldEqual(requestCandidate);
+            responseCandidate.ToLikeness().ShouldEqual(requestCandidate);
         }
 
         [Test]
