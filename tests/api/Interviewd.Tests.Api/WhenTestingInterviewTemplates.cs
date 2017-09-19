@@ -48,7 +48,7 @@ namespace Interviewd.Tests.Api
             var dbInterviewTemplateDto = Mapper.Map<InterviewTemplateDto>(dbInterviewTemplate);
 
             responseInterviewTemplate
-                .ToLikeness()
+                .ToLikeness(true)
                 .WithCollectionSequenceEquals(o => o.QuestionIds)
                 .ShouldEqual(dbInterviewTemplateDto);
         }

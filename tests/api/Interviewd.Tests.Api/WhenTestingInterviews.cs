@@ -47,7 +47,7 @@ namespace Interviewd.Tests.Api
             var dbInterviewDto = Mapper.Map<InterviewDto>(dbInterview);
 
             responseInterviewDto
-                .ToLikeness()
+                .ToLikeness(true)
                 .WithCollectionInnerLikeness(
                     o => o.Questions,
                     o => o.Questions)

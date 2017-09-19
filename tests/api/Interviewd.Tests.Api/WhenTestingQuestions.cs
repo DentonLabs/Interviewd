@@ -31,7 +31,7 @@ namespace Interviewd.Tests.Api
             var responseQuestionDto = await ApiClient.GetQuestion(dbQuestion.Id)
                 .AwaitGetSuccessfulResponse<QuestionDto>();
 
-            responseQuestionDto.ToLikeness().ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
+            responseQuestionDto.ToLikeness(true).ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
         }
 
         [Test]
