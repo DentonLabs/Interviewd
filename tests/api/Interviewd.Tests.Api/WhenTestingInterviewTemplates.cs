@@ -14,13 +14,10 @@ namespace Interviewd.Tests.Api
         {
             var requestInterviewTemplate = Stubber.StubInterviewTemplateDto();
 
-            var httpResponseMessage = await ApiClient.PostInterviewTemplate(requestInterviewTemplate);
+            var responseInterviewTemplate = await ApiClient.PostInterviewTemplate(requestInterviewTemplate)
+                .AwaitGetSuccessfulResponse<InterviewTemplateDto>();
 
-            var responseInterviewTemplate = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<InterviewTemplateDto>();
-
-            responseInterviewTemplate.ShouldEqual(requestInterviewTemplate);
+            responseInterviewTemplate.ToLikeness().ShouldEqual(requestInterviewTemplate);
         }
 
         [Test]
@@ -31,14 +28,13 @@ namespace Interviewd.Tests.Api
             var questions = await Arranger.CreateQuestions();
             requestInterviewTemplate.QuestionIds = questions.Select(q => q.Id);
 
-            var httpResponseMessage = await ApiClient.PostInterviewTemplate(requestInterviewTemplate);
+            var responseInterviewTemplate = await ApiClient.PostInterviewTemplate(requestInterviewTemplate)
+                .AwaitGetSuccessfulResponse<InterviewTemplateDto>();
 
-            var responseInterviewTemplate = (await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<InterviewTemplateDto>())
-                .WithCollectionSequenceEquals(o => o.QuestionIds);
-
-            responseInterviewTemplate.ShouldEqual(requestInterviewTemplate);
+            responseInterviewTemplate
+                .ToLikeness()
+                .WithCollectionSequenceEquals(o => o.QuestionIds)
+                .ShouldEqual(requestInterviewTemplate);
         }
 
         [Test]
@@ -46,17 +42,15 @@ namespace Interviewd.Tests.Api
         {
             var dbInterviewTemplate = await Arranger.CreateInterviewTemplate();
 
-            var httpResponseMessage = await ApiClient.GetInterviewTemplate(dbInterviewTemplate.Id);
-
-            var responseInterviewTemplate = 
-                (await httpResponseMessage
-                    .EnsureSuccessStatusCode()
-                    .GetLikenessContent<InterviewTemplateDto>())
-                    .WithCollectionSequenceEquals(o => o.QuestionIds);
+            var responseInterviewTemplate = await ApiClient.GetInterviewTemplate(dbInterviewTemplate.Id)
+                .AwaitGetSuccessfulResponse<InterviewTemplateDto>();
 
             var dbInterviewTemplateDto = Mapper.Map<InterviewTemplateDto>(dbInterviewTemplate);
 
-            responseInterviewTemplate.ShouldEqual(dbInterviewTemplateDto);
+            responseInterviewTemplate
+                .ToLikeness()
+                .WithCollectionSequenceEquals(o => o.QuestionIds)
+                .ShouldEqual(dbInterviewTemplateDto);
         }
     }
 }
