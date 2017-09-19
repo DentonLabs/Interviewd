@@ -39,6 +39,9 @@ namespace Interviewd.Mapping
 
             CreateMap<Interview, InterviewDto>()
                 .ReverseMap();
+
+            CreateMap<InterviewSqlModel, Interview>()
+                .ReverseMap();
         }
     }
 }

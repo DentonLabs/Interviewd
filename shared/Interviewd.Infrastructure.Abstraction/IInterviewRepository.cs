@@ -6,6 +6,8 @@ namespace Interviewd.Infrastructure.Abstraction
 {
     public interface IInterviewRepository
     {
+        Task<IEnumerable<Interview>> GetInterviews();
+
         Task<IEnumerable<Question>> GetInterviewQuestions(string id);
 
         Task<Interview> InsertInterview();

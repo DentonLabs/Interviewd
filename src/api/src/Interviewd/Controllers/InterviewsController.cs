@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
@@ -27,6 +28,12 @@ namespace Interviewd.Controllers
         public async Task<InterviewDto> GetInterview([FromRoute] string id)
         {
             return await _InterviewManager.GetInterview(id);
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<InterviewDto>> GetInterviews()
+        {
+            return await _InterviewManager.GetInterviews();
         }
     }
 }

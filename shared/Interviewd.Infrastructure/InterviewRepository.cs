@@ -27,19 +27,29 @@ namespace Interviewd.Infrastructure
             _Mapper = mapper;
         }
 
+        public async Task<IEnumerable<Interview>> GetInterviews()
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var interviewSqlModels = await connection.QueryAsync<InterviewSqlModel>(
+                    StoredProcedures.GetInterviews,
+                    commandType: CommandType.StoredProcedure);
+
+                return _Mapper.Map<IEnumerable<Interview>>(interviewSqlModels);
+            }
+        }
+
         public async Task<IEnumerable<Question>> GetInterviewQuestions(string id)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
-                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>
-                    (
-                        StoredProcedures.GetInterviewQuestions,
-                        new
-                        {
-                            Id = id
-                        },
-                        commandType: CommandType.StoredProcedure
-                    );
+                var questionSqlModels = await connection.QueryAsync<QuestionSqlModel>(
+                    StoredProcedures.GetInterviewQuestions,
+                    new
+                    {
+                        Id = id
+                    },
+                    commandType: CommandType.StoredProcedure);
 
                 return _Mapper.Map<IEnumerable<Question>>(questionSqlModels);
             }

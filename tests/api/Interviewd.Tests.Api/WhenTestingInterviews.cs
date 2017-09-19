@@ -64,7 +64,9 @@ namespace Interviewd.Tests.Api
 
             responseInterviewDtos = responseInterviewDtos.Where(i => dbInterviews.Any(di => di.Id == i.Id));
 
-            responseInterviewDtos.CompareCollectionsUsingLikeness(Mapper.Map<IEnumerable<InterviewDto>>(dbInterviews));
+            Assert.IsTrue(responseInterviewDtos.CompareCollectionsUsingLikeness(
+                Mapper.Map<IEnumerable<InterviewDto>>(dbInterviews),
+                i => i.Without(o => o.Questions)));
         }
     }
 }
