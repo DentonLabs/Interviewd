@@ -14,11 +14,8 @@ namespace Interviewd.Tests.Api
         {
             var requestInterview = Stubber.StubInterviewDto();
 
-            var httpResponseMessage = await ApiClient.PostInterview(requestInterview);
-
-            var responseInterview = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetContent<InterviewDto>();
+            var responseInterview = await ApiClient.PostInterview(requestInterview)
+                .AwaitGetSuccessfulResponse<InterviewDto>();
 
             Assert.IsNotNull(responseInterview.Id);
         }
