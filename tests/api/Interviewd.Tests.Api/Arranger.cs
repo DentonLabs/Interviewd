@@ -78,6 +78,12 @@ namespace Interviewd.Tests.Api
             return dbCandidates;
         }
 
+        public async Task<Candidate> CreateCandidate()
+        {
+            var candidate = _Fixture.Create<Candidate>();
+            return await _CandidateRepository.InsertCandidate(candidate);
+        }
+
         public async Task<Question> CreateQuestion()
         {
             return await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
