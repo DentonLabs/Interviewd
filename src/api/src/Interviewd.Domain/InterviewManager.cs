@@ -52,13 +52,15 @@ namespace Interviewd.Domain
 
         public async Task<InterviewDto> CreateInterview(string templateId = null, string candidateId = null)
         {
-            var createdInterview = await _InterviewRepository.InsertInterview();
+            Candidate candidate = null;
 
             if (!string.IsNullOrWhiteSpace(candidateId))
             {
-                var candidate = await _CandidateRepository.GetCandidate(candidateId);
-                createdInterview.Candidate = candidate;
+                candidate = await _CandidateRepository.GetCandidate(candidateId);
             }
+
+            var createdInterview = await _InterviewRepository.InsertInterview(candidate?.Id);
+            createdInterview.Candidate = candidate;
 
             if (!string.IsNullOrWhiteSpace(templateId))
             {

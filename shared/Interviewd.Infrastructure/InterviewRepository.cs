@@ -55,11 +55,15 @@ namespace Interviewd.Infrastructure
             }
         }
 
-        public async Task<Interview> InsertInterview()
+        public async Task<Interview> InsertInterview(string candidateId)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
             {
-                var parameters = new DynamicParameters();
+                var parameters = new DynamicParameters(
+                    new
+                    {
+                        CandidateId = candidateId
+                    });
 
                 parameters.Add("Id", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
