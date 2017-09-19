@@ -55,10 +55,10 @@ namespace Interviewd.Tests.Api
         {
             var dbInterviewTemplate = await Arranger.CreateInterviewTemplate();
 
-            var 
+            var httpResponseMessage = await ApiClient.GetInterviewTemplate(dbInterviewTemplate.Id);
 
             var responseInterviewTemplate = 
-                (await (await HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{dbInterviewTemplate.Id}"))
+                (await httpResponseMessage
                     .EnsureSuccessStatusCode()
                     .GetLikenessContent<InterviewTemplateDto>())
                     .WithCollectionSequenceEquals(o => o.QuestionIds);
