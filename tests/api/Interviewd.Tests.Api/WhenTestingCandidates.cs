@@ -28,7 +28,7 @@ namespace Interviewd.Tests.Api
             var dbCandidates = await Arranger.CreateCandidates();
 
             var responseCandidateDtos = await ApiClient.GetAllCandidates()
-                .AwaitGetSuccessfulResponse<CandidateDto>();
+                .AwaitGetSuccessfulResponse<IEnumerable<CandidateDto>>();
 
             var responseCandidates = Mapper.Map<IEnumerable<Candidate>>(responseCandidateDtos);
 

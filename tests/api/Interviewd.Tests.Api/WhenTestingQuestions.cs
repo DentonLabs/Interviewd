@@ -40,7 +40,7 @@ namespace Interviewd.Tests.Api
             var dbQuestions = await Arranger.CreateQuestions();
 
             var responseQuestionDtos = await ApiClient.GetAllQuestions()
-                .AwaitGetSuccessfulResponse<QuestionDto>();
+                .AwaitGetSuccessfulResponse<IEnumerable<QuestionDto>>();
 
             var responseQuestions = Mapper.Map<IEnumerable<Question>>(responseQuestionDtos);
 

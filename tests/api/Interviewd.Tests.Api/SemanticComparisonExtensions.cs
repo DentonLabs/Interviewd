@@ -23,7 +23,7 @@ namespace Interviewd.Tests.Api
 
             if (!compareId)
             {
-                likeness.Without(o => o.Id);
+                likeness = likeness.Without(o => o.Id);
             }
 
             return likeness;
