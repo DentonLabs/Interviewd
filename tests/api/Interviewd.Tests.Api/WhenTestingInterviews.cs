@@ -27,11 +27,8 @@ namespace Interviewd.Tests.Api
 
             var requestInterview = Stubber.StubInterviewDto();
 
-            var httpResponseMessage = await ApiClient.PostInterview(requestInterview, dbInterviewTemplate.Id);
-
-            var responseInterview = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetContent<InterviewDto>();
+            var responseInterview = await ApiClient.PostInterview(requestInterview, dbInterviewTemplate.Id)
+                .AwaitGetSuccessfulResponse<InterviewDto>();
 
             var dbInterviewTemplateDto = Mapper.Map<IEnumerable<QuestionDto>>(dbInterviewTemplate.Questions);
 
