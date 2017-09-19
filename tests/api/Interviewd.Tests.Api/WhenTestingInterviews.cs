@@ -48,7 +48,10 @@ namespace Interviewd.Tests.Api
             var responseInterviewDto = await ApiClient.PostInterview(requestInterviewDto, candidateId: dbCandidate.Id)
                 .AwaitGetSuccessfulResponse<InterviewDto>();
 
-            responseInterviewDto.ToLikeness().ShouldEqual(requestInterviewDto);
+            responseInterviewDto
+                .ToLikeness()
+                .WithInnerLikeness(o => o.Candidate, o => o.Candidate)
+                .ShouldEqual(requestInterviewDto);
         }
 
         [Test]

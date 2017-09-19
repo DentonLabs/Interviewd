@@ -64,7 +64,7 @@ namespace Interviewd.Tests.Api
             }
 
             return await _HttpClient.PostAsync(
-                queryStringBuilder.ToString(),
+                $"{ApiRoutes.InterviewsRoute}{queryStringBuilder}",
                 interviewDto.ToStringContent());
         }
 

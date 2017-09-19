@@ -17,14 +17,18 @@ namespace Interviewd.Domain
 
         private readonly IInterviewTemplateRepository _InterviewTemplateRepository;
 
+        private readonly ICandidateRepository _CandidateRepository;
+
         public InterviewManager(
             IMapper mapper,
             IInterviewRepository interviewRepository,
-            IInterviewTemplateRepository interviewTemplateRepository)
+            IInterviewTemplateRepository interviewTemplateRepository,
+            ICandidateRepository candidateRepository)
         {
             _Mapper = mapper;
             _InterviewRepository = interviewRepository;
             _InterviewTemplateRepository = interviewTemplateRepository;
+            _CandidateRepository = candidateRepository;
         }
 
         public async Task<InterviewDto> GetInterview(string id)
@@ -46,9 +50,15 @@ namespace Interviewd.Domain
             return _Mapper.Map<IEnumerable<InterviewDto>>(interviews);
         }
 
-        public async Task<InterviewDto> CreateInterview(string templateId = null)
+        public async Task<InterviewDto> CreateInterview(string templateId = null, string candidateId = null)
         {
             var createdInterview = await _InterviewRepository.InsertInterview();
+
+            if (!string.IsNullOrWhiteSpace(candidateId))
+            {
+                var candidate = await _CandidateRepository.GetCandidate(candidateId);
+                createdInterview.Candidate = candidate;
+            }
 
             if (!string.IsNullOrWhiteSpace(templateId))
             {

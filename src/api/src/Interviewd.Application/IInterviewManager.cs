@@ -10,6 +10,6 @@ namespace Interviewd.Application
 
         Task<InterviewDto> GetInterview(string id);
         
-        Task<InterviewDto> CreateInterview(string templateId = null);
+        Task<InterviewDto> CreateInterview(string templateId = null, string candidateId = null);
     }
 }

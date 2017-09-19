@@ -18,9 +18,9 @@ namespace Interviewd.Controllers
         }
 
         [HttpPost]
-        public async Task<InterviewDto> PostInterview([FromQuery]string templateId)
+        public async Task<InterviewDto> PostInterview([FromQuery]string templateId, [FromQuery]string candidateId)
         {
-            return await _InterviewManager.CreateInterview(templateId);
+            return await _InterviewManager.CreateInterview(templateId, candidateId);
         }
 
         [HttpGet]

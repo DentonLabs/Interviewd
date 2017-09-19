@@ -39,6 +39,8 @@ namespace Interviewd.Tests.Api
         {
             return _Fixture.Build<InterviewDto>()
                     .Without(o => o.Id)
+                    .Without(o => o.Candidate)
+                    .Without(o => o.Questions)
                     .Create();
         }
     }
