@@ -13,14 +13,18 @@ namespace Interviewd.Tests.Api
 
         private readonly IQuestionRepository _QuestionRepository;
 
+        private readonly IInterviewTemplateRepository _InterviewTemplateRepository;
+
         private readonly IFixture _Fixture;
 
         public Arranger(
             IInterviewRepository interviewRepository,
-            IQuestionRepository questionRepository)
+            IQuestionRepository questionRepository,
+            IInterviewTemplateRepository interviewTemplateRepository)
         {
             _InterviewRepository = interviewRepository;
             _QuestionRepository = questionRepository;
+            _InterviewTemplateRepository = interviewTemplateRepository;
             _Fixture = new Fixture();
         }
 
@@ -44,6 +48,28 @@ namespace Interviewd.Tests.Api
                 interview.Questions.Select(q => q.Id));
 
             return interview;
+        }
+
+        public async Task<InterviewTemplate> CreateInterviewTemplate()
+        {
+            var interviewTemplate =
+                _Fixture.Build<InterviewTemplate>()
+                    .Without(o => o.Questions)
+                    .Without(o => o.Id)
+                    .Create();
+
+            interviewTemplate = await _InterviewTemplateRepository.InsertInterviewTemplate(interviewTemplate);
+
+            var question1 = await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
+            var question2 = await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
+
+            interviewTemplate.Questions = new List<Question> { question1, question2 };
+
+            await _InterviewTemplateRepository.InsertInterviewTemplateQuestions(
+                interviewTemplate.Id,
+                interviewTemplate.Questions.Select(q => q.Id));
+
+            return interviewTemplate;
         }
     }
 }
