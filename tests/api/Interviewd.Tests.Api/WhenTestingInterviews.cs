@@ -75,5 +75,37 @@ namespace Interviewd.Tests.Api
             interviewQuestionIds.ShouldContain(question1.Id);
             interviewQuestionIds.ShouldContain(question2.Id);
         }
+
+        [Test]
+        public async Task ShouldBeAbleToGetAnInterview()
+        {
+            var interviewRepository = ServiceProvider.GetService<IInterviewRepository>();
+            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
+
+            var question1 = Fixture.Build<Question>()
+                .Without(o => o.Id)
+                .Create();
+
+            var question2 = Fixture.Build<Question>()
+                .Without(o => o.Id)
+                .Create();
+
+            await questionRepository.InsertQuestion(question1);
+            await questionRepository.InsertQuestion(question2);
+
+            var dbInterview = await interviewRepository.InsertInterview();
+            await interviewRepository.InsertInterviewQuestions(
+                dbInterview.Id, 
+                new List<string> { question1.Id, question2.Id });
+
+            var httpResponseMessage = await HttpClient.GetAsync(
+                $"{ApiRoutes.InterviewsRoute}/{dbInterview.Id}");
+
+            var responseInterviewDto = await httpResponseMessage
+                .EnsureSuccessStatusCode()
+                .GetLikenessContent<InterviewDto>();
+
+            responseInterviewDto.ShouldEqual(Mapper.Map<InterviewDto>(dbInterview));
+        }
     }
 }
