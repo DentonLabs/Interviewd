@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Interviewd.Configuration;
@@ -48,11 +49,24 @@ namespace Interviewd.Tests.Api
             return await _HttpClient.GetAsync($"{ApiRoutes.InterviewTemplatesRoute}/{id}");
         }
 
-        public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto)
+        public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto, string interviewTemplateId = null)
         {
+            var route = new StringBuilder(ApiRoutes.InterviewsRoute);
+
+            if (interviewTemplateId != null)
+            {
+                route.Append($"?templateId={interviewTemplateId}");
+            }
+
             return await _HttpClient.PostAsync(
-                ApiRoutes.InterviewsRoute,
+                route.ToString(),
                 interviewDto.ToStringContent());
+        }
+
+        public async Task<HttpResponseMessage> GetInterview(string id)
+        {
+            return await _HttpClient.GetAsync(
+                $"{ApiRoutes.InterviewsRoute}/{id}");
         }
     }
 }

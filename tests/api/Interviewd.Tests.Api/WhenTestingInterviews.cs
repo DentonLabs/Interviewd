@@ -36,9 +36,7 @@ namespace Interviewd.Tests.Api
                     .Without(o => o.Id)
                     .Create();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                $"{ApiRoutes.InterviewsRoute}?templateId={dbInterviewTemplate.Id}",
-                requestInterview.ToStringContent());
+            var httpResponseMessage = await ApiClient.PostInterview(requestInterview, dbInterviewTemplate.Id);
 
             var responseInterview = await httpResponseMessage
                 .EnsureSuccessStatusCode()
@@ -54,8 +52,7 @@ namespace Interviewd.Tests.Api
         {
             var dbInterview = await Arranger.CreateInterview();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.InterviewsRoute}/{dbInterview.Id}");
+            var httpResponseMessage = await ApiClient.GetInterview(dbInterview.Id);
 
             var responseInterviewDto = (await httpResponseMessage
                 .EnsureSuccessStatusCode()
