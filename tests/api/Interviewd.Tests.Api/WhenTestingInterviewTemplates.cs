@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
@@ -42,12 +43,8 @@ namespace Interviewd.Tests.Api
                     .Without(o => o.Id)
                     .Create();
 
-            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
-
-            var question1 = await questionRepository.InsertQuestion(Fixture.Create<Question>());
-            var question2 = await questionRepository.InsertQuestion(Fixture.Create<Question>());
-
-            requestInterviewTemplate.QuestionIds = new List<string> { question1.Id, question2.Id };
+            var questions = await Arranger.CreateQuestions();
+            requestInterviewTemplate.QuestionIds = questions.Select(q => q.Id);
 
             var httpResponseMessage = await HttpClient.PostAsync(
                 ApiRoutes.InterviewTemplatesRoute,
