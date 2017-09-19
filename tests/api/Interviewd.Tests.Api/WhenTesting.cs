@@ -23,6 +23,8 @@ namespace Interviewd.Tests.Api
 
         protected IMapper Mapper;
 
+        protected Arranger Arranger;
+
         [OneTimeSetUp]
         public void Setup()
         {
@@ -39,12 +41,15 @@ namespace Interviewd.Tests.Api
                 .AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>()
                 .AddSingleton<ICandidateRepository, CandidateRepository>()
                 .AddSingleton<IMapper>(new Mapper(new MapperConfiguration(c => c.AddProfile(new MappingProfile()))))
+                .AddSingleton<Arranger, Arranger>()
                 .BuildServiceProvider();
 
             var appSettings = ServiceProvider.GetService<IOptions<AppSettings>>().Value;
 
             HttpClient = new HttpClient();
             HttpClient.BaseAddress = new Uri(appSettings.ApiUri);
+
+            Arranger = ServiceProvider.GetService<Arranger>();
 
             Fixture = new Fixture();
 

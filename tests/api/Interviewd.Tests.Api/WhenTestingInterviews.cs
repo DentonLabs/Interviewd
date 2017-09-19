@@ -79,25 +79,7 @@ namespace Interviewd.Tests.Api
         [Test]
         public async Task ShouldBeAbleToGetAnInterview()
         {
-            var interviewRepository = ServiceProvider.GetService<IInterviewRepository>();
-            var questionRepository = ServiceProvider.GetService<IQuestionRepository>();
-
-            var question1 = Fixture.Build<Question>()
-                .Without(o => o.Id)
-                .Create();
-
-            var question2 = Fixture.Build<Question>()
-                .Without(o => o.Id)
-                .Create();
-
-            await questionRepository.InsertQuestion(question1);
-            await questionRepository.InsertQuestion(question2);
-
-            var dbInterview = await interviewRepository.InsertInterview();
-            dbInterview.Questions = new List<Question> { question1, question2 };
-            await interviewRepository.InsertInterviewQuestions(
-                dbInterview.Id, 
-                dbInterview.Questions.Select(q => q.Id));
+            var dbInterview = await Arranger.CreateInterview();
 
             var httpResponseMessage = await HttpClient.GetAsync(
                 $"{ApiRoutes.InterviewsRoute}/{dbInterview.Id}");
