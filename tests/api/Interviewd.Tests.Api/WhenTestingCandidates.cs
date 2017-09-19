@@ -36,8 +36,7 @@ namespace Interviewd.Tests.Api
         {
             var dbCandidates = await Arranger.CreateCandidates();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                ApiRoutes.CandidatesRoute);
+            var httpResponseMessage = await ApiClient.GetAllCandidates();
 
             var responseCandidateDtos = await httpResponseMessage
                 .EnsureSuccessStatusCode()

@@ -75,5 +75,11 @@ namespace Interviewd.Tests.Api
                 ApiRoutes.CandidatesRoute,
                 candidateDto.ToStringContent());
         }
+
+        public async Task<HttpResponseMessage> GetAllCandidates()
+        {
+            return await _HttpClient.GetAsync(
+                ApiRoutes.CandidatesRoute);
+        }
     }
 }
