@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.TemplateSelectedEvent
+//import io.github.rfonzi.rxaware.bus.RxBus
+//import io.github.rfonzi.rxaware.bus.events.TemplateSelectedEvent
 import io.github.alexdenton.interviewd.interview.Template
 
 /**
@@ -22,7 +22,7 @@ class LoadTemplateAdapter(val templates: MutableList<Template>) : RecyclerView.A
         holder?.templateEstView?.text = holder?.itemView?.resources?.getString(R.string.est, est)
 
         holder?.itemView?.setOnClickListener {
-            RxBus.post(TemplateSelectedEvent(templates[position]))
+//            RxBus.post(TemplateSelectedEvent(templates[position]))
         }
     }
 

@@ -1,6 +1,7 @@
 package io.github.alexdenton.interviewd.createtemplate.questionbank
 
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -10,59 +11,42 @@ import android.view.View
 import android.view.ViewGroup
 
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
-import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.SendToTemplateFormEvent
-import io.github.alexdenton.interviewd.question.Question
+import io.github.alexdenton.interviewd.createtemplate.CreateTemplateViewModel
+import io.github.rfonzi.rxaware.BaseFragment
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class QuestionBankFragment : Fragment() {
+class QuestionBankFragment : BaseFragment() {
 
     lateinit var recyclerView: RecyclerView
-    lateinit var presenter: QuestionBankPresenter
     val numRows = 2
 
-    var questionBank: MutableList<Question> = mutableListOf()
-    var alreadyChecked: List<Question> = listOf()
+    lateinit var adapter: QuestionBankAdapter
 
-    val adapter = QuestionBankAdapter(questionBank)
+    lateinit var vm: CreateTemplateViewModel
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_question_bank, container, false)
 
-        presenter = QuestionBankPresenter(QuestionRetrofitRepository(context), this)
+        vm = ViewModelProviders.of(activity).get(CreateTemplateViewModel::class.java)
+        vm.fetchAllQuestions()
+
+        adapter = QuestionBankAdapter(mutableListOf())
 
         recyclerView = view.findViewById(R.id.questionBank_recyclerView)
 
         recyclerView.layoutManager = GridLayoutManager(context, numRows)
         recyclerView.adapter = adapter
 
-        presenter.getCheckedQuestions()
-        presenter.getAllQuestions()
-        adapter.setCheckedQuestions(alreadyChecked)
+        vm.allQuestions.subscribe { adapter.setQuestionBank(it.toMutableList()) }.lifecycleAware()
+        vm.chosenQuestions.subscribe { adapter.setCheckedQuestions(it.toMutableList()) }.lifecycleAware()
+
+        vm.exposeQuestionBankClicks(adapter.getItemClicks())
 
         return view
-    }
-
-
-    override fun onPause() {
-        RxBus.post(SendToTemplateFormEvent(adapter.checkedQuestions))
-        super.onPause()
-    }
-
-
-    fun setUpQuestions(list: List<Question>) {
-        questionBank.clear()
-        questionBank.addAll(list)
-        adapter.notifyDataSetChanged()
-    }
-
-    fun onCouldNotConnect() {
-        TODO("not implemented")
     }
 
 }

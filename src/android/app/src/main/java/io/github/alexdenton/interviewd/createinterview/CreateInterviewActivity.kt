@@ -13,8 +13,7 @@ import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.api.CandidateRetrofitRepository
 import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
 import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
-import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.TemplateSelectedEvent
+import io.github.rfonzi.rxaware.bus.RxBus
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormAdapter
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormTouchHelper
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankAdapter
@@ -85,13 +84,13 @@ class CreateInterviewActivity : AppCompatActivity() {
 
             presenter.getTemplates()
 
-            RxBus.toObservable(TemplateSelectedEvent::class.java).subscribe { event ->
-                adapter.bankedQuestions.clear()
-                adapter.bankedQuestions.addAll(event.template.questions)
-                adapter.notifyDataSetChanged()
-                loadTemplateDialog.dismiss()
-                RxBus.clear()
-            }
+//            RxBus.toObservable(TemplateSelectedEvent::class.java).subscribe { event ->
+//                adapter.bankedQuestions.clear()
+//                adapter.bankedQuestions.addAll(event.template.questions)
+//                adapter.notifyDataSetChanged()
+//                loadTemplateDialog.dismiss()
+//                RxBus.clear()
+//            }
         }
 
         addQuestionButton.setOnClickListener {
@@ -120,7 +119,7 @@ class CreateInterviewActivity : AppCompatActivity() {
 
     fun setupQuestionDialog(list: List<Question>) {
         addQuestionAdapter.clear()
-        addQuestionAdapter.questionBank.addAll(list)
+        addQuestionAdapter.setQuestionBank(list)
         addQuestionAdapter.setCheckedQuestions(presenter.questions)
         addQuestionAdapter.notifyDataSetChanged()
     }
