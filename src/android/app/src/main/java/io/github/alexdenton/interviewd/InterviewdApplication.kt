@@ -14,5 +14,6 @@ class InterviewdApplication : Application(), KodeinAware {
         bind<QuestionRepository>() with instance(QuestionRetrofitRepository(applicationContext))
         bind<TemplateRepository>() with instance(TemplateRetrofitRepository(applicationContext))
         bind<CandidateRepository>() with instance(CandidateRetrofitRepository(applicationContext))
+        bind<InterviewRepository>() with instance(InterviewRetrofitRepository(applicationContext))
     }
 }
