@@ -1,9 +1,9 @@
 package io.github.alexdenton.interviewd.dashboard.questions
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,12 +11,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.appKodein
+import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
-import io.github.alexdenton.interviewd.createquestion.CreateQuestionActivity
 import io.github.alexdenton.interviewd.question.Question
+import io.github.rfonzi.rxaware.BaseFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
-class QuestionsFragment : Fragment() {
+class QuestionsFragment : BaseFragment() {
+
+    lateinit var vm: QuestionsViewModel
 
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
@@ -24,14 +31,13 @@ class QuestionsFragment : Fragment() {
     lateinit var addFab: FloatingActionButton
     val numCols = 2
     var questions: List<Question> = emptyList()
-    lateinit var presenter: QuestionsPresenter
-
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_questions, container, false)
 
-        presenter = QuestionsPresenter(QuestionRetrofitRepository(view.context), this)
+        vm = ViewModelProviders.of(this).get(QuestionsViewModel::class.java)
+        vm.initWith(LazyKodein(appKodein))
 
         recyclerView = view.findViewById(R.id.questions_recyclerView)
         progressBar = view.findViewById(R.id.questions_progressBar)
@@ -41,28 +47,30 @@ class QuestionsFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(context, numCols)
         recyclerView.adapter = QuestionsAdapter(questions)
 
-        addFab.setOnClickListener { onClickAddFab() }
+        vm.exposeAddFab(addFab.clicks())
 
-
-        presenter.getAllQuestions()
+        vm.getQuestionsObservable()
+                .timeout(5, TimeUnit.SECONDS)
+                .firstElement()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({foundQuestions(it)},
+                        {couldNotConnect()})
+                .lifecycleAware()
 
         return view
     }
 
-    fun onCouldNotConnect() {
+    fun couldNotConnect() {
         recyclerView.visibility = View.GONE
         progressBar.visibility = View.GONE
         errorTextView.visibility = View.VISIBLE
     }
 
-    fun onFoundQuestions(list: List<Question>) {
+    fun foundQuestions(list: List<Question>) {
         recyclerView.adapter = QuestionsAdapter(list)
         recyclerView.adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
-    }
-
-    fun onClickAddFab() {
-        startActivity(Intent(context, CreateQuestionActivity::class.java))
     }
 
 }
