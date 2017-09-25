@@ -8,9 +8,10 @@ import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.dashboard.candidates.CandidatesFragment
 import io.github.alexdenton.interviewd.dashboard.interviews.InterviewsFragment
 import io.github.alexdenton.interviewd.dashboard.templates.TemplatesFragment
+import io.github.rfonzi.rxaware.BaseActivity
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : BaseActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
