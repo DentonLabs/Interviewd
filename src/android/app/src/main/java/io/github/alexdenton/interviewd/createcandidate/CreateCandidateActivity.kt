@@ -1,18 +1,19 @@
 package io.github.alexdenton.interviewd.createcandidate
 
-import android.support.v7.app.AppCompatActivity
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.NavUtils
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.appKodein
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.textChanges
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.api.CandidateRetrofitRepository
+import io.github.rfonzi.rxaware.BaseActivity
 
-class CreateCandidateActivity : AppCompatActivity() {
+class CreateCandidateActivity : BaseActivity() {
 
-    lateinit var presenter: CreateCandidatePresenter
+    lateinit var vm: CreateCandidateViewModel
 
     lateinit var firstNameField: EditText
     lateinit var lastNameField: EditText
@@ -23,27 +24,15 @@ class CreateCandidateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_candidate)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = CreateCandidatePresenter(CandidateRetrofitRepository(applicationContext), this)
+        vm = ViewModelProviders.of(this).get(CreateCandidateViewModel::class.java)
+        vm.withKodein(LazyKodein(appKodein))
 
         firstNameField = findViewById(R.id.createCandidate_firstNameField)
         lastNameField = findViewById(R.id.createCandidate_lastNameField)
         submitButton = findViewById(R.id.createCandidate_submitButton)
 
-        submitButton.setOnClickListener { presenter.submitCandidate() }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    fun onSuccessfulSubmit() {
-        Toast.makeText(this, "Candidate Submitted Successfully", Toast.LENGTH_SHORT).show()
-        finish()
+        vm.exposeFirstNameField(firstNameField.textChanges())
+        vm.exposeLastNameField(lastNameField.textChanges())
+        vm.exposeSubmitButton(submitButton.clicks())
     }
 }
