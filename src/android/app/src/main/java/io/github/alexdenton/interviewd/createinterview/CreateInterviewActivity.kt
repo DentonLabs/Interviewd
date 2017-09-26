@@ -136,7 +136,7 @@ class CreateInterviewActivity : BaseActivity() {
             R.id.menuCreateInterview_submit -> vm.submitInterview()
         }
 
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
 }
