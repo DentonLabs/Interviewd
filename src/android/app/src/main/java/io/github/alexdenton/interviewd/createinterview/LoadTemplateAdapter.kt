@@ -5,15 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
 //import io.github.rfonzi.rxaware.bus.RxBus
 //import io.github.rfonzi.rxaware.bus.events.TemplateSelectedEvent
 import io.github.alexdenton.interviewd.interview.Template
+import io.reactivex.Observable
 
 /**
  * Created by ryan on 9/16/17.
  */
 class LoadTemplateAdapter(val templates: MutableList<Template>) : RecyclerView.Adapter<LoadTemplateAdapter.LoadTemplateViewholder>() {
+
+    private val itemClicks: PublishRelay<Template> = PublishRelay.create()
+
+    fun getItemsClicked(): Observable<Template> = itemClicks
+
     override fun onBindViewHolder(holder: LoadTemplateViewholder?, position: Int) {
         holder?.templateNameView?.text = templates[position].name
 
@@ -22,7 +29,7 @@ class LoadTemplateAdapter(val templates: MutableList<Template>) : RecyclerView.A
         holder?.templateEstView?.text = holder?.itemView?.resources?.getString(R.string.est, est)
 
         holder?.itemView?.setOnClickListener {
-//            RxBus.post(TemplateSelectedEvent(templates[position]))
+            itemClicks.accept(templates[position])
         }
     }
 

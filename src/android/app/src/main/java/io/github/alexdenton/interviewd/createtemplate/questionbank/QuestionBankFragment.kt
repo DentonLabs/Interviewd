@@ -42,9 +42,9 @@ class QuestionBankFragment : BaseFragment() {
         recyclerView.adapter = adapter
 
         vm.allQuestions.subscribe { adapter.setQuestionBank(it.toMutableList()) }.lifecycleAware()
-        vm.chosenQuestions.subscribe { adapter.setCheckedQuestions(it.toMutableList()) }.lifecycleAware()
+        adapter.setCheckedQuestions(vm.chosenQuestions.value)
 
-        vm.exposeQuestionBankClicks(adapter.getItemClicks())
+        vm.exposeChosenQuestions(adapter.getCheckedQuestions())
 
         return view
     }

@@ -22,7 +22,7 @@ import java.util.*
  */
 class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerView.Adapter<QuestionBankAdapter.QuestionBankViewHolder>() {
 
-    private val itemClicks: PublishRelay<Int> = PublishRelay.create()
+    private val checkedQuestionSubject: PublishRelay<List<Question>> = PublishRelay.create()
     val checkedQuestions: MutableList<Question> = mutableListOf()
 
     private val disposables = CompositeDisposable()
@@ -41,13 +41,19 @@ class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerVie
 
 
         holder?.itemView?.setOnClickListener {
-            //onClickSubject.onNext(position)
+            if (questionBank[position] in checkedQuestions){
+                checkedQuestions.remove(questionBank[position])
+                holder.checked.isChecked = false
+            }
+            else{
+                checkedQuestions.add(questionBank[position])
+                holder.checked.isChecked = true
+            }
 
-            itemClicks.accept(holder?.adapterPosition)
+            checkedQuestionSubject.accept(checkedQuestions)
 
         }
 
-        disposables.add(holder?.itemView?.clicks()?.subscribe { itemClicks.accept(holder?.adapterPosition) }!!)
     }
 
     fun setQuestionBank(list: List<Question>) {
@@ -62,7 +68,7 @@ class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerVie
         notifyDataSetChanged()
     }
 
-    fun getItemClicks(): Observable<Int> = itemClicks
+    fun getCheckedQuestions(): Observable<List<Question>> = checkedQuestionSubject
 
     override fun getItemCount(): Int = questionBank.size
 

@@ -1,6 +1,5 @@
 package io.github.alexdenton.interviewd.createtemplate
 
-import android.arch.lifecycle.ViewModel
 import com.github.salomonbrys.kodein.*
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.github.alexdenton.interviewd.R
@@ -13,7 +12,6 @@ import io.github.alexdenton.interviewd.question.Question
 import io.github.rfonzi.rxaware.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -75,17 +73,9 @@ class CreateTemplateViewModel : BaseViewModel() {
         UIBus.navigateUp()
     }
 
-    fun exposeQuestionBankClicks(position: Observable<Int>) = position
+    fun exposeChosenQuestions(list: Observable<List<Question>>) = list
             .subscribe {
-                val clickedQuestion = allQuestions.value[it]
-                val chosenQuestionsSnapshot = chosenQuestions.value.toMutableList()
-
-                if (clickedQuestion in chosenQuestionsSnapshot)
-                    chosenQuestionsSnapshot.remove(clickedQuestion)
-                else
-                    chosenQuestionsSnapshot.add(clickedQuestion)
-
-                updateChosenQuestions(chosenQuestionsSnapshot)
+                chosenQuestions.accept(it)
             }
             .lifecycleAware()
 }
