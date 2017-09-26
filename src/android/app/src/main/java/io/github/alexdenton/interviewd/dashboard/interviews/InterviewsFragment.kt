@@ -73,6 +73,7 @@ class InterviewsFragment : BaseFragment() {
         interviewList.clear()
         interviewList.addAll(list)
         adapter.notifyDataSetChanged()
+        progressBar.visibility = View.GONE
     }
 
     fun couldNotConnect() {
