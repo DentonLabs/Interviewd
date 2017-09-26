@@ -6,6 +6,39 @@
     android:layout_height="match_parent"
     tools:context="io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity">
 
+    <EditText
+        android:id="@+id/createInterview_interviewNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:hint="Position Title"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/createInterview_candidateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/candidate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createInterview_interviewNameEditText" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/createInterview_candidateSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:prompt="@string/candidate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateText"/>
+
     <Button
         android:id="@+id/createInterview_addQuestionButton"
         style="@style/Base.Widget.AppCompat.Button.Colored"
@@ -27,27 +60,6 @@
         android:text="@string/load_template"
         app:layout_constraintEnd_toStartOf="@+id/createInterview_addQuestionButton"
         app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateSpinner" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/candidate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/createInterview_candidateSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/candidate"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="0dp">
-
-    </android.support.v7.widget.AppCompatSpinner>
-
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/createInterview_recyclerView"

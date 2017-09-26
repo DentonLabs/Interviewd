@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.*
 import com.afollestad.materialdialogs.MaterialDialog
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
+import com.jakewharton.rxbinding2.support.v7.widget.dataChanges
 import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.textChanges
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormAdapter
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormTouchHelper
@@ -22,6 +27,7 @@ class CreateInterviewActivity : BaseActivity() {
 
     lateinit var vm: CreateInterviewViewModel
 
+    lateinit var nameEditText: EditText
     lateinit var candidateSpinner: Spinner
     lateinit var recyclerView: RecyclerView
     lateinit var addQuestionButton: Button
@@ -41,6 +47,7 @@ class CreateInterviewActivity : BaseActivity() {
         vm = ViewModelProviders.of(this).get(CreateInterviewViewModel::class.java)
         vm.initWith(LazyKodein(appKodein))
 
+        nameEditText = findViewById(R.id.createInterview_interviewNameEditText)
         candidateSpinner = findViewById(R.id.createInterview_candidateSpinner)
         recyclerView = findViewById(R.id.createInterview_recyclerView)
         addQuestionButton = findViewById(R.id.createInterview_addQuestionButton)
@@ -74,6 +81,17 @@ class CreateInterviewActivity : BaseActivity() {
         vm.exposeLoadTemplateSelections(loadTemplateAdapter.getItemsClicked())
         vm.exposeAddQuestionButton(addQuestionButton.clicks())
 
+        vm.exposeNameChanges(nameEditText.textChanges().skipInitialValue())
+        candidateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                vm.useCandidate(candidateSpinnerAdapter.candidates[pos])
+            }
+        }
+        vm.exposeQuestionChanges(adapter.dataChanges().skipInitialValue())
+
         vm.getTemplateDialogSignal()
                 .subscribe {
                     when (it) {
@@ -106,6 +124,19 @@ class CreateInterviewActivity : BaseActivity() {
         addQuestionAdapter.setQuestionBank(list)
         addQuestionAdapter.setCheckedQuestions(adapter.bankedQuestions)
         addQuestionAdapter.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_create_interview, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menuCreateInterview_submit -> vm.submitInterview()
+        }
+
+        return true
     }
 
 }

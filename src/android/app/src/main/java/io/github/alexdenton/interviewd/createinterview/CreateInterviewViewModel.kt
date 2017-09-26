@@ -5,9 +5,12 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.BehaviorRelay
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.CandidateRepository
+import io.github.alexdenton.interviewd.api.InterviewRepository
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.api.TemplateRepository
+import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormAdapter
 import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.interview.Interview
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
 import io.github.rfonzi.rxaware.BaseViewModel
@@ -23,6 +26,11 @@ class CreateInterviewViewModel : BaseViewModel() {
     lateinit var questionRepo: QuestionRepository
     lateinit var candidateRepo: CandidateRepository
     lateinit var templateRepo: TemplateRepository
+    lateinit var interviewRepo: InterviewRepository
+
+    private var name: String = ""
+    private var candidate: Candidate? = null
+    private var questions: List<Question> = listOf()
 
     private val templatesRelay: PublishRelay<List<Template>> = PublishRelay.create()
     private val allQuestionsRelay: PublishRelay<List<Question>> = PublishRelay.create()
@@ -43,6 +51,7 @@ class CreateInterviewViewModel : BaseViewModel() {
         questionRepo = kodein.invoke().instance()
         candidateRepo = kodein.invoke().instance()
         templateRepo = kodein.invoke().instance()
+        interviewRepo = kodein.invoke().instance()
         fetchCandidates()
     }
 
@@ -61,8 +70,14 @@ class CreateInterviewViewModel : BaseViewModel() {
     fun fetchCandidates() = candidateRepo.getAllCandidates()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({list -> candidatesRelay.accept(list)},
-                    {throwable -> throwable.printStackTrace()})
+            .subscribe({ list -> candidatesRelay.accept(list) },
+                    { throwable -> throwable.printStackTrace() })
+
+    fun postInterview(interview: Interview) = interviewRepo.createInterview(interview)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onSubmitSuccess() },
+                    { throwable -> throwable.printStackTrace() })
 
     fun exposeLoadTemplateButton(clicks: Observable<Unit>) = clicks
             .subscribe {
@@ -84,4 +99,26 @@ class CreateInterviewViewModel : BaseViewModel() {
 
     fun acceptQuestions(checkedQuestions: MutableList<Question>) = selectedQuestionsRelay.accept(checkedQuestions)
 
+    fun exposeNameChanges(nameChanges: Observable<CharSequence>) = nameChanges
+            .subscribe { name = it.toString() }
+
+    fun useCandidate(selectedCandidate: Candidate) {
+        candidate = selectedCandidate
+    }
+
+    fun exposeQuestionChanges(dataChanges: Observable<TemplateFormAdapter>) = dataChanges
+            .subscribe { questions = it.bankedQuestions }
+
+    fun submitInterview(): Any = when {
+        name == "" -> toast("Position title must not be empty")
+        questions.isEmpty() -> toast("Questions must be added to the interview")
+        candidate == null -> toast("A candidate must be selected")
+        else -> postInterview(Interview(0, checkNotNull(candidate), name, questions))
+    }
+
+
+    fun onSubmitSuccess() {
+        toast("Inteview submitted")
+        navigateUp()
+    }
 }
