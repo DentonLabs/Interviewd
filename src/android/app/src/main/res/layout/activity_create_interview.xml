@@ -8,14 +8,14 @@
 
     <Button
         android:id="@+id/createInterview_addQuestionButton"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:text="@string/add_question"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateAutocompleteContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateSpinner" />
 
     <Button
         android:id="@+id/createInterview_loadTemplateButton"
@@ -26,70 +26,28 @@
         android:layout_marginTop="8dp"
         android:text="@string/load_template"
         app:layout_constraintEnd_toStartOf="@+id/createInterview_addQuestionButton"
-        app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateAutocompleteContainer" />
+        app:layout_constraintTop_toBottomOf="@+id/createInterview_candidateSpinner" />
 
-    <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:id="@+id/createInterview_candidateAutocompleteContainer">
-
-        <AutoCompleteTextView
-            android:id="@+id/createInterview_candidateAutocomplete"
-            android:layout_width="352dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:hint="Enter a candidate name..."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="14dp"
-            tools:layout_editor_absoluteX="16dp" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/createInterview_candidateResultContainer"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/createInterview_loadTemplateButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/candidate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/createInterview_candidateResultText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="First Last"
-            android:textColor="#CC000000"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp"
-            app:layout_constraintStart_toStartOf="parent" />
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/createInterview_candidateSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/candidate"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="0dp">
 
-        <ImageButton
-            android:id="@+id/createInterview_candidateResultEditButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.AppCompatSpinner>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/createInterview_recyclerView"

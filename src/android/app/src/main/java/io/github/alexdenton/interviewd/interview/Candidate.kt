@@ -7,4 +7,6 @@ data class Candidate (
         val id: Int,
         val firstName: String,
         val lastName: String
-)
+){
+    override fun toString(): String = firstName + " " + lastName
+}

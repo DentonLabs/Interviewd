@@ -7,6 +7,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.CandidateRepository
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.api.TemplateRepository
+import io.github.alexdenton.interviewd.interview.Candidate
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
 import io.github.rfonzi.rxaware.BaseViewModel
@@ -23,16 +24,18 @@ class CreateInterviewViewModel : BaseViewModel() {
     lateinit var candidateRepo: CandidateRepository
     lateinit var templateRepo: TemplateRepository
 
-    private val templates: PublishRelay<List<Template>> = PublishRelay.create()
-    private val allQuestions: PublishRelay<List<Question>> = PublishRelay.create()
-    private val selectedQuestions: BehaviorRelay<List<Question>> = BehaviorRelay.createDefault(listOf())
+    private val templatesRelay: PublishRelay<List<Template>> = PublishRelay.create()
+    private val allQuestionsRelay: PublishRelay<List<Question>> = PublishRelay.create()
+    private val selectedQuestionsRelay: BehaviorRelay<List<Question>> = BehaviorRelay.createDefault(listOf())
+    private val candidatesRelay: BehaviorRelay<List<Candidate>> = BehaviorRelay.createDefault(listOf())
 
     private val templateDialogSignal: PublishRelay<DialogSignal> = PublishRelay.create()
     private val questionDialogSignal: PublishRelay<DialogSignal> = PublishRelay.create()
 
-    fun getTemplatesObservable(): Observable<List<Template>> = templates
-    fun getAllQuestionsObservable(): Observable<List<Question>> = allQuestions
-    fun getSelectedQuestionsObservable(): Observable<List<Question>> = selectedQuestions
+    fun getTemplatesObservable(): Observable<List<Template>> = templatesRelay
+    fun getAllQuestionsObservable(): Observable<List<Question>> = allQuestionsRelay
+    fun getSelectedQuestionsObservable(): Observable<List<Question>> = selectedQuestionsRelay
+    fun getCandidatesObservable(): Observable<List<Candidate>> = candidatesRelay
     fun getTemplateDialogSignal(): Observable<DialogSignal> = templateDialogSignal
     fun getQuestionDialogSignal(): Observable<DialogSignal> = questionDialogSignal
 
@@ -40,19 +43,26 @@ class CreateInterviewViewModel : BaseViewModel() {
         questionRepo = kodein.invoke().instance()
         candidateRepo = kodein.invoke().instance()
         templateRepo = kodein.invoke().instance()
+        fetchCandidates()
     }
 
     fun fetchTemplates() = templateRepo.getAllTemplates()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ list -> templates.accept(list) },
+            .subscribe({ list -> templatesRelay.accept(list) },
                     { throwable -> throwable.printStackTrace() })
 
     fun fetchQuestions() = questionRepo.getAllQuestions()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ list -> allQuestions.accept(list) },
+            .subscribe({ list -> allQuestionsRelay.accept(list) },
                     { throwable -> throwable.printStackTrace() })
+
+    fun fetchCandidates() = candidateRepo.getAllCandidates()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({list -> candidatesRelay.accept(list)},
+                    {throwable -> throwable.printStackTrace()})
 
     fun exposeLoadTemplateButton(clicks: Observable<Unit>) = clicks
             .subscribe {
@@ -62,7 +72,7 @@ class CreateInterviewViewModel : BaseViewModel() {
 
     fun exposeLoadTemplateSelections(itemClicked: Observable<Template>) = itemClicked
             .subscribe { template ->
-                selectedQuestions.accept(template.questions)
+                selectedQuestionsRelay.accept(template.questions)
                 templateDialogSignal.accept(DialogSignal.HIDE)
             }
 
@@ -72,6 +82,6 @@ class CreateInterviewViewModel : BaseViewModel() {
                 questionDialogSignal.accept(DialogSignal.SHOW)
             }
 
-    fun acceptQuestions(checkedQuestions: MutableList<Question>) = selectedQuestions.accept(checkedQuestions)
+    fun acceptQuestions(checkedQuestions: MutableList<Question>) = selectedQuestionsRelay.accept(checkedQuestions)
 
 }

@@ -22,9 +22,8 @@ class CreateInterviewActivity : BaseActivity() {
 
     lateinit var vm: CreateInterviewViewModel
 
-    lateinit var autoComplete: AutoCompleteTextView
+    lateinit var candidateSpinner: Spinner
     lateinit var recyclerView: RecyclerView
-    lateinit var editCandidateResultButton: ImageButton
     lateinit var addQuestionButton: Button
     lateinit var loadTemplateButton: Button
 
@@ -42,9 +41,8 @@ class CreateInterviewActivity : BaseActivity() {
         vm = ViewModelProviders.of(this).get(CreateInterviewViewModel::class.java)
         vm.initWith(LazyKodein(appKodein))
 
-        autoComplete = findViewById(R.id.createInterview_candidateAutocomplete)
+        candidateSpinner = findViewById(R.id.createInterview_candidateSpinner)
         recyclerView = findViewById(R.id.createInterview_recyclerView)
-        editCandidateResultButton = findViewById(R.id.createInterview_candidateResultEditButton)
         addQuestionButton = findViewById(R.id.createInterview_addQuestionButton)
         loadTemplateButton = findViewById(R.id.createInterview_loadTemplateButton)
 
@@ -55,6 +53,8 @@ class CreateInterviewActivity : BaseActivity() {
         recyclerView.addItemDecoration(touchHelper)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        val candidateSpinnerAdapter = CandidateArrayAdapter(this, mutableListOf())
+        candidateSpinner.adapter = candidateSpinnerAdapter
 
         loadTemplateDialog = MaterialDialog.Builder(this)
                 .title("Load Template")
@@ -90,6 +90,8 @@ class CreateInterviewActivity : BaseActivity() {
                 .subscribe { list -> setupQuestionDialog(list) }
         vm.getSelectedQuestionsObservable()
                 .subscribe { list -> adapter.setBankedQuestions(list)}
+        vm.getCandidatesObservable()
+                .subscribe { list -> candidateSpinnerAdapter.setCandidates(list) }
 
     }
 
