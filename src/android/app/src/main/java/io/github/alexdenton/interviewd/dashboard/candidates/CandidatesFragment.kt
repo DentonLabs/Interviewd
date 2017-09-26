@@ -1,10 +1,10 @@
 package io.github.alexdenton.interviewd.dashboard.candidates
 
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,15 +12,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.AndroidScope
+import com.github.salomonbrys.kodein.android.appKodein
+import com.jakewharton.rxbinding2.view.clicks
 
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.api.CandidateRetrofitRepository
 import io.github.alexdenton.interviewd.createcandidate.CreateCandidateActivity
 import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.rfonzi.rxaware.BaseFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
-class CandidatesFragment : Fragment() {
+class CandidatesFragment : BaseFragment() {
 
-    lateinit var presenter: CandidatesPresenter
+    lateinit var vm: CandidatesViewModel
 
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
@@ -35,7 +42,8 @@ class CandidatesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_candidates, container, false)
 
-        presenter = CandidatesPresenter(CandidateRetrofitRepository(context), this)
+        vm = ViewModelProviders.of(this).get(CandidatesViewModel::class.java)
+        vm.initWith(LazyKodein(appKodein))
 
         recyclerView = view.findViewById(R.id.candidates_recyclerView)
         progressBar = view.findViewById(R.id.candidates_progressBar)
@@ -47,25 +55,30 @@ class CandidatesFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        addFab.setOnClickListener { onClickAddFab() }
+        vm.exposeAddFab(addFab.clicks())
 
-        presenter.getAllCandidates()
+        vm.getCandidatesObservable()
+                .timeout(5, TimeUnit.SECONDS)
+                .firstElement()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({foundCandidates(it)},
+                        {couldNotConnect()})
+                .lifecycleAware()
 
         return view
     }
 
-    fun onCouldNotConnect() {
+    fun couldNotConnect() {
         recyclerView.visibility = View.GONE
         progressBar.visibility = View.GONE
         errorTextView.visibility = View.VISIBLE
     }
 
-    fun onFoundQuestions() {
+    fun foundCandidates(candidates: List<Candidate>) {
         progressBar.visibility = View.GONE
-    }
-
-    fun onClickAddFab() {
-        startActivity(Intent(context, CreateCandidateActivity::class.java))
+        adapter.candidates = candidates
+        adapter.notifyDataSetChanged()
     }
 
 }

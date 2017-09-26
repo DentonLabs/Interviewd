@@ -36,6 +36,12 @@ class TemplateFormAdapter(val bankedQuestions: MutableList<Question>) : Recycler
 
     override fun getItemCount(): Int = bankedQuestions.size
 
+    fun setBankedQuestions(list: List<Question>){
+        bankedQuestions.clear()
+        bankedQuestions.addAll(list)
+        notifyDataSetChanged()
+    }
+
     class BankedQuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameView: TextView = itemView.findViewById(R.id.listBankedQuestion_questionName)
         val reorderButton: ImageButton = itemView.findViewById(R.id.listBankedQuestion_reorderButton)

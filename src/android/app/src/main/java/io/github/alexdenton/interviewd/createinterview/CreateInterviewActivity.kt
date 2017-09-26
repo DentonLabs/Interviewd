@@ -1,27 +1,26 @@
 package io.github.alexdenton.interviewd.createinterview
 
-import android.support.v7.app.AppCompatActivity
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.NavUtils
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.MenuItem
 import android.widget.*
 import com.afollestad.materialdialogs.MaterialDialog
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.appKodein
+import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.api.CandidateRetrofitRepository
-import io.github.alexdenton.interviewd.api.QuestionRetrofitRepository
-import io.github.alexdenton.interviewd.api.TemplateRetrofitRepository
-import io.github.alexdenton.interviewd.bus.RxBus
-import io.github.alexdenton.interviewd.bus.events.TemplateSelectedEvent
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormAdapter
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormTouchHelper
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankAdapter
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
+import io.github.rfonzi.rxaware.BaseActivity
 
-class CreateInterviewActivity : AppCompatActivity() {
+class CreateInterviewActivity : BaseActivity() {
+
+    lateinit var vm: CreateInterviewViewModel
 
     lateinit var autoComplete: AutoCompleteTextView
     lateinit var recyclerView: RecyclerView
@@ -29,25 +28,19 @@ class CreateInterviewActivity : AppCompatActivity() {
     lateinit var addQuestionButton: Button
     lateinit var loadTemplateButton: Button
 
-
-
+    val adapter = TemplateFormAdapter(mutableListOf())
     val loadTemplateAdapter = LoadTemplateAdapter(mutableListOf())
     val addQuestionAdapter = QuestionBankAdapter(mutableListOf())
     lateinit var loadTemplateDialog: MaterialDialog
     lateinit var addQuestionDialog: MaterialDialog
-    lateinit var spinnerAdapter: ArrayAdapter<Template>
-
-    lateinit var presenter: CreateInterviewPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_interview)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = CreateInterviewPresenter(TemplateRetrofitRepository(this),
-                QuestionRetrofitRepository(this),
-                CandidateRetrofitRepository(this),
-                this)
+        vm = ViewModelProviders.of(this).get(CreateInterviewViewModel::class.java)
+        vm.initWith(LazyKodein(appKodein))
 
         autoComplete = findViewById(R.id.createInterview_candidateAutocomplete)
         recyclerView = findViewById(R.id.createInterview_recyclerView)
@@ -55,7 +48,6 @@ class CreateInterviewActivity : AppCompatActivity() {
         addQuestionButton = findViewById(R.id.createInterview_addQuestionButton)
         loadTemplateButton = findViewById(R.id.createInterview_loadTemplateButton)
 
-        val adapter = TemplateFormAdapter(presenter.questions)
         val touchHelper = TemplateFormTouchHelper(adapter)
         touchHelper.attachToRecyclerView(recyclerView)
 
@@ -74,42 +66,31 @@ class CreateInterviewActivity : AppCompatActivity() {
                 .adapter(addQuestionAdapter, GridLayoutManager(this, 2))
                 .positiveText("Done")
                 .onPositive { dialog, which ->
-                    adapter.bankedQuestions.clear()
-                    adapter.bankedQuestions.addAll(addQuestionAdapter.checkedQuestions)
-                    adapter.notifyDataSetChanged()
+                    vm.acceptQuestions(addQuestionAdapter.checkedQuestions)
                 }
                 .build()
 
-        loadTemplateButton.setOnClickListener {
-            loadTemplateDialog.show()
+        vm.exposeLoadTemplateButton(loadTemplateButton.clicks())
+        vm.exposeLoadTemplateSelections(loadTemplateAdapter.getItemsClicked())
+        vm.exposeAddQuestionButton(addQuestionButton.clicks())
 
-            presenter.getTemplates()
+        vm.getTemplateDialogSignal()
+                .subscribe {
+                    when (it) {
+                        DialogSignal.SHOW -> loadTemplateDialog.show()
+                        DialogSignal.HIDE -> loadTemplateDialog.hide()
+                    }
+                }
+        vm.getQuestionDialogSignal()
+                .subscribe { addQuestionDialog.show() }
 
-            RxBus.toObservable(TemplateSelectedEvent::class.java).subscribe { event ->
-                adapter.bankedQuestions.clear()
-                adapter.bankedQuestions.addAll(event.template.questions)
-                adapter.notifyDataSetChanged()
-                loadTemplateDialog.dismiss()
-                RxBus.clear()
-            }
-        }
+        vm.getTemplatesObservable()
+                .subscribe { list -> setupTemplateDialog(list) }
+        vm.getAllQuestionsObservable()
+                .subscribe { list -> setupQuestionDialog(list) }
+        vm.getSelectedQuestionsObservable()
+                .subscribe { list -> adapter.setBankedQuestions(list)}
 
-        addQuestionButton.setOnClickListener {
-            addQuestionDialog.show()
-            presenter.getQuestions()
-
-        }
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 
     fun setupTemplateDialog(list: List<Template>) {
@@ -120,8 +101,8 @@ class CreateInterviewActivity : AppCompatActivity() {
 
     fun setupQuestionDialog(list: List<Question>) {
         addQuestionAdapter.clear()
-        addQuestionAdapter.questionBank.addAll(list)
-        addQuestionAdapter.setCheckedQuestions(presenter.questions)
+        addQuestionAdapter.setQuestionBank(list)
+        addQuestionAdapter.setCheckedQuestions(adapter.bankedQuestions)
         addQuestionAdapter.notifyDataSetChanged()
     }
 

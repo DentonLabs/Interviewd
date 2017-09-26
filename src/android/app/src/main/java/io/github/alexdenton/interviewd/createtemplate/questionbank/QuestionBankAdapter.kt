@@ -6,17 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import com.jakewharton.rxbinding2.view.clicks
+import com.jakewharton.rxbinding2.widget.RxAdapter
+import com.jakewharton.rxbinding2.widget.RxAdapterView
+import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.question.Question
+import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
+import java.util.*
 
 /**
  * Created by ryan on 8/23/17.
  */
 class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerView.Adapter<QuestionBankAdapter.QuestionBankViewHolder>() {
 
+    private val checkedQuestionSubject: PublishRelay<List<Question>> = PublishRelay.create()
     val checkedQuestions: MutableList<Question> = mutableListOf()
 
-    //private val onClickSubject: PublishSubject<Int> = PublishSubject.create()
+    private val disposables = CompositeDisposable()
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): QuestionBankViewHolder {
         val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.card_question_in_bank, parent, false)
@@ -29,19 +38,29 @@ class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerVie
         holder?.descView?.text = questionBank[position].description
         holder?.checked?.isChecked = questionBank[position] in checkedQuestions
 
+
+
         holder?.itemView?.setOnClickListener {
-            //onClickSubject.onNext(position)
-
-            if (holder.checked.isChecked)
+            if (questionBank[position] in checkedQuestions){
                 checkedQuestions.remove(questionBank[position])
-            else
+                holder.checked.isChecked = false
+            }
+            else{
                 checkedQuestions.add(questionBank[position])
+                holder.checked.isChecked = true
+            }
 
-            holder?.checked?.toggle()
+            checkedQuestionSubject.accept(checkedQuestions)
+
         }
+
     }
 
-    override fun getItemCount(): Int = questionBank.size
+    fun setQuestionBank(list: List<Question>) {
+        questionBank.clear()
+        questionBank.addAll(list)
+        notifyDataSetChanged()
+    }
 
     fun setCheckedQuestions(list: List<Question>) {
         checkedQuestions.clear()
@@ -49,9 +68,18 @@ class QuestionBankAdapter(val questionBank: MutableList<Question>) : RecyclerVie
         notifyDataSetChanged()
     }
 
-    fun clear(){
+    fun getCheckedQuestions(): Observable<List<Question>> = checkedQuestionSubject
+
+    override fun getItemCount(): Int = questionBank.size
+
+    fun clear() {
         checkedQuestions.clear()
         questionBank.clear()
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        disposables.clear()
     }
 
     class QuestionBankViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
