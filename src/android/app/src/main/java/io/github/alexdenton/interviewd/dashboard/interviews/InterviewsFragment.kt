@@ -57,6 +57,7 @@ class InterviewsFragment : BaseFragment() {
         recyclerView.layoutManager = layoutManager
 
         vm.exposeAddFab(addFab.clicks())
+        vm.exposeItemClicks(adapter.getItemClicks())
         vm.getInterviewsObservable()
                 .timeout(5, TimeUnit.SECONDS)
                 .firstElement()

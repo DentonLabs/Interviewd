@@ -4,6 +4,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.InterviewRepository
+import io.github.alexdenton.interviewd.conductinterview.ConductInterviewActivity
 import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
 import io.github.alexdenton.interviewd.interview.Interview
 import io.github.rfonzi.rxaware.BaseViewModel
@@ -36,4 +37,7 @@ class InterviewsViewModel : BaseViewModel() {
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
             .subscribe { startActivity(CreateInterviewActivity::class.java) }
+
+    fun exposeItemClicks(itemClicks: Observable<Interview>) = itemClicks
+            .subscribe { startActivityAndStore(ConductInterviewActivity::class.java, it) }
 }
