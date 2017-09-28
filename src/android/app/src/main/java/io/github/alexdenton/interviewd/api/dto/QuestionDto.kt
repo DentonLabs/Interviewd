@@ -8,7 +8,8 @@ import io.github.alexdenton.interviewd.question.Question
 data class QuestionDto(
         val id: Int,
         val name: String,
-        val description: String
+        val description: String,
+        val estimate: Int
 ) {
-    fun toQuestion(): Question = Question(id, name, description, 10) //TODO: Replace this once the api supports time estimates
+    fun toQuestion(): Question = Question(id, name, description, estimate) //TODO: Replace this once the api supports time estimates
 }

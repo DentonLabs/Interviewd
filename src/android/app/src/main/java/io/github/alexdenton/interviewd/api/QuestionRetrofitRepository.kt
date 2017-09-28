@@ -26,5 +26,5 @@ class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
             = client.createQuestion(question.toDto())
             .map { it.toQuestion() }
 
-    fun Question.toDto() = QuestionDto(0, name, description)
+    fun Question.toDto() = QuestionDto(0, name, description, timeEstimate)
 }

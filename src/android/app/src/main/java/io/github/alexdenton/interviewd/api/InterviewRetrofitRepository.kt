@@ -36,7 +36,7 @@ class InterviewRetrofitRepository(val context: Context) : InterviewRepository {
 
     fun Interview.toDto() = InterviewDto(id, candidate.toDto(), name, questions.map { it.toDto() }, status)
 
-    fun Question.toDto() = QuestionDto(0, name, description)
+    fun Question.toDto() = QuestionDto(0, name, description, timeEstimate)
 
     fun Candidate.toDto() = CandidateDto(id, firstName, lastName)
 }

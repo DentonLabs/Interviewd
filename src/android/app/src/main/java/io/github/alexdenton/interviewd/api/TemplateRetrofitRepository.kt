@@ -22,6 +22,6 @@ class TemplateRetrofitRepository(context: Context) : TemplateRepository {
         = client.createTemplate(template.toDto())
             .map { it.toTemplate() }
 
-    fun List<Question>.toIdList() = map { QuestionDto(it.id, it.name, it.description) }
+    fun List<Question>.toIdList() = map { QuestionDto(it.id, it.name, it.description, it.timeEstimate) }
     fun Template.toDto() = TemplateDto(name, questions.toIdList())
 }

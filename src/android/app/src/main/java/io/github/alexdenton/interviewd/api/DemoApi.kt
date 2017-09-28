@@ -72,7 +72,7 @@ class DemoApi(val context: Context) : InterviewdApiService {
         var list: List<QuestionDto> = gson.fromJson(json, object : TypeToken<List<QuestionDto>>() {}.type)
 
         val mutableList = list.toMutableList()
-        val toAdd = QuestionDto(mutableList.size + 1, question.name, question.description)
+        val toAdd = QuestionDto(mutableList.size + 1, question.name, question.description, question.estimate)
         mutableList.add(toAdd)
         list = mutableList.toList()
 
