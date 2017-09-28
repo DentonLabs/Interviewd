@@ -17,6 +17,7 @@ class QuestionPagerAdapter(fm: FragmentManager, val questions: List<Question>) :
         val bundle = Bundle()
         bundle.putString("name", questions[position].name)
         bundle.putString("desc", questions[position].description)
+        bundle.putInt("est", questions[position].timeEstimate)
         fragment.arguments = bundle
         return fragment
     }
