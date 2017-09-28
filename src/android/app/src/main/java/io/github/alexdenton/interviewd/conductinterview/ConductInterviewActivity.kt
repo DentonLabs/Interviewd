@@ -111,6 +111,7 @@ class ConductInterviewActivity : BaseActivity() {
         startButton.visibility = View.GONE
         playGroup.visibility = View.VISIBLE
         questionViewPager.currentItem = 0
+        questionViewPager.swipeEnabled = false
         setupTimer()
     }
 }
