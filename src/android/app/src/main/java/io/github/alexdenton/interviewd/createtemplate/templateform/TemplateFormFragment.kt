@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -30,7 +28,6 @@ class TemplateFormFragment : BaseFragment() {
     lateinit var titleField: EditText
     lateinit var estText: TextView
     lateinit var recyclerView: RecyclerView
-    lateinit var submitButton: Button
     lateinit var addQuestionButton: Button
 
     lateinit var adapter: TemplateFormAdapter
@@ -47,7 +44,6 @@ class TemplateFormFragment : BaseFragment() {
         titleField = view.findViewById(R.id.createTemplate_titleField)
         estText = view.findViewById(R.id.createTemplate_estDurationText)
         recyclerView = view.findViewById(R.id.createTemplate_recyclerView)
-        submitButton = view.findViewById(R.id.createTemplate_submitButton)
         addQuestionButton = view.findViewById(R.id.createTemplate_addQuestionButton)
         adapter = TemplateFormAdapter(mutableListOf())
         touchHelper = TemplateFormTouchHelper(adapter)
@@ -62,17 +58,30 @@ class TemplateFormFragment : BaseFragment() {
             adapter.notifyDataSetChanged()
         }.lifecycleAware()
 
-        vm.exposeSubmitButton(submitButton.clicks())
         vm.exposeNameField(titleField.textChanges())
         vm.exposeAddQuestionButton(addQuestionButton.clicks())
 
         retainInstance = true
+        setHasOptionsMenu(true)
 
         return view
     }
 
     fun onUpdateSuccess() {
         recyclerView.adapter.notifyDataSetChanged()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_submit, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menu_submit -> vm.submitTemplate()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 

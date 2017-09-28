@@ -41,7 +41,7 @@ class CreateTemplateViewModel : BaseViewModel() {
                     { throwable -> throwable.printStackTrace() })
             .lifecycleAware()
 
-    private fun submitTemplate() = templateRepo.createTemplate(getTemplateSnapshot())
+    fun submitTemplate() = templateRepo.createTemplate(getTemplateSnapshot())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { _ -> submitSuccess() }

@@ -45,24 +45,13 @@
         app:layout_constraintTop_toBottomOf="@+id/createTemplate_titleField" />
 
     <Button
-        android:id="@+id/createTemplate_submitButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTemplate_estDurationText" />
-
-    <Button
         android:id="@+id/createTemplate_addQuestionButton"
-        android:layout_width="wrap_content"
         style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/add_question"
-        app:layout_constraintEnd_toStartOf="@+id/createTemplate_submitButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createTemplate_estDurationText" />
 </android.support.constraint.ConstraintLayout>
