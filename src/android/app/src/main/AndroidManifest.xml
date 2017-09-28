@@ -38,7 +38,10 @@
             android:name=".createinterview.CreateInterviewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
-        <activity android:name=".conductinterview.ConductInterviewActivity"></activity>
+        <activity
+            android:name=".conductinterview.ConductInterviewActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".dashboard.DashboardActivity" />
     </application>
 
 </manifest>
