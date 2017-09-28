@@ -20,10 +20,12 @@ class ConductInterviewViewModel : BaseViewModel() {
 
     var currentPage = 0
     private val nextQuestionString: PublishRelay<String> = PublishRelay.create()
+    private val startSignal: PublishRelay<InterviewSignal> = PublishRelay.create()
     private val nextPageSignal: PublishRelay<Int> = PublishRelay.create()
 
     fun getNextQuestionStringObservable(): Observable<String> = nextQuestionString
     fun getNextPageSignal(): Observable<Int> = nextPageSignal
+    fun getStartSignal(): Observable<InterviewSignal> = startSignal
 
     fun initWith(kodein: LazyKodein){
         interviewRepo = kodein.invoke().instance()
@@ -55,5 +57,9 @@ class ConductInterviewViewModel : BaseViewModel() {
             }
             .lifecycleAware()
 
-
+    fun exposeStartClicks(clicks: Observable<Unit>) = clicks
+            .subscribe {
+                startSignal.accept(InterviewSignal.START)
+            }
+            .lifecycleAware()
 }

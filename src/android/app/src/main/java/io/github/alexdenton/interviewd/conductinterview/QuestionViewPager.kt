@@ -14,7 +14,7 @@ class QuestionViewPager : ViewPager {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    var swipeEnabled: Boolean = false
+    var swipeEnabled: Boolean = true
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return swipeEnabled && super.onTouchEvent(event)

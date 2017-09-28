@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:format="MM"
+        android:format=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conductInterview_timeEstimate" />
 
@@ -51,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/next"
-        app:layout_constraintStart_toStartOf="@+id/conductInterview_nextQuestionName"
-        app:layout_constraintTop_toBottomOf="@+id/conductInterview_interviewPosition" />
+        app:layout_constraintBottom_toTopOf="@+id/conductInterview_nextQuestionName"
+        app:layout_constraintStart_toStartOf="@+id/conductInterview_nextQuestionName" />
 
     <TextView
         android:id="@+id/conductInterview_nextQuestionName"
@@ -60,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="@string/placeholder"
-        app:layout_constraintEnd_toStartOf="@+id/conductInterview_nextButton"
-        app:layout_constraintTop_toBottomOf="@+id/conductInterview_next" />
+        app:layout_constraintBottom_toBottomOf="@+id/conductInterview_nextButton"
+        app:layout_constraintEnd_toStartOf="@+id/conductInterview_nextButton" />
 
     <ImageButton
         android:id="@+id/conductInterview_nextButton"
@@ -75,20 +75,39 @@
         app:layout_constraintBottom_toTopOf="@+id/conductInterview_questionViewPager"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <android.support.constraint.Group
+        android:id="@+id/conductInterview_playGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="conductInterview_nextQuestionName,conductInterview_next,conductInterview_nextButton" />
+
+    <ImageButton
+        android:id="@+id/conductInterview_startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/transparent"
+        android:padding="12dp"
+        android:src="@drawable/ic_timer_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/appCompatImageView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/appCompatImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:src="@drawable/divider"
-        app:layout_constraintTop_toBottomOf="@+id/conductInterview_nextQuestionName"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conductInterview_timer" />
 
     <io.github.alexdenton.interviewd.conductinterview.QuestionViewPager
         android:id="@+id/conductInterview_questionViewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

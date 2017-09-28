@@ -3,6 +3,8 @@ package io.github.alexdenton.interviewd.conductinterview
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.SystemClock
+import android.support.constraint.Group
+import android.view.View
 import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.TextView
@@ -28,6 +30,8 @@ class ConductInterviewActivity : BaseActivity() {
     lateinit var nextQuestionName: TextView
     lateinit var nextQuestionButton: ImageButton
     lateinit var timer: Chronometer
+    lateinit var startButton: ImageButton
+    lateinit var playGroup: Group
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,8 @@ class ConductInterviewActivity : BaseActivity() {
         nextQuestionName = findViewById(R.id.conductInterview_nextQuestionName)
         nextQuestionButton = findViewById(R.id.conductInterview_nextButton)
         timer = findViewById(R.id.conductInterview_timer)
+        playGroup = findViewById(R.id.conductInterview_playGroup)
+        startButton = findViewById(R.id.conductInterview_startButton)
 
         val viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, vm.interview.questions)
         questionViewPager.adapter = viewPagerAdapter
@@ -58,12 +64,25 @@ class ConductInterviewActivity : BaseActivity() {
         vm.getNextPageSignal()
                 .subscribe { questionViewPager.currentItem = it }
 
+        vm.getStartSignal()
+                .subscribe { startInterview() }
+                .lifecycleAware()
+
+        vm.exposeStartClicks(startButton.clicks())
         vm.exposeNextClicks(nextQuestionButton.clicks())
         vm.exposeCurrentPage(Observable.concat(Observable.just(vm.currentPage), questionViewPager.pageSelections().skipInitialValue()))
 
         setupStaticInfo(vm.interview)
-        setupTimer()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        if (playGroup.visibility == View.VISIBLE) timer.stop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (playGroup.visibility == View.VISIBLE) timer.start()
     }
 
     private fun updateNextQuestion(nextQuestionString: String) {
@@ -76,23 +95,22 @@ class ConductInterviewActivity : BaseActivity() {
         interviewEstimateText.text = resources.getString(R.string.est, interview.questions.sumBy { it.timeEstimate })
     }
 
-    override fun onPause() {
-        super.onPause()
-        timer.stop()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        timer.start()
-    }
-
     fun setupTimer(){
-
+        timer.base = SystemClock.elapsedRealtime()
         timer.setOnChronometerTickListener {
             val time = SystemClock.elapsedRealtime() - it.base
             val mins = time / 60000
 
             it.text = resources.getString(R.string.elapsed, mins)
         }
+
+        timer.start()
+    }
+
+    fun startInterview(){
+        startButton.visibility = View.GONE
+        playGroup.visibility = View.VISIBLE
+        questionViewPager.currentItem = 0
+        setupTimer()
     }
 }
