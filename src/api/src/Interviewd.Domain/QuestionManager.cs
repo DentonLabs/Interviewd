@@ -43,5 +43,12 @@ namespace Interviewd.Domain
             var question = await _QuestionRepository.GetQuestion(id);
             return _Mapper.Map<QuestionDto>(question);
         }
+
+        public async Task<QuestionDto> UpdateQuestion(QuestionDto questionDto)
+        {
+            var question = _Mapper.Map<Question>(questionDto);
+            var updatedQuestion = await _QuestionRepository.UpdateQuestion(question);
+            return _Mapper.Map<QuestionDto>(updatedQuestion);
+        }
     }
 }

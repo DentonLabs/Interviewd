@@ -11,5 +11,7 @@ namespace Interviewd.Infrastructure.Abstraction
         Task<IEnumerable<Question>> GetQuestions();
 
         Task<Question> GetQuestion(string id);
+
+        Task<Question> UpdateQuestion(Question question);
     }
 }

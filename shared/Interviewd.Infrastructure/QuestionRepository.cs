@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -80,6 +81,20 @@ namespace Interviewd.Infrastructure
                         Description = q.Description
                     })
                     .Single();
+            }
+        }
+
+        public async Task<Question> UpdateQuestion(Question question)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var questionSqlModel = new QuestionSqlModel();
+
+                await connection.ExecuteAsync(
+                    StoredProcedures.GetQuestions,
+                    questionSqlModel);
+
+                return question;
             }
         }
     }

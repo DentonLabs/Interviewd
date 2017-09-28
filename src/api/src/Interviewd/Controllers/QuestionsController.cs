@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Interviewd.Controllers
 {
@@ -33,6 +35,16 @@ namespace Interviewd.Controllers
         public async Task<QuestionDto> PostQuestion([FromBody]QuestionDto questionDto)
         {
             return await _QuestionManager.CreateQuestion(questionDto);
+        }
+
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<QuestionDto> PatchQuestion([FromRoute] string id, [FromBody] JsonPatchDocument<QuestionDto> patch)
+        {
+            // Todo(AD): ModelState?
+            var question = await _QuestionManager.GetQuestion(id);
+            patch.ApplyTo(question);
+            return await _QuestionManager.UpdateQuestion(question);
         }
     }
 }

@@ -11,5 +11,7 @@ namespace Interviewd.Application
         Task<IEnumerable<QuestionDto>> GetQuestions();
 
         Task<QuestionDto> GetQuestion(string id);
+
+        Task<QuestionDto> UpdateQuestion(QuestionDto questionDto);
     }
 }
