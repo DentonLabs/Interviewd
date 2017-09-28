@@ -18,6 +18,8 @@ class QuestionPagerAdapter(fm: FragmentManager, val questions: List<Question>) :
         bundle.putString("name", questions[position].name)
         bundle.putString("desc", questions[position].description)
         bundle.putInt("est", questions[position].timeEstimate)
+        bundle.putInt("currentPage", position + 1)
+        bundle.putInt("totalPages", questions.size)
         fragment.arguments = bundle
         return fragment
     }
