@@ -40,11 +40,7 @@ class CreateQuestionViewModel : BaseViewModel() {
             .subscribe { description = it }
             .lifecycleAware()
 
-    fun exposeSubmitButton(clicks: Observable<Unit>) = clicks
-            .subscribe { submitQuestion() }
-            .lifecycleAware()
-
-    private fun submitQuestion() = questionRepo.createQuestion(getQuestionFromFields())
+    fun submitQuestion() = questionRepo.createQuestion(getQuestionFromFields())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ submitSuccess() },

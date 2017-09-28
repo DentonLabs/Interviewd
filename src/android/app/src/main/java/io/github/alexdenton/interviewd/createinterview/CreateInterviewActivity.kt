@@ -127,13 +127,13 @@ class CreateInterviewActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_create_interview, menu)
+        menuInflater.inflate(R.menu.menu_submit, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.menuCreateInterview_submit -> vm.submitInterview()
+            R.id.menu_submit -> vm.submitInterview()
         }
 
         return super.onOptionsItemSelected(item)
