@@ -2,6 +2,8 @@ package io.github.alexdenton.interviewd.createcandidate
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import com.github.salomonbrys.kodein.LazyKodein
@@ -17,7 +19,6 @@ class CreateCandidateActivity : BaseActivity() {
 
     lateinit var firstNameField: EditText
     lateinit var lastNameField: EditText
-    lateinit var submitButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +30,21 @@ class CreateCandidateActivity : BaseActivity() {
 
         firstNameField = findViewById(R.id.createCandidate_firstNameField)
         lastNameField = findViewById(R.id.createCandidate_lastNameField)
-        submitButton = findViewById(R.id.createCandidate_submitButton)
 
         vm.exposeFirstNameField(firstNameField.textChanges())
         vm.exposeLastNameField(lastNameField.textChanges())
-        vm.exposeSubmitButton(submitButton.clicks())
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_submit, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menu_submit -> vm.submitCandidate()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

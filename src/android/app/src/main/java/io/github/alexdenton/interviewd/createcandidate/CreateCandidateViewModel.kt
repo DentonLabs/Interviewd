@@ -34,9 +34,6 @@ class CreateCandidateViewModel : BaseViewModel() {
             .subscribe { lastName = it }
             .lifecycleAware()
 
-    fun exposeSubmitButton(clicks: Observable<Unit>) = clicks
-            .subscribe { submitCandidate() }
-
     fun submitCandidate() = candidateRepo.createCandidate(getCandidateFromFields())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
