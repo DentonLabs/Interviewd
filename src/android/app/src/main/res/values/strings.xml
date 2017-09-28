@@ -31,6 +31,7 @@
     <string name="load_template">Load Template</string>
     <string name="select_a_template">Select a template</string>
     <string name="sample">Sample</string>
-    <string name="est">est. %1$dmin</string>
+    <string name="est">est. %1$d mins</string>
+    <string name="elapsed">%1$d mins elapsed</string>
     <string name="next">next:</string>
 </resources>

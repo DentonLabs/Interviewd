@@ -2,6 +2,8 @@ package io.github.alexdenton.interviewd.conductinterview
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.SystemClock
+import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.TextView
 import com.github.salomonbrys.kodein.LazyKodein
@@ -21,9 +23,11 @@ class ConductInterviewActivity : BaseActivity() {
 
     lateinit var candidateNameText: TextView
     lateinit var interviewTitleText: TextView
+    lateinit var interviewEstimateText: TextView
     lateinit var questionViewPager: QuestionViewPager
     lateinit var nextQuestionName: TextView
     lateinit var nextQuestionButton: ImageButton
+    lateinit var timer: Chronometer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +40,11 @@ class ConductInterviewActivity : BaseActivity() {
 
         candidateNameText = findViewById(R.id.conductInterview_candidateName)
         interviewTitleText = findViewById(R.id.conductInterview_interviewPosition)
+        interviewEstimateText = findViewById(R.id.conductInterview_timeEstimate)
         questionViewPager = findViewById(R.id.conductInterview_questionViewPager)
         nextQuestionName = findViewById(R.id.conductInterview_nextQuestionName)
         nextQuestionButton = findViewById(R.id.conductInterview_nextButton)
+        timer = findViewById(R.id.conductInterview_timer)
 
         val viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, vm.interview.questions)
         questionViewPager.adapter = viewPagerAdapter
@@ -55,7 +61,8 @@ class ConductInterviewActivity : BaseActivity() {
         vm.exposeNextClicks(nextQuestionButton.clicks())
         vm.exposeCurrentPage(Observable.concat(Observable.just(vm.currentPage), questionViewPager.pageSelections().skipInitialValue()))
 
-        setupInfo(vm.interview)
+        setupStaticInfo(vm.interview)
+        setupTimer()
 
     }
 
@@ -63,8 +70,29 @@ class ConductInterviewActivity : BaseActivity() {
         nextQuestionName.text = nextQuestionString
     }
 
-    fun setupInfo(interview: Interview){
+    fun setupStaticInfo(interview: Interview){
         candidateNameText.text = interview.candidate.toString()
         interviewTitleText.text = interview.name
+        interviewEstimateText.text = resources.getString(R.string.est, interview.questions.sumBy { it.timeEstimate })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timer.stop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        timer.start()
+    }
+
+    fun setupTimer(){
+
+        timer.setOnChronometerTickListener {
+            val time = SystemClock.elapsedRealtime() - it.base
+            val mins = time / 60000
+
+            it.text = resources.getString(R.string.elapsed, mins)
+        }
     }
 }
