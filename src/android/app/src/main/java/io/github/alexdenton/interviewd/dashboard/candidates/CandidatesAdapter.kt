@@ -7,13 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.interview.Candidate
+import io.reactivex.Observable
 
 /**
  * Created by ryan on 8/28/17.
  */
 class CandidatesAdapter(var candidates: List<Candidate>) : RecyclerView.Adapter<CandidatesAdapter.CandidateViewHolder>(){
+
+    private val candidateClicks: PublishRelay<Candidate> = PublishRelay.create()
+    fun getItemClicks(): Observable<Candidate> = candidateClicks
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CandidateViewHolder {
         val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.card_candidate, parent, false)
@@ -23,6 +28,10 @@ class CandidatesAdapter(var candidates: List<Candidate>) : RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: CandidateViewHolder?, position: Int) {
         holder?.nameView?.text = "${candidates[position].firstName} ${candidates[position].lastName}"
+
+        holder?.itemView?.setOnClickListener {
+            candidateClicks.accept(candidates[position])
+        }
     }
 
     override fun getItemCount(): Int = candidates.size

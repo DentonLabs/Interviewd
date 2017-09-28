@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.CandidateRepository
 import io.github.alexdenton.interviewd.createcandidate.CreateCandidateActivity
+import io.github.alexdenton.interviewd.detailcandidate.CandidateDetailActivity
 import io.github.alexdenton.interviewd.interview.Candidate
 import io.github.rfonzi.rxaware.BaseViewModel
 import io.reactivex.Observable
@@ -34,5 +35,8 @@ class CandidatesViewModel : BaseViewModel() {
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
             .subscribe { startActivity(CreateCandidateActivity::class.java) }
+
+    fun exposeItemClicks(itemClicks: Observable<Candidate>) = itemClicks
+            .subscribe { startActivityAndStore(CandidateDetailActivity::class.java, it) }
 
 }

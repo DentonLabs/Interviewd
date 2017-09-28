@@ -56,7 +56,7 @@ class CandidatesFragment : BaseFragment() {
         recyclerView.adapter = adapter
 
         vm.exposeAddFab(addFab.clicks())
-
+        vm.exposeItemClicks(adapter.getItemClicks())
         vm.getCandidatesObservable()
                 .timeout(5, TimeUnit.SECONDS)
                 .firstElement()

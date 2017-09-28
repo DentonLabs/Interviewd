@@ -46,6 +46,10 @@
             android:name=".detailquestion.QuestionDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
+        <activity
+            android:name=".detailcandidate.CandidateDetailActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".dashboard.DashboardActivity" />
     </application>
 
 </manifest>
