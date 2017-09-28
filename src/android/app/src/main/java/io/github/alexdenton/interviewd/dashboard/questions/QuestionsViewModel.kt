@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.createquestion.CreateQuestionActivity
+import io.github.alexdenton.interviewd.detailquestion.QuestionDetailActivity
 import io.github.alexdenton.interviewd.question.Question
 import io.github.rfonzi.rxaware.BaseViewModel
 import io.reactivex.Observable
@@ -36,5 +37,8 @@ class QuestionsViewModel : BaseViewModel() {
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
             .subscribe { startActivity(CreateQuestionActivity::class.java) }
+
+    fun exposeItemClicks(itemClicks: Observable<Question>) = itemClicks
+            .subscribe { startActivityAndStore(QuestionDetailActivity::class.java, it) }
 
 }

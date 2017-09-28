@@ -30,7 +30,7 @@ class QuestionsFragment : BaseFragment() {
     lateinit var errorTextView: TextView
     lateinit var addFab: FloatingActionButton
     val numCols = 2
-    var questions: List<Question> = emptyList()
+    val adapter = QuestionsAdapter(mutableListOf())
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,10 +45,10 @@ class QuestionsFragment : BaseFragment() {
         addFab = view.findViewById(R.id.questions_addFab)
 
         recyclerView.layoutManager = GridLayoutManager(context, numCols)
-        recyclerView.adapter = QuestionsAdapter(questions)
+        recyclerView.adapter = adapter
 
         vm.exposeAddFab(addFab.clicks())
-
+        vm.exposeItemClicks(adapter.getItemClicks())
         vm.getQuestionsObservable()
                 .timeout(5, TimeUnit.SECONDS)
                 .firstElement()
@@ -68,8 +68,9 @@ class QuestionsFragment : BaseFragment() {
     }
 
     fun foundQuestions(list: List<Question>) {
-        recyclerView.adapter = QuestionsAdapter(list)
-        recyclerView.adapter.notifyDataSetChanged()
+        adapter.questions.clear()
+        adapter.questions.addAll(list)
+        adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
     }
 

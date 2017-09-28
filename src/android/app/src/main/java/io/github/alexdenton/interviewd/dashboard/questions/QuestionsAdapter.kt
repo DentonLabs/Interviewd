@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.question.Question
+import io.reactivex.Observable
 
 /**
  * Created by ryan on 8/11/17.
  */
-class QuestionsAdapter(var questions: List<Question>) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
+class QuestionsAdapter(var questions: MutableList<Question>) : RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder>() {
+
+    private val questionClicks: PublishRelay<Question> = PublishRelay.create()
+    fun getItemClicks(): Observable<Question> = questionClicks
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): QuestionViewHolder {
         val view: View = LayoutInflater.from(parent?.context).inflate(R.layout.card_question, parent, false)
 
@@ -21,6 +27,10 @@ class QuestionsAdapter(var questions: List<Question>) : RecyclerView.Adapter<Que
     override fun onBindViewHolder(holder: QuestionViewHolder?, position: Int) {
         holder?.nameView?.text = questions[position].name
         holder?.descView?.text = questions[position].description
+
+        holder?.itemView?.setOnClickListener {
+            questionClicks.accept(questions[position])
+        }
     }
 
     override fun getItemCount(): Int = questions.size
