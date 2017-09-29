@@ -36,7 +36,7 @@ class TemplatesFragment : BaseFragment() {
     lateinit var progressBar: ProgressBar
     lateinit var errorTextView: TextView
     lateinit var addTemplateFab: FloatingActionButton
-    var templates: List<Template> = emptyList()
+    val adapter = TemplatesAdapter(mutableListOf())
     val numCols = 2
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -52,9 +52,10 @@ class TemplatesFragment : BaseFragment() {
         addTemplateFab = view.findViewById(R.id.templates_addTemplateFab)
 
         recyclerView.layoutManager = GridLayoutManager(context, numCols)
-        recyclerView.adapter = TemplatesAdapter(templates)
+        recyclerView.adapter = adapter
 
         vm.exposeAddFab(addTemplateFab.clicks())
+        vm.exposeItemClicks(adapter.getItemClicks())
         vm.getTemplatesObservable()
                 .timeout(5, TimeUnit.SECONDS)
                 .firstElement()
@@ -76,8 +77,9 @@ class TemplatesFragment : BaseFragment() {
 
 
     fun foundTemplates(list: List<Template>) {
-        recyclerView.adapter = TemplatesAdapter(list)
-        recyclerView.adapter.notifyDataSetChanged()
+        adapter.templates.clear()
+        adapter.templates.addAll(list)
+        adapter.notifyDataSetChanged()
         progressBar.visibility = View.GONE
     }
 

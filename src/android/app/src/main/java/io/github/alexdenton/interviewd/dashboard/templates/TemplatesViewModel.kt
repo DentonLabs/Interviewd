@@ -5,6 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.TemplateRepository
 import io.github.alexdenton.interviewd.createtemplate.CreateTemplateActivity
+import io.github.alexdenton.interviewd.detailtemplate.TemplateDetailActivity
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.rfonzi.rxaware.BaseViewModel
 import io.reactivex.Observable
@@ -35,4 +36,7 @@ class TemplatesViewModel : BaseViewModel() {
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
             .subscribe { startActivity(CreateTemplateActivity::class.java) }
+
+    fun exposeItemClicks(itemClicks: Observable<Template>) = itemClicks
+            .subscribe { startActivityAndStore(TemplateDetailActivity::class.java, it) }
 }
