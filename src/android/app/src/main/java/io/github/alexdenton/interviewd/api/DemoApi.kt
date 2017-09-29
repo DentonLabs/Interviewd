@@ -17,6 +17,7 @@ import java.io.OutputStreamWriter
  * Created by ryan on 8/17/17.
  */
 class DemoApi(val context: Context) : InterviewdApiService {
+
     val gson: Gson = Gson()
     val questionsFilename = "questions"
     val templatesFilename = "templates"
@@ -81,6 +82,26 @@ class DemoApi(val context: Context) : InterviewdApiService {
         writer.close()
 
         return Single.just(toAdd)
+    }
+
+    override fun patchQuestion(id: Int, patch: QuestionDto): Single<QuestionDto> {
+        val reader = context.openFileInput(questionsFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<QuestionDto> = gson.fromJson(json, object : TypeToken<List<QuestionDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        mutableList[mutableList.indexOfFirst { it.id == id }] = patch
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(questionsFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(patch)
     }
 
     override fun getTemplates(): Single<List<TemplateDto>> {

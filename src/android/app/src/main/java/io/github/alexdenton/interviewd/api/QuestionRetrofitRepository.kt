@@ -26,5 +26,9 @@ class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
             = client.createQuestion(question.toDto())
             .map { it.toQuestion() }
 
-    fun Question.toDto() = QuestionDto(0, name, description, timeEstimate)
+    override fun updateQuestion(question: Question): Single<Question>
+            = client.patchQuestion(question.id, question.toDto())
+            .map { it.toQuestion() }
+
+    fun Question.toDto() = QuestionDto(id, name, description, timeEstimate)
 }
