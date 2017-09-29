@@ -1,5 +1,6 @@
 ﻿using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
+using Marvin.JsonPatch;
 using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api
@@ -25,6 +26,14 @@ namespace Interviewd.Tests.Api
             return _Fixture.Build<QuestionDto>()
                 .Without(o => o.Id)
                 .Create();
+        }
+
+        public JsonPatchDocument<QuestionDto> StubQuestionPatchRequest()
+        {
+            var patchRequest = new JsonPatchDocument<QuestionDto>();
+            patchRequest.Replace(o => o.Name, _Fixture.Create<string>());
+            patchRequest.Replace(o => o.Description, _Fixture.Create<string>());
+            return patchRequest;
         }
 
         public InterviewTemplateDto StubInterviewTemplateDto()

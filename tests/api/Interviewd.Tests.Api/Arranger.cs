@@ -71,6 +71,11 @@ namespace Interviewd.Tests.Api
             return questions;
         }
 
+        public async Task<Question> GetQuestion(string id)
+        {
+            return await _QuestionRepository.GetQuestion(id);
+        }
+
         public async Task<IEnumerable<Candidate>> CreateCandidates()
         {
             var dbCandidates = new List<Candidate>();

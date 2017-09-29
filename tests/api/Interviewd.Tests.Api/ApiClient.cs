@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Interviewd.Application.Dto;
 using Interviewd.Configuration;
+using Marvin.JsonPatch;
 using Microsoft.Extensions.Options;
 
 namespace Interviewd.Tests.Api
@@ -23,6 +23,13 @@ namespace Interviewd.Tests.Api
             return await _HttpClient.PostAsync(
                 ApiRoutes.QuestionsRoute,
                 questionDto.ToStringContent());
+        }
+
+        public async Task<HttpResponseMessage> PatchQuestion(string id, JsonPatchDocument<QuestionDto> patchRequest)
+        {
+            return await _HttpClient.PatchAsync(
+                $"{ApiRoutes.QuestionsRoute}/{id}",
+                patchRequest.Operations.ToStringContent());
         }
 
         public async Task<HttpResponseMessage> GetQuestion(string id)

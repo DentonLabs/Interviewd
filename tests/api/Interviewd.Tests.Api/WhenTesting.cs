@@ -17,7 +17,7 @@ namespace Interviewd.Tests.Api
     {
         protected HttpClient HttpClient;
 
-        protected Fixture Fixture;
+        protected Fixture _Fixture;
 
         protected IServiceProvider ServiceProvider;
 
@@ -59,7 +59,7 @@ namespace Interviewd.Tests.Api
             Stubber = ServiceProvider.GetService<Stubber>();
             ApiClient = ServiceProvider.GetService<ApiClient>();
 
-            Fixture = new Fixture();
+            _Fixture = new Fixture();
 
             var config = new MapperConfiguration(cfg =>
             {

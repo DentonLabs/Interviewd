@@ -5,6 +5,7 @@ using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
 using Jmansar.SemanticComparisonExtensions;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api
 {
@@ -46,6 +47,21 @@ namespace Interviewd.Tests.Api
             responseQuestions = responseQuestions.Where(rq => dbQuestions.Any(dq => dq.Id == rq.Id));
 
             Assert.IsTrue(responseQuestions.CompareCollectionsUsingLikeness(dbQuestions));
+        }
+
+        [Test]
+        public async Task ShouldBeABleToUpdateQuestion()
+        {
+            var questionDto = Mapper.Map<QuestionDto>(await Arranger.CreateQuestion());
+
+            var questionPatchRequest = Stubber.StubQuestionPatchRequest();
+            questionPatchRequest.ApplyTo(questionDto);
+
+            await ApiClient.PatchQuestion(questionDto.Id, questionPatchRequest);
+
+            var updatedQuestionDto = Mapper.Map<QuestionDto>(await Arranger.GetQuestion(questionDto.Id));
+
+            questionDto.ToLikeness(true).ShouldEqual(updatedQuestionDto);
         }
     }
 }
