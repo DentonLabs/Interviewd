@@ -9,7 +9,7 @@ import io.github.rfonzi.rxaware.bus.UIBus
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankFragment
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/19/17.
  */
-class CreateTemplateViewModel : BaseViewModel() {
+class CreateTemplateViewModel : RxAwareViewModel() {
 
     lateinit var questionRepo: QuestionRepository
     lateinit var templateRepo: TemplateRepository

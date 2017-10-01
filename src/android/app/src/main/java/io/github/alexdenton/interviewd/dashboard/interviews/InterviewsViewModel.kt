@@ -7,7 +7,7 @@ import io.github.alexdenton.interviewd.api.InterviewRepository
 import io.github.alexdenton.interviewd.conductinterview.ConductInterviewActivity
 import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
 import io.github.alexdenton.interviewd.interview.Interview
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/25/17.
  */
-class InterviewsViewModel : BaseViewModel() {
+class InterviewsViewModel : RxAwareViewModel() {
 
     private lateinit var interviewRepo: InterviewRepository
     private val interviews: PublishRelay<List<Interview>> = PublishRelay.create()

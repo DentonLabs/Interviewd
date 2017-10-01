@@ -13,7 +13,7 @@ import io.github.alexdenton.interviewd.interview.Candidate
 import io.github.alexdenton.interviewd.interview.Interview
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/25/17.
  */
-class CreateInterviewViewModel : BaseViewModel() {
+class CreateInterviewViewModel : RxAwareViewModel() {
 
     lateinit var questionRepo: QuestionRepository
     lateinit var candidateRepo: CandidateRepository

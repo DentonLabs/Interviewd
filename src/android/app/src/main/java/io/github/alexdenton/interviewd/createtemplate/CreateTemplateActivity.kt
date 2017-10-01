@@ -11,9 +11,9 @@ import io.github.rfonzi.rxaware.bus.RxBus
 import io.github.rfonzi.rxaware.bus.events.FlushEvent
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankFragment
 import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormFragment
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class CreateTemplateActivity : BaseActivity() {
+class CreateTemplateActivity : RxAwareActivity() {
 
     val templateFormFragment = TemplateFormFragment()
     val questionBankFragment = QuestionBankFragment()

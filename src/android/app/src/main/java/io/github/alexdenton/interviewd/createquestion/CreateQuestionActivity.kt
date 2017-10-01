@@ -9,9 +9,9 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.github.alexdenton.interviewd.R
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class CreateQuestionActivity : BaseActivity() {
+class CreateQuestionActivity : RxAwareActivity() {
 
     lateinit var vm: CreateQuestionViewModel
 

@@ -5,7 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxbinding2.InitialValueObservable
 import io.github.alexdenton.interviewd.api.CandidateRepository
 import io.github.alexdenton.interviewd.interview.Candidate
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/24/17.
  */
-class CreateCandidateViewModel : BaseViewModel() {
+class CreateCandidateViewModel : RxAwareViewModel() {
 
     lateinit var candidateRepo: CandidateRepository
 

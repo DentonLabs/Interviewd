@@ -12,13 +12,13 @@ import android.view.ViewGroup
 
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.createtemplate.CreateTemplateViewModel
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class QuestionBankFragment : BaseFragment() {
+class QuestionBankFragment : RxAwareFragment() {
 
     lateinit var recyclerView: RecyclerView
     val numRows = 2

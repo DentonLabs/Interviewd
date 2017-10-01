@@ -19,7 +19,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.createtemplate.CreateTemplateActivity
 import io.github.alexdenton.interviewd.interview.Template
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 /**
  * A simple [Fragment] subclass.
  */
-class TemplatesFragment : BaseFragment() {
+class TemplatesFragment : RxAwareFragment() {
 
     lateinit var vm: TemplatesViewModel
 

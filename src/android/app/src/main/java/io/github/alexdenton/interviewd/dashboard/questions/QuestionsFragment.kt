@@ -16,12 +16,12 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class QuestionsFragment : BaseFragment() {
+class QuestionsFragment : RxAwareFragment() {
 
     lateinit var vm: QuestionsViewModel
 

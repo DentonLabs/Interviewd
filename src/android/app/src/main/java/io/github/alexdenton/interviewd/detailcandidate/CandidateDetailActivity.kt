@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.widget.TextView
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.interview.Candidate
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class CandidateDetailActivity : BaseActivity() {
+class CandidateDetailActivity : RxAwareActivity() {
 
     lateinit var firstName: TextView
     lateinit var lastName: TextView

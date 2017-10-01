@@ -7,7 +7,7 @@ import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.createquestion.CreateQuestionActivity
 import io.github.alexdenton.interviewd.detailquestion.QuestionDetailActivity
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/25/17.
  */
-class QuestionsViewModel : BaseViewModel() {
+class QuestionsViewModel : RxAwareViewModel() {
 
     lateinit var questionsRepo: QuestionRepository
 
@@ -39,6 +39,6 @@ class QuestionsViewModel : BaseViewModel() {
             .subscribe { startActivity(CreateQuestionActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Question>) = itemClicks
-            .subscribe { startActivityAndStore(QuestionDetailActivity::class.java, it) }
+            .subscribe { startActivityAndStore(QuestionDetailActivity::class.java, it.id) }
 
 }

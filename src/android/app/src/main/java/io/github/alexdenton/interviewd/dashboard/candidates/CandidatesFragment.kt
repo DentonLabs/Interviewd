@@ -20,12 +20,12 @@ import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.createcandidate.CreateCandidateActivity
 import io.github.alexdenton.interviewd.interview.Candidate
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CandidatesFragment : BaseFragment() {
+class CandidatesFragment : RxAwareFragment() {
 
     lateinit var vm: CandidatesViewModel
 

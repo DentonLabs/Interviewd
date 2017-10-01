@@ -5,7 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +14,7 @@ import io.reactivex.subjects.BehaviorSubject
 /**
  * Created by ryan on 9/23/17.
  */
-class CreateQuestionViewModel : BaseViewModel() {
+class CreateQuestionViewModel : RxAwareViewModel() {
 
     private lateinit var questionRepo: QuestionRepository
 

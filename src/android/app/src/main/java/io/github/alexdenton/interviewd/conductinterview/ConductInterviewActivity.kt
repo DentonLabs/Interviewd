@@ -14,12 +14,12 @@ import com.jakewharton.rxbinding2.support.v4.view.pageSelections
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.interview.Interview
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ConductInterviewActivity : BaseActivity() {
+class ConductInterviewActivity : RxAwareActivity() {
 
     lateinit var vm: ConductInterviewViewModel
 

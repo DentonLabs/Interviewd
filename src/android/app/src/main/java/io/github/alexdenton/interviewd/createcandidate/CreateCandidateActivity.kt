@@ -11,9 +11,9 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.github.alexdenton.interviewd.R
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class CreateCandidateActivity : BaseActivity() {
+class CreateCandidateActivity : RxAwareActivity() {
 
     lateinit var vm: CreateCandidateViewModel
 

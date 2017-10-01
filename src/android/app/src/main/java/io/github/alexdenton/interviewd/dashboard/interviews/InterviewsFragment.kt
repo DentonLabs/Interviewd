@@ -20,7 +20,7 @@ import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
 import io.github.alexdenton.interviewd.interview.Interview
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 /**
  * A simple [Fragment] subclass.
  */
-class InterviewsFragment : BaseFragment() {
+class InterviewsFragment : RxAwareFragment() {
 
     lateinit var vm: InterviewsViewModel
 

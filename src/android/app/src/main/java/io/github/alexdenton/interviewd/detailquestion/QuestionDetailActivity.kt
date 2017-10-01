@@ -1,31 +1,30 @@
 package io.github.alexdenton.interviewd.detailquestion
 
-import android.support.v7.app.AppCompatActivity
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.widget.TextView
+import android.view.MenuItem
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.appKodein
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class QuestionDetailActivity : BaseActivity() {
+class QuestionDetailActivity : RxAwareActivity() {
 
-    lateinit var nameText: TextView
-    lateinit var descText: TextView
-    lateinit var estText: TextView
+    lateinit var vm: QuestionDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_detail)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val question = receive() as Question
+        vm = ViewModelProviders.of(this).get(QuestionDetailViewModel::class.java)
+        vm.init(LazyKodein(appKodein), receive() as Int)
 
-        nameText = findViewById(R.id.questionDetail_name)
-        descText = findViewById(R.id.questionDetail_description)
-        estText = findViewById(R.id.questionDetail_estimate)
+        fragmentTransaction {
+            add(R.id.questionDetail_fragmentContainer, QuestionDetailShowFragment())
+        }
 
-        nameText.text = question.name
-        descText.text = question.description
-        estText.text = resources.getString(R.string.est, question.timeEstimate)
     }
+
 }
+

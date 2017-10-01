@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import io.github.alexdenton.interviewd.R
-import io.github.rfonzi.rxaware.BaseFragment
+import io.github.rfonzi.rxaware.RxAwareFragment
 
 /**
  * A simple [Fragment] subclass.
  */
-class QuestionPageFragment : BaseFragment() {
+class QuestionPageFragment : RxAwareFragment() {
 
     lateinit var questionNameText: TextView
     lateinit var questionDescText: TextView

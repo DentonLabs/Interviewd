@@ -21,9 +21,9 @@ import io.github.alexdenton.interviewd.createtemplate.templateform.TemplateFormT
 import io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankAdapter
 import io.github.alexdenton.interviewd.interview.Template
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class CreateInterviewActivity : BaseActivity() {
+class CreateInterviewActivity : RxAwareActivity() {
 
     lateinit var vm: CreateInterviewViewModel
 

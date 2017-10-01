@@ -7,7 +7,7 @@ import io.github.alexdenton.interviewd.api.TemplateRepository
 import io.github.alexdenton.interviewd.createtemplate.CreateTemplateActivity
 import io.github.alexdenton.interviewd.detailtemplate.TemplateDetailActivity
 import io.github.alexdenton.interviewd.interview.Template
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by ryan on 9/25/17.
  */
-class TemplatesViewModel : BaseViewModel() {
+class TemplatesViewModel : RxAwareViewModel() {
 
     lateinit var templateRepo: TemplateRepository
     private val templates: PublishRelay<List<Template>> = PublishRelay.create()

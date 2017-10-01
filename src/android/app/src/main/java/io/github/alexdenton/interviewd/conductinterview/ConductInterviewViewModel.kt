@@ -7,13 +7,13 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.InterviewRepository
 import io.github.alexdenton.interviewd.interview.Interview
 import io.github.alexdenton.interviewd.question.Question
-import io.github.rfonzi.rxaware.BaseViewModel
+import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 
 /**
  * Created by ryan on 9/27/17.
  */
-class ConductInterviewViewModel : BaseViewModel() {
+class ConductInterviewViewModel : RxAwareViewModel() {
 
     private lateinit var interviewRepo: InterviewRepository
     lateinit var interview: Interview

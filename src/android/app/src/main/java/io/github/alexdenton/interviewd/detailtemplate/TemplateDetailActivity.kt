@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.interview.Template
-import io.github.rfonzi.rxaware.BaseActivity
+import io.github.rfonzi.rxaware.RxAwareActivity
 
-class TemplateDetailActivity : BaseActivity() {
+class TemplateDetailActivity : RxAwareActivity() {
 
     lateinit var templateName: TextView
     lateinit var templateEst: TextView
