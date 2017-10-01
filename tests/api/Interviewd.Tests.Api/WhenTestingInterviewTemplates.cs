@@ -55,6 +55,26 @@ namespace Interviewd.Tests.Api
         }
 
         [Test]
+        public async Task ShouldBeAbleToPatchAnInterviewTemplate()
+        {
+            var interviewTemplateDto = Mapper.Map<InterviewTemplateDto>(await Arranger.CreateInterviewTemplate());
+
+            var patchRequest = Stubber.StubInterviewTemplatePatchRequest();
+            patchRequest.ApplyTo(interviewTemplateDto);
+
+            (await ApiClient.PatchInterviewTemplate(interviewTemplateDto.Id, patchRequest))
+                .EnsureSuccessStatusCode();
+
+            var updatedInterviewTemplateDto = Mapper.Map<InterviewTemplateDto>(
+                await Arranger.GetInterviewTemplate(interviewTemplateDto.Id));
+
+            interviewTemplateDto
+                .ToLikeness()
+                .Without(o => o.QuestionIds)
+                .ShouldEqual(updatedInterviewTemplateDto);
+        }
+
+        [Test]
         public async Task ShouldBeAbleToGetAllInterviewTemplates()
         {
             var dbInterviewTemplates = await Arranger.CreateInterviewTemplates();

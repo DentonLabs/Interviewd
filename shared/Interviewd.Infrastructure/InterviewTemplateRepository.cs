@@ -85,7 +85,8 @@ namespace Interviewd.Infrastructure
 
                 await connection.ExecuteAsync(
                     StoredProcedures.UpdateInterviewTemplate,
-                    interviewTemplateSqlModel);
+                    interviewTemplateSqlModel,
+                    commandType: CommandType.StoredProcedure);
 
                 return interviewTemplate;
             }

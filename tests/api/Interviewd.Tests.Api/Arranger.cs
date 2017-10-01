@@ -104,6 +104,11 @@ namespace Interviewd.Tests.Api
             return await _QuestionRepository.InsertQuestion(_Fixture.Create<Question>());
         }
 
+        public async Task<InterviewTemplate> GetInterviewTemplate(string id)
+        {
+            return await _InterviewTemplateRepository.GetInterviewTemplate(id);
+        }
+
         public async Task<IEnumerable<InterviewTemplate>> CreateInterviewTemplates()
         {
             var interviewTemplates = new List<InterviewTemplate>();

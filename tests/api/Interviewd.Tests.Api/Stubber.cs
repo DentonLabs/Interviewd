@@ -44,6 +44,13 @@ namespace Interviewd.Tests.Api
             return patchRequest;
         }
 
+        public JsonPatchDocument<InterviewTemplateDto> StubInterviewTemplatePatchRequest()
+        {
+            var patchRequest = new JsonPatchDocument<InterviewTemplateDto>();
+            patchRequest.Replace(o => o.Name, _Fixture.Create<string>());
+            return patchRequest;
+        }
+
         public InterviewTemplateDto StubInterviewTemplateDto()
         {
             return _Fixture.Build<InterviewTemplateDto>()

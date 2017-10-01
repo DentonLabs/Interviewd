@@ -29,7 +29,8 @@ namespace Interviewd.Mapping
                     config.MapFrom(o => o.Questions.Select(q => q.Id)));
 
             CreateMap<InterviewTemplateSqlModel, InterviewTemplate>()
-                .ForMember(o => o.Name, config => config.MapFrom(o => o.Name));
+                .ForMember(o => o.Name, config => config.MapFrom(o => o.Name))
+                .ReverseMap();
 
             CreateMap<CandidateDto, Candidate>()
                 .ReverseMap();

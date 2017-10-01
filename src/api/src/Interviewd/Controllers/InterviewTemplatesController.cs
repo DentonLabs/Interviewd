@@ -38,6 +38,7 @@ namespace Interviewd.Controllers
         }
 
         [HttpPatch]
+        [Route("{id}")]
         public async Task<InterviewTemplateDto> PatchInterviewTemplate(
             [FromRoute] string id,
             [FromBody] JsonPatchDocument<InterviewTemplateDto> patchRequest)

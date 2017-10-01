@@ -61,6 +61,15 @@ namespace Interviewd.Tests.Api
             return await _HttpClient.GetAsync(ApiRoutes.InterviewTemplatesRoute);
         }
 
+        public async Task<HttpResponseMessage> PatchInterviewTemplate(
+            string id,
+            JsonPatchDocument<InterviewTemplateDto> patchRequest)
+        {
+            return await _HttpClient.PatchAsync(
+                $"{ApiRoutes.InterviewTemplatesRoute}/{id}",
+                patchRequest.ToStringContent());
+        }
+
         public async Task<HttpResponseMessage> PostInterview(InterviewDto interviewDto, string interviewTemplateId = null, string candidateId = null)
         {
             var queryStringBuilder = new QueryStringBuilder();
