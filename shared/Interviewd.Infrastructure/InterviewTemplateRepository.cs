@@ -77,6 +77,20 @@ namespace Interviewd.Infrastructure
             }
         }
 
+        public async Task<InterviewTemplate> UpdateInterviewTemplate(InterviewTemplate interviewTemplate)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var interviewTemplateSqlModel = _Mapper.Map<InterviewTemplateSqlModel>(interviewTemplate);
+
+                await connection.ExecuteAsync(
+                    StoredProcedures.UpdateInterviewTemplate,
+                    interviewTemplateSqlModel);
+
+                return interviewTemplate;
+            }
+        }
+
         public async Task<InterviewTemplate> GetInterviewTemplate(string interviewTemplateId)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))

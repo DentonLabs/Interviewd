@@ -12,6 +12,8 @@ namespace Interviewd.Infrastructure.Abstraction
 
         Task<IEnumerable<InterviewTemplate>> GetInterviewTemplates();
 
+        Task<InterviewTemplate> UpdateInterviewTemplate(InterviewTemplate interviewTemplate);
+
         Task<InterviewTemplate> GetInterviewTemplate(string interviewTemplateId);
     }
 }

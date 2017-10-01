@@ -51,5 +51,13 @@ namespace Interviewd.Domain
 
             return _Mapper.Map<IEnumerable<InterviewTemplateDto>>(interviewTemplates);
         }
+
+        public async Task<InterviewTemplateDto> UpdateInterviewTemplate(InterviewTemplateDto interviewTemplateDto)
+        {
+            var updatedInterviewTemplate = await _InterviewTemplateRepository.UpdateInterviewTemplate(
+                _Mapper.Map<InterviewTemplate>(interviewTemplateDto));
+
+            return _Mapper.Map<InterviewTemplateDto>(updatedInterviewTemplate);
+        }
     }
 }

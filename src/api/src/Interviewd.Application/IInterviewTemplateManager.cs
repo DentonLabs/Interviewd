@@ -11,5 +11,7 @@ namespace Interviewd.Application
         Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates();
 
         Task<InterviewTemplateDto> GetInterviewTemplate(string interviewTemplateId);
+
+        Task<InterviewTemplateDto> UpdateInterviewTemplate(InterviewTemplateDto interviewTemplateDto);
     }
 }

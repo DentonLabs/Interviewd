@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
@@ -34,6 +35,17 @@ namespace Interviewd.Controllers
         public async Task<IEnumerable<InterviewTemplateDto>> GetInterviewTemplates()
         {
             return await _InterviewTemplateManager.GetInterviewTemplates();
+        }
+
+        [HttpPatch]
+        public async Task<InterviewTemplateDto> PatchInterviewTemplate(
+            [FromRoute] string id,
+            [FromBody] JsonPatchDocument<InterviewTemplateDto> patchRequest)
+        {
+            var interviewTemplateDto = await _InterviewTemplateManager.GetInterviewTemplate(id);
+            patchRequest.ApplyTo(interviewTemplateDto);
+
+            return await _InterviewTemplateManager.UpdateInterviewTemplate(interviewTemplateDto);
         }
     }
 }

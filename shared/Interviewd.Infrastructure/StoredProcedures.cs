@@ -30,6 +30,8 @@
 
         public const string GetInterviewQuestions = "Get_InterviewQuestions";
 
+        public const string UpdateInterviewTemplate = "Update_InterviewTemplate";
+
         public const string GetInterviews = "Get_Interviews";
 
         public const string GetInterview = "Get_Interview";
