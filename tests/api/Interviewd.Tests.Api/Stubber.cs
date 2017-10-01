@@ -36,6 +36,14 @@ namespace Interviewd.Tests.Api
             return patchRequest;
         }
 
+        public JsonPatchDocument<CandidateDto> StubCandidatePatchRequest()
+        {
+            var patchRequest = new JsonPatchDocument<CandidateDto>();
+            patchRequest.Replace(o => o.GivenName, _Fixture.Create<string>());
+            patchRequest.Replace(o => o.Surname, _Fixture.Create<string>());
+            return patchRequest;
+        }
+
         public InterviewTemplateDto StubInterviewTemplateDto()
         {
             return _Fixture.Build<InterviewTemplateDto>()

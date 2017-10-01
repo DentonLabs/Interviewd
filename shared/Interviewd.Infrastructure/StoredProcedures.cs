@@ -26,7 +26,7 @@
 
         public const string GetCandidate = "Get_Candidate";
 
-        public const string UpdateCandidate = "UpdateCandidate";
+        public const string UpdateCandidate = "Update_Candidate";
 
         public const string GetInterviewQuestions = "Get_InterviewQuestions";
 

@@ -47,5 +47,22 @@ namespace Interviewd.Tests.Api
 
             responseCandidateDto.ToLikeness(true).ShouldEqual(Mapper.Map<CandidateDto>(dbCandidate));
         }
+
+        [Test]
+        public async Task ShouldBeAbleToUpdateCandidate()
+        {
+            var candidateDto = Mapper.Map<CandidateDto>(await Arranger.CreateCandidate());
+
+            var patchRequest = Stubber.StubCandidatePatchRequest();
+            patchRequest.ApplyTo(candidateDto);
+
+            (await ApiClient.PatchCandidate(candidateDto.Id, patchRequest))
+                .EnsureSuccessStatusCode();
+
+            var updatedCandidateDto = Mapper.Map<CandidateDto>(await Arranger.GetCandidate(candidateDto.Id));
+
+            candidateDto.ToLikeness(true)
+                .ShouldEqual(updatedCandidateDto);
+        }
     }
 }

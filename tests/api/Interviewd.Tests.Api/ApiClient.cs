@@ -104,6 +104,13 @@ namespace Interviewd.Tests.Api
                 ApiRoutes.CandidatesRoute);
         }
 
+        public async Task<HttpResponseMessage> PatchCandidate(string id, JsonPatchDocument<CandidateDto> patchRequest)
+        {
+            return await _HttpClient.PatchAsync(
+                $"{ApiRoutes.CandidatesRoute}/{id}",
+                patchRequest.ToStringContent());
+        }
+
         public async Task<HttpResponseMessage> GetCandidate(string id)
         {
             return await _HttpClient.GetAsync(
