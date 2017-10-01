@@ -10,6 +10,8 @@ namespace Interviewd.Application
 
         Task<CandidateDto> GetCandidate(string id);
 
+        Task<CandidateDto> UpdateCandidate(CandidateDto candidate);
+
         Task<IEnumerable<CandidateDto>> GetAllCandidates();
     }
 }

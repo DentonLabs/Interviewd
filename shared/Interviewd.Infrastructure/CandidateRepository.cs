@@ -50,6 +50,20 @@ namespace Interviewd.Infrastructure
             }
         }
 
+        public async Task<Candidate> UpdateCandidate(Candidate candidate)
+        {
+            using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))
+            {
+                var candidateSqlModel = _Mapper.Map<CandidateSqlModel>(candidate);
+
+                await connection.ExecuteAsync(
+                    StoredProcedures.UpdateCandidate,
+                    candidateSqlModel);
+
+                return candidate;
+            }
+        }
+
         public async Task<Candidate> GetCandidate(string id)
         {
             using (var connection = new SqlConnection(_AppSettings.ConnectionStrings.DefaultConnection))

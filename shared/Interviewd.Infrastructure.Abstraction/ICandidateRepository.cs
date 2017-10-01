@@ -10,6 +10,8 @@ namespace Interviewd.Infrastructure.Abstraction
 
         Task<Candidate> GetCandidate(string id);
 
+        Task<Candidate> UpdateCandidate(Candidate candidate);
+
         Task<IEnumerable<Candidate>> GetAllCandidates();
     }
 }

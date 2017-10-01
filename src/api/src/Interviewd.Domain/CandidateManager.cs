@@ -34,6 +34,12 @@ namespace Interviewd.Domain
             return _Mapper.Map<CandidateDto>(candidate);
         }
 
+        public async Task<CandidateDto> UpdateCandidate(CandidateDto candidate)
+        {
+            var updatedCandidate = await _CandidateRepository.UpdateCandidate(_Mapper.Map<Candidate>(candidate));
+            return _Mapper.Map<CandidateDto>(updatedCandidate);
+        }
+
         public async Task<IEnumerable<CandidateDto>> GetAllCandidates()
         {
             var candidates = await _CandidateRepository.GetAllCandidates();

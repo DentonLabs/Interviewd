@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
@@ -33,6 +34,17 @@ namespace Interviewd.Controllers
         public async Task<CandidateDto> GetCandidate([FromRoute]string id)
         {
             return await _CandidateManager.GetCandidate(id);
+        }
+
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<CandidateDto> PatchCandidate(
+            [FromRoute] string id,
+            [FromBody] JsonPatchDocument<CandidateDto> patchRequest)
+        {
+            var candidate = await _CandidateManager.GetCandidate(id);
+            patchRequest.ApplyTo(candidate);
+            return await _CandidateManager.UpdateCandidate(candidate);
         }
     }
 }
