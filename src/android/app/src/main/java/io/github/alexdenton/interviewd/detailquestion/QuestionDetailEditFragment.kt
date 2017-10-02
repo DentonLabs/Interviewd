@@ -34,8 +34,11 @@ class QuestionDetailEditFragment : RxAwareFragment() {
         descEditText = view.findViewById(R.id.questionDetail_descriptionEdit)
         estEditText = view.findViewById(R.id.questionDetail_estimateEdit)
 
-        vm.getQuestionObservable()
-                .subscribe { setupText(it) }
+        if(savedInstanceState == null){
+            vm.getQuestionObservable()
+                    .subscribe { setupText(it) }
+                    .lifecycleAware()
+        }
 
         vm.exposeNameEdits(nameEditText.textChanges())
         vm.exposeDescEdits(descEditText.textChanges())

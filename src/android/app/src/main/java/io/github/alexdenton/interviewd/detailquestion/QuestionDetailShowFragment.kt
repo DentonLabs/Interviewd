@@ -35,6 +35,7 @@ class QuestionDetailShowFragment : RxAwareFragment() {
                 .lifecycleAware()
 
         setHasOptionsMenu(true)
+        retainInstance = true
 
         return view
     }

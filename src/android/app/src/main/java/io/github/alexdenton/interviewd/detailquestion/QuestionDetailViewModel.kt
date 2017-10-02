@@ -4,6 +4,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.api.QuestionRepository
 import io.github.alexdenton.interviewd.question.Question
@@ -19,7 +20,9 @@ class QuestionDetailViewModel : RxAwareViewModel() {
 
     private lateinit var questionRepo: QuestionRepository
     private val question: BehaviorRelay<Question> = BehaviorRelay.create()
+    private val fragmentSignal: PublishRelay<QuestionDetailSignal> = PublishRelay.create()
     fun getQuestionObservable(): Observable<Question> = question
+    fun getFragmentSignal(): Observable<QuestionDetailSignal> = fragmentSignal
 
     var editedName = ""
     var editedDesc = ""
@@ -66,11 +69,7 @@ class QuestionDetailViewModel : RxAwareViewModel() {
     fun exposeEstEdits(textChanges: InitialValueObservable<CharSequence>) = textChanges
             .subscribe { editedEst = it.toString().toIntOrNull() ?: 0 }
 
-    fun switchToEditFragment() = fragmentTransaction {
-        replace(R.id.questionDetail_fragmentContainer, QuestionDetailEditFragment())
-    }
+    fun switchToEditFragment() = fragmentSignal.accept(QuestionDetailSignal.EDIT)
 
-    fun switchToShowFragment() = fragmentTransaction {
-        replace(R.id.questionDetail_fragmentContainer, QuestionDetailShowFragment())
-    }
+    fun switchToShowFragment() = fragmentSignal.accept(QuestionDetailSignal.SHOW)
 }
