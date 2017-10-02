@@ -8,7 +8,8 @@ import io.github.alexdenton.interviewd.question.Question
 
 data class Template(
         val name: String,
-        val questions: List<Question>
+        val questions: List<Question>,
+        val id: Int = 0
 ){
     override fun toString(): String = name
 }

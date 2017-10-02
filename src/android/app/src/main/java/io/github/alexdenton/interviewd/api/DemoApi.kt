@@ -116,6 +116,18 @@ class DemoApi(val context: Context) : InterviewdApiService {
         return Single.just(list)
     }
 
+    override fun getTemplate(id: Int): Single<TemplateDto> {
+        val reader = InputStreamReader(context.openFileInput(templatesFilename))
+        val json = reader.readText()
+        reader.close()
+
+        if(json == "") return Single.error(Throwable("No Templates available"))
+
+        val list: List<TemplateDto> = gson.fromJson(json, object : TypeToken<List<TemplateDto>>() {}.type)
+
+        return Single.just(list.find { it.id == id })
+    }
+
     override fun createTemplate(template: TemplateDto): Single<TemplateDto> {
         val reader = context.openFileInput(templatesFilename)
         var json = reader.bufferedReader().readText()
