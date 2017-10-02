@@ -46,12 +46,14 @@ class DashboardActivity : RxAwareActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.dashboard_fragmentContainer, PlaceholderFragment())
-                .commit()
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        
+        if (savedInstanceState == null) {
+            fragmentTransaction {
+                add(R.id.dashboard_fragmentContainer, PlaceholderFragment())
+            }
+            navigation.selectedItemId = R.id.navigation_dashboard
+        }
 
-        navigation.selectedItemId = R.id.navigation_dashboard
     }
 }
