@@ -33,6 +33,9 @@ interface InterviewdApiService {
     @POST("/templates")
     fun createTemplate(@Body template: TemplateDto): Single<TemplateDto>
 
+    @PATCH("/templates/{id}")
+    fun patchTemplate(@Path("id") id: Int, @Body patch: TemplateDto): Single<TemplateDto>
+
     @GET("/candidates")
     fun getCandidates(): Single<List<CandidateDto>>
 

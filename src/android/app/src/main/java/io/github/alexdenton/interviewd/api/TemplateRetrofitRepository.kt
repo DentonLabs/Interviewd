@@ -15,7 +15,7 @@ class TemplateRetrofitRepository(context: Context) : TemplateRepository {
     val client: InterviewdApiService = RetrofitFactory(context).create(RetrofitFactory.Mode.Demo)
 
     override fun getTemplate(id: Int): Single<Template>
-    = client.getTemplate(id)
+            = client.getTemplate(id)
             .map { it.toTemplate() }
 
     override fun getAllTemplates(): Single<List<Template>>
@@ -23,7 +23,11 @@ class TemplateRetrofitRepository(context: Context) : TemplateRepository {
             .map { it.map { it.toTemplate() } }
 
     override fun createTemplate(template: Template): Single<Template>
-        = client.createTemplate(template.toDto())
+            = client.createTemplate(template.toDto())
+            .map { it.toTemplate() }
+
+    override fun updateTemplate(template: Template): Single<Template>
+            = client.patchTemplate(template.id, template.toDto())
             .map { it.toTemplate() }
 
     fun List<Question>.toIdList() = map { QuestionDto(it.id, it.name, it.description, it.timeEstimate) }

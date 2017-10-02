@@ -10,4 +10,5 @@ interface TemplateRepository {
     fun getTemplate(id: Int): Single<Template>
     fun getAllTemplates(): Single<List<Template>>
     fun createTemplate(template: Template): Single<Template>
+    fun updateTemplate(template: Template): Single<Template>
 }
