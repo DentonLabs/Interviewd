@@ -19,6 +19,7 @@ class ConductInterviewViewModel : RxAwareViewModel() {
     lateinit var interview: Interview
 
     var currentPage = 0
+    var inProgress = false
     private val nextQuestionString: PublishRelay<String> = PublishRelay.create()
     private val startSignal: PublishRelay<InterviewSignal> = PublishRelay.create()
     private val nextPageSignal: PublishRelay<Int> = PublishRelay.create()
@@ -60,6 +61,7 @@ class ConductInterviewViewModel : RxAwareViewModel() {
     fun exposeStartClicks(clicks: Observable<Unit>) = clicks
             .subscribe {
                 startSignal.accept(InterviewSignal.START)
+                inProgress = true
             }
             .lifecycleAware()
 }

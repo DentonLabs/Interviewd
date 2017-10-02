@@ -39,8 +39,6 @@ class ConductInterviewActivity : RxAwareActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         vm = ViewModelProviders.of(this).get(ConductInterviewViewModel::class.java)
-        vm.initWith(LazyKodein(appKodein))
-        vm.useInterview(receive() as Interview)
 
         candidateNameText = findViewById(R.id.conductInterview_candidateName)
         interviewTitleText = findViewById(R.id.conductInterview_interviewPosition)
@@ -51,6 +49,11 @@ class ConductInterviewActivity : RxAwareActivity() {
         timer = findViewById(R.id.conductInterview_timer)
         playGroup = findViewById(R.id.conductInterview_playGroup)
         startButton = findViewById(R.id.conductInterview_startButton)
+
+        if(savedInstanceState == null){
+            vm.initWith(LazyKodein(appKodein))
+            vm.useInterview(receive() as Interview)
+        }
 
         val viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, vm.interview.questions)
         questionViewPager.adapter = viewPagerAdapter
@@ -63,6 +66,7 @@ class ConductInterviewActivity : RxAwareActivity() {
 
         vm.getNextPageSignal()
                 .subscribe { questionViewPager.currentItem = it }
+                .lifecycleAware()
 
         vm.getStartSignal()
                 .subscribe { startInterview() }
@@ -85,6 +89,18 @@ class ConductInterviewActivity : RxAwareActivity() {
         if (playGroup.visibility == View.VISIBLE) timer.start()
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putLong("time", timer.base)
+        if(vm.inProgress) pauseInterview()
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        timer.base = savedInstanceState?.getLong("time") ?: SystemClock.elapsedRealtime()
+        if(vm.inProgress) resumeInterview()
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
     private fun updateNextQuestion(nextQuestionString: String) {
         nextQuestionName.text = nextQuestionString
     }
@@ -97,14 +113,15 @@ class ConductInterviewActivity : RxAwareActivity() {
 
     fun setupTimer(){
         timer.base = SystemClock.elapsedRealtime()
-        timer.setOnChronometerTickListener {
-            val time = SystemClock.elapsedRealtime() - it.base
-            val mins = time / 60000
-
-            it.text = resources.getString(R.string.elapsed, mins)
-        }
-
+        setupTickListener()
         timer.start()
+    }
+
+    fun setupTickListener() =  timer.setOnChronometerTickListener {
+        val time = SystemClock.elapsedRealtime() - it.base
+        val mins = time / 60000
+
+        it.text = resources.getString(R.string.elapsed, mins)
     }
 
     fun startInterview(){
@@ -113,5 +130,17 @@ class ConductInterviewActivity : RxAwareActivity() {
         questionViewPager.currentItem = 0
         questionViewPager.swipeEnabled = false
         setupTimer()
+    }
+
+    fun pauseInterview(){
+        timer.stop()
+    }
+
+    fun resumeInterview(){
+        startButton.visibility = View.GONE
+        playGroup.visibility = View.VISIBLE
+        questionViewPager.swipeEnabled = false
+        setupTickListener()
+        timer.start()
     }
 }
