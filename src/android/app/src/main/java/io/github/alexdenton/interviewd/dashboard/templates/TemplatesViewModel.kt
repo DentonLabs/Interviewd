@@ -38,5 +38,5 @@ class TemplatesViewModel : RxAwareViewModel() {
             .subscribe { startActivity(CreateTemplateActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Template>) = itemClicks
-            .subscribe { startActivityAndStore(TemplateDetailActivity::class.java, it) }
+            .subscribe { startActivityAndStore(TemplateDetailActivity::class.java, it.id) }
 }
