@@ -1,6 +1,6 @@
 package io.github.alexdenton.interviewd.api.dto
 
-import io.github.alexdenton.interviewd.question.Question
+import io.github.alexdenton.interviewd.entities.Question
 
 /**
  * Created by ryan on 8/11/17.

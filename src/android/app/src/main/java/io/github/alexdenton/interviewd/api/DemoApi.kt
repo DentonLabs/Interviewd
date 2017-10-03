@@ -7,8 +7,7 @@ import io.github.alexdenton.interviewd.api.dto.CandidateDto
 import io.github.alexdenton.interviewd.api.dto.InterviewDto
 import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import io.github.alexdenton.interviewd.api.dto.TemplateDto
-import io.github.alexdenton.interviewd.interview.Candidate
-import io.github.alexdenton.interviewd.interview.InterviewStatus
+import io.github.alexdenton.interviewd.entities.InterviewStatus
 import io.reactivex.Single
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter

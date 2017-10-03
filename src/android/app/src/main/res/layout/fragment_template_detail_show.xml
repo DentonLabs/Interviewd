@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="io.github.alexdenton.interviewd.detailtemplate.TemplateDetailShowFragment">
+    tools:context=".template.detail.TemplateDetailShowFragment">
 
     <TextView
         android:id="@+id/templateDetail_name"

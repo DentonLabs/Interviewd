@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:clipChildren="false"
     android:backgroundTint="#FAFAFA"
-    tools:context="io.github.alexdenton.interviewd.conductinterview.QuestionPageFragment">
+    tools:context=".interview.conduct.QuestionPageFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/questionPage_cardContainer"

@@ -2,8 +2,7 @@ package io.github.alexdenton.interviewd
 
 import android.app.Application
 import com.github.salomonbrys.kodein.*
-import com.github.salomonbrys.kodein.android.androidSupportFragmentScope
-import io.github.alexdenton.interviewd.api.*
+import io.github.alexdenton.interviewd.api.repositories.*
 
 /**
  * Created by ryan on 8/24/17.

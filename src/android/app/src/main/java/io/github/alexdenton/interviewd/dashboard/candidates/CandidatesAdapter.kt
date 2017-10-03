@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.entities.Candidate
 import io.reactivex.Observable
 
 /**

@@ -2,7 +2,6 @@ package io.github.alexdenton.interviewd.dashboard.templates
 
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -17,8 +16,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.createtemplate.CreateTemplateActivity
-import io.github.alexdenton.interviewd.interview.Template
+import io.github.alexdenton.interviewd.entities.Template
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

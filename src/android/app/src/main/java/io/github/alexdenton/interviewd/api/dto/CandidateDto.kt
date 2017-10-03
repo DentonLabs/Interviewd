@@ -1,6 +1,6 @@
 package io.github.alexdenton.interviewd.api.dto
 
-import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.entities.Candidate
 
 /**
  * Created by ryan on 8/28/17.

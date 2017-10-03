@@ -2,7 +2,6 @@ package io.github.alexdenton.interviewd.dashboard.interviews
 
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -18,8 +17,7 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
-import io.github.alexdenton.interviewd.interview.Interview
+import io.github.alexdenton.interviewd.entities.Interview
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

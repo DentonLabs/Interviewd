@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.alexdenton.interviewd.detailcandidate.CandidateDetailActivity">
+    tools:context=".candidate.detail.CandidateDetailActivity">
 
     <TextView
         android:id="@+id/candidateDetail_firstName"

@@ -3,10 +3,10 @@ package io.github.alexdenton.interviewd.dashboard.questions
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
-import io.github.alexdenton.interviewd.api.QuestionRepository
-import io.github.alexdenton.interviewd.createquestion.CreateQuestionActivity
-import io.github.alexdenton.interviewd.detailquestion.QuestionDetailActivity
-import io.github.alexdenton.interviewd.question.Question
+import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
+import io.github.alexdenton.interviewd.question.create.CreateQuestionActivity
+import io.github.alexdenton.interviewd.question.detail.QuestionDetailActivity
+import io.github.alexdenton.interviewd.entities.Question
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

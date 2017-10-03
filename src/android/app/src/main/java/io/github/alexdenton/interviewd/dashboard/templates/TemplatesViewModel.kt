@@ -3,10 +3,10 @@ package io.github.alexdenton.interviewd.dashboard.templates
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
-import io.github.alexdenton.interviewd.api.TemplateRepository
-import io.github.alexdenton.interviewd.createtemplate.CreateTemplateActivity
-import io.github.alexdenton.interviewd.detailtemplate.TemplateDetailActivity
-import io.github.alexdenton.interviewd.interview.Template
+import io.github.alexdenton.interviewd.api.repositories.TemplateRepository
+import io.github.alexdenton.interviewd.template.create.CreateTemplateActivity
+import io.github.alexdenton.interviewd.template.detail.TemplateDetailActivity
+import io.github.alexdenton.interviewd.entities.Template
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

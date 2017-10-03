@@ -20,38 +20,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".createquestion.CreateQuestionActivity"
+            android:name="io.github.alexdenton.interviewd.question.create.CreateQuestionActivity"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
             android:name=".dashboard.DashboardActivity"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".createtemplate.CreateTemplateActivity"
+            android:name="io.github.alexdenton.interviewd.template.create.CreateTemplateActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".createcandidate.CreateCandidateActivity"
+            android:name="io.github.alexdenton.interviewd.candidate.create.CreateCandidateActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".createinterview.CreateInterviewActivity"
+            android:name="io.github.alexdenton.interviewd.interview.create.CreateInterviewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".conductinterview.ConductInterviewActivity"
+            android:name="io.github.alexdenton.interviewd.interview.conduct.ConductInterviewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".detailquestion.QuestionDetailActivity"
+            android:name="io.github.alexdenton.interviewd.question.detail.QuestionDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".detailcandidate.CandidateDetailActivity"
+            android:name="io.github.alexdenton.interviewd.candidate.detail.CandidateDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".detailtemplate.TemplateDetailActivity"
+            android:name="io.github.alexdenton.interviewd.template.detail.TemplateDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
     </application>

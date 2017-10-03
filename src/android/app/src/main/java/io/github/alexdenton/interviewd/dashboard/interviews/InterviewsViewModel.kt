@@ -3,14 +3,13 @@ package io.github.alexdenton.interviewd.dashboard.interviews
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
-import io.github.alexdenton.interviewd.api.InterviewRepository
-import io.github.alexdenton.interviewd.conductinterview.ConductInterviewActivity
-import io.github.alexdenton.interviewd.createinterview.CreateInterviewActivity
-import io.github.alexdenton.interviewd.interview.Interview
+import io.github.alexdenton.interviewd.api.repositories.InterviewRepository
+import io.github.alexdenton.interviewd.interview.conduct.ConductInterviewActivity
+import io.github.alexdenton.interviewd.interview.create.CreateInterviewActivity
+import io.github.alexdenton.interviewd.entities.Interview
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 /**

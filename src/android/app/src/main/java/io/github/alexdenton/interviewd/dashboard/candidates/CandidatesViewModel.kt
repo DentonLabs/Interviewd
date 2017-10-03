@@ -3,10 +3,10 @@ package io.github.alexdenton.interviewd.dashboard.candidates
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
-import io.github.alexdenton.interviewd.api.CandidateRepository
-import io.github.alexdenton.interviewd.createcandidate.CreateCandidateActivity
-import io.github.alexdenton.interviewd.detailcandidate.CandidateDetailActivity
-import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.api.repositories.CandidateRepository
+import io.github.alexdenton.interviewd.candidate.create.CreateCandidateActivity
+import io.github.alexdenton.interviewd.candidate.detail.CandidateDetailActivity
+import io.github.alexdenton.interviewd.entities.Candidate
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

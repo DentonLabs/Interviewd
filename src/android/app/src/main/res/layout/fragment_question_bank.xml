@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.alexdenton.interviewd.createtemplate.questionbank.QuestionBankFragment">
+    tools:context=".template.create.questionbank.QuestionBankFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/questionBank_recyclerView"

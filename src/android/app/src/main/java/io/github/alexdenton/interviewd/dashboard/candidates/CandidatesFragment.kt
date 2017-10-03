@@ -2,7 +2,6 @@ package io.github.alexdenton.interviewd.dashboard.candidates
 
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
@@ -13,13 +12,11 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.github.salomonbrys.kodein.LazyKodein
-import com.github.salomonbrys.kodein.android.AndroidScope
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.createcandidate.CreateCandidateActivity
-import io.github.alexdenton.interviewd.interview.Candidate
+import io.github.alexdenton.interviewd.entities.Candidate
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

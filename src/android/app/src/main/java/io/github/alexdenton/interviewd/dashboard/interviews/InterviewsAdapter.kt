@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.interview.Interview
+import io.github.alexdenton.interviewd.entities.Interview
 import io.reactivex.Observable
 
 /**
