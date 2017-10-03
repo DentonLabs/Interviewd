@@ -213,6 +213,26 @@ class DemoApi(val context: Context) : InterviewdApiService {
         return Single.just(toAdd)
     }
 
+    override fun patchCandidate(id: Int, patch: CandidateDto): Single<CandidateDto> {
+        val reader = context.openFileInput(candidatesFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<CandidateDto> = gson.fromJson(json, object : TypeToken<List<CandidateDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        mutableList[mutableList.indexOfFirst { it.id == id }] = patch
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(candidatesFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(patch)
+    }
+
     override fun getInterviews(): Single<List<InterviewDto>> {
         val reader = context.openFileInput(interviewsFilename)
         var json = reader.bufferedReader().readText()

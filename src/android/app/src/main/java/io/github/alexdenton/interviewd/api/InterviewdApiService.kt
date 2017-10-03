@@ -45,6 +45,9 @@ interface InterviewdApiService {
     @POST("/candidates")
     fun createCandidate(@Body candidate: CandidateDto): Single<CandidateDto>
 
+    @PATCH("/candidates/{id}")
+    fun patchCandidate(@Path("id") id: Int, @Body patch: CandidateDto): Single<CandidateDto>
+
     @GET("/interviews")
     fun getInterviews(): Single<List<InterviewDto>>
 
