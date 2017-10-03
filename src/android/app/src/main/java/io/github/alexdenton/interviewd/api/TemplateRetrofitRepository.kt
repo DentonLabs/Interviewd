@@ -16,20 +16,21 @@ class TemplateRetrofitRepository(context: Context) : TemplateRepository {
 
     override fun getTemplate(id: Int): Single<Template>
             = client.getTemplate(id)
-            .map { it.toTemplate() }
+            .map { it.toTemplateBlocking() }
 
     override fun getAllTemplates(): Single<List<Template>>
             = client.getTemplates()
-            .map { it.map { it.toTemplate() } }
+            .map { it.map { it.toTemplateBlocking() } }
 
     override fun createTemplate(template: Template): Single<Template>
             = client.createTemplate(template.toDto())
-            .map { it.toTemplate() }
+            .map { it.toTemplateBlocking() }
 
     override fun updateTemplate(template: Template): Single<Template>
             = client.patchTemplate(template.id, template.toDto())
-            .map { it.toTemplate() }
+            .map { it.toTemplateBlocking() }
 
-    fun List<Question>.toIdList() = map { QuestionDto(it.id, it.name, it.description, it.timeEstimate) }
+    fun List<Question>.toIdList() = map { it.id }
     fun Template.toDto() = TemplateDto(name, questions.toIdList(), id)
+    fun TemplateDto.toTemplateBlocking() = Template(name, questionIds.map { client.getQuestion(it).blockingGet().toQuestion() }, id)
 }
