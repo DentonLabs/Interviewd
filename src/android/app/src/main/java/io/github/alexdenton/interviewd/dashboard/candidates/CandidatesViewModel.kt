@@ -37,6 +37,6 @@ class CandidatesViewModel : RxAwareViewModel() {
             .subscribe { startActivity(CreateCandidateActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Candidate>) = itemClicks
-            .subscribe { startActivityAndStore(CandidateDetailActivity::class.java, it) }
+            .subscribe { startActivityAndStore(CandidateDetailActivity::class.java, it.id) }
 
 }
