@@ -30,14 +30,14 @@ class InterviewRetrofitRepository(val context: Context) : InterviewRepository {
             = client.createInterview(interview.toDto())
             .map { it.toInterview() }
 
-    override fun markInterviewAsComplete(interview: Interview): Single<Interview>
-            = client.markInterviewAsComplete(interview.id)
+    override fun updateInterview(interview: Interview): Single<Interview>
+            = client.patchInterview(interview.id, interview.toDto())
             .map { it.toInterview() }
 
 
     fun Interview.toDto() = InterviewDto(id, candidate.toDto(), name, questions.map { it.toDto() }, status)
 
-    fun Question.toDto() = QuestionDto(0, name, description, timeEstimate)
+    fun Question.toDto() = QuestionDto(id, name, description, timeEstimate)
 
     fun Candidate.toDto() = CandidateDto(id, firstName, lastName)
 }

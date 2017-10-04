@@ -58,5 +58,5 @@ interface InterviewdApiService {
     fun createInterview(@Body interview: InterviewDto): Single<InterviewDto>
 
     @PATCH("/interviews/{id}")
-    fun markInterviewAsComplete(@Path("id") id: Int): Single<InterviewDto>
+    fun patchInterview(@Path("id") id: Int, @Body patch: InterviewDto): Single<InterviewDto>
 }

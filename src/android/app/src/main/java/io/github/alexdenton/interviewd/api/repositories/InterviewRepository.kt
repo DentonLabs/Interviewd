@@ -10,5 +10,5 @@ interface InterviewRepository {
     fun getInterview(id: Int): Single<Interview>
     fun getAllInterviews(): Single<List<Interview>>
     fun createInterview(interview: Interview): Single<Interview>
-    fun markInterviewAsComplete(interview: Interview): Single<Interview>
+    fun updateInterview(interview: Interview): Single<Interview>
 }

@@ -278,24 +278,23 @@ class DemoApi(val context: Context) : InterviewdApiService {
         return Single.just(toAdd)
     }
 
-    override fun markInterviewAsComplete(id: Int): Single<InterviewDto> {
+    override fun patchInterview(id: Int, patch: InterviewDto): Single<InterviewDto> {
         val reader = context.openFileInput(interviewsFilename)
         var json = reader.bufferedReader().readText()
         reader.close()
 
         if(json == "") json = "[]"
 
-        var list: List<InterviewDto> = gson.fromJson(json, object  : TypeToken<List<InterviewDto>>() {}.type)
+        var list: List<InterviewDto> = gson.fromJson(json, object : TypeToken<List<InterviewDto>>() {}.type)
 
         val mutableList = list.toMutableList()
-        mutableList.map { if (it.id == id) it.status = InterviewStatus.COMPLETE}
+        mutableList[mutableList.indexOfFirst { it.id == id }] = patch
         list = mutableList.toList()
 
         val writer = OutputStreamWriter(context.openFileOutput(interviewsFilename, Context.MODE_PRIVATE))
         gson.toJson(list, writer)
         writer.close()
 
-        return Single.just(list.single { it.id == id })
-
+        return Single.just(patch)
     }
 }
