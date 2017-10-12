@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.TextView
+import com.github.salomonbrys.kodein.LazyKodein
+import com.github.salomonbrys.kodein.android.appKodein
 
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Candidate
@@ -15,7 +17,7 @@ import io.github.rfonzi.rxaware.RxAwareFragment
 /**
  * A simple [Fragment] subclass.
  */
-class CandidateDetailShowFragment : RxAwareFragment() {
+class CandidateDetailFragment : RxAwareFragment() {
 
     lateinit var vm: CandidateDetailViewModel
 
@@ -24,16 +26,20 @@ class CandidateDetailShowFragment : RxAwareFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_candidate_detail_show, container, false)
-        (activity as CandidateDetailActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        vm = ViewModelProviders.of(activity).get(CandidateDetailViewModel::class.java)
+        val view = inflater!!.inflate(R.layout.fragment_candidate_detail, container, false)
+        vm = ViewModelProviders.of(this).get(CandidateDetailViewModel::class.java)
+
+        if (arguments?.containsKey("candidateId") == true) {
+            vm.initWith(LazyKodein(appKodein), arguments.getInt("candidateId"))
+        } else {
+            throw IllegalStateException("Candidate id not found")
+        }
 
         firstName = view.findViewById(R.id.candidateDetail_firstName)
         lastName = view.findViewById(R.id.candidateDetail_lastName)
 
-        vm.getCandidateObservable()
-                .subscribe { setupCandidate(it) }
+        vm.fetchCandidate()
+                .subscribe { candidate -> setupCandidate(candidate) }
                 .lifecycleAware()
 
         setHasOptionsMenu(true)
@@ -52,7 +58,7 @@ class CandidateDetailShowFragment : RxAwareFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+        when (item?.itemId) {
             R.id.menu_edit -> vm.startEditingCandidate()
         }
 

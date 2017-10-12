@@ -1,12 +1,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="io.github.alexdenton.interviewd.candidate.detail.CandidateDetailEditFragment">
+    tools:context="io.github.alexdenton.interviewd.candidate.detail.CandidateDetailFragment">
 
-    <EditText
-        android:id="@+id/candidateDetail_firstNameEdit"
+    <TextView
+        android:id="@+id/candidateDetail_firstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/candidateDetail_lastNameEdit"
+    <TextView
+        android:id="@+id/candidateDetail_lastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,6 +27,5 @@
         android:textColor="#DE000000"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/candidateDetail_firstNameEdit" />
-
+        app:layout_constraintTop_toBottomOf="@+id/candidateDetail_firstName" />
 </android.support.constraint.ConstraintLayout>

@@ -64,5 +64,5 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-design-kotlin:2.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:2.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-leanback-v17-kotlin:2.0.0'
-    implementation 'io.github.rfonzi:rxaware:ee04d8c10e'
+    implementation 'io.github.rfonzi:rxaware:ad88b8863b'
 }
