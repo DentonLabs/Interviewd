@@ -20,28 +20,8 @@ class CreateCandidateViewModel : RxAwareViewModel() {
         candidateRepo = kodein.invoke().instance()
     }
 
-    var firstName = ""
-    var lastName = ""
-
-    fun exposeFirstNameField(textChanges: InitialValueObservable<CharSequence>) = textChanges
-            .map { it.toString() }
-            .subscribe { firstName = it }
-            .lifecycleAware()
-
-    fun exposeLastNameField(textChanges: InitialValueObservable<CharSequence>) = textChanges
-            .map { it.toString() }
-            .subscribe { lastName = it }
-            .lifecycleAware()
-
-    fun submitCandidate() = candidateRepo.createCandidate(getCandidateFromFields())
+    fun submitCandidate(candidate: Candidate) = candidateRepo.createCandidate(candidate)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({onSuccessfulSubmit()},
-                    {throwable -> throwable.printStackTrace()})
 
-    private fun getCandidateFromFields() = Candidate(0, firstName, lastName)
-    private fun onSuccessfulSubmit() {
-        toast("Candidate Submitted Successfully")
-        navigateUp()
-    }
 }
