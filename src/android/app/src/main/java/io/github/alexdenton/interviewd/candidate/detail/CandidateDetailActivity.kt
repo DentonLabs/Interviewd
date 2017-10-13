@@ -66,7 +66,7 @@ class CandidateDetailActivity : RxAwareActivity() {
                 }
             }
         }
-        
+
         return super.onOptionsItemSelected(item)
     }
 }
