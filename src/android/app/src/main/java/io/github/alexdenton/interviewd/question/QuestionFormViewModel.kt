@@ -16,12 +16,27 @@ import io.reactivex.schedulers.Schedulers
 class QuestionFormViewModel : RxAwareViewModel() {
 
     private lateinit var questionRepo: QuestionRepository
+    var editing = false
+    var id = 0
 
     fun withKodein(kodein: LazyKodein) {
         questionRepo = kodein.invoke().instance()
     }
 
-    fun submitQuestion(question: Question) = questionRepo.createQuestion(question)
+    fun submitQuestion(question: Question) = when(editing) {
+        true -> updateQuestion(question)
+        false -> createQuestion(question)
+    }
+
+    fun createQuestion(question: Question) = questionRepo.createQuestion(question)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun updateQuestion(question: Question) = questionRepo.updateQuestion(question)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun fetchQuestion() = questionRepo.getQuestion(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

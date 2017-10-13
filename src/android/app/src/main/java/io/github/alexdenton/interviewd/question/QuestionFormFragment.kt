@@ -16,6 +16,7 @@ import com.jakewharton.rxbinding2.widget.textChanges
 
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Question
+import io.github.alexdenton.interviewd.question.detail.QuestionDetailSignal
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.reactivex.Observable
 
@@ -43,17 +44,31 @@ class QuestionFormFragment : RxAwareFragment() {
         descField = view.findViewById(R.id.questionForm_descriptionField)
         submitButton = view.findViewById(R.id.questionForm_submitButton)
 
+        if (arguments.containsKey("questionId")) {
+            vm.editing = true
+            vm.id = arguments.getInt("questionId")
+            vm.fetchQuestion()
+                    .subscribe {question -> setFields(question)  }
+                    .lifecycleAware()
+        }
+
         submitButton.clicks()
-                .map { Question(0, nameField.text.toString(), descField.text.toString(), durField.text.toString().toInt()) }
+                .map { Question(vm.id, nameField.text.toString(), descField.text.toString(), durField.text.toString().toInt()) }
                 .flatMap { vm.submitQuestion(it).toObservable() }
                 .subscribe ({
                     toast("Submitted Question")
-                    clearFields()
+                    if (vm.editing) postToCurrentActivity(QuestionDetailSignal.SHOW) else clearFields()
                 },
                         {throwable -> throwable.printStackTrace()})
                 .lifecycleAware()
 
         return view
+    }
+
+    fun setFields(question: Question) {
+        nameField.setText(question.name)
+        durField.setText(question.timeEstimate.toString())
+        descField.setText(question.description)
     }
 
     fun clearFields(){

@@ -1,46 +1,69 @@
 package io.github.alexdenton.interviewd.question.detail
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.github.salomonbrys.kodein.LazyKodein
-import com.github.salomonbrys.kodein.android.appKodein
+import android.support.v4.app.Fragment
+import android.view.MenuItem
 import io.github.alexdenton.interviewd.R
+import io.github.alexdenton.interviewd.question.QuestionFormFragment
 import io.github.rfonzi.rxaware.RxAwareActivity
-import io.github.rfonzi.rxaware.RxAwareFragment
 
 class QuestionDetailActivity : RxAwareActivity() {
 
-    lateinit var vm: QuestionDetailViewModel
-    var currentFragment: RxAwareFragment = QuestionDetailShowFragment()
+    var questionId = 0
+    var editing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_detail)
-
-        vm = ViewModelProviders.of(this).get(QuestionDetailViewModel::class.java)
-        vm.init(LazyKodein(appKodein), receive() as Int)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        questionId = receive() as Int
 
         if (savedInstanceState == null){
             fragmentTransaction {
-                add(R.id.questionDetail_fragmentContainer, currentFragment)
+                add(R.id.questionDetail_fragmentContainer, QuestionDetailFragment().withId())
             }
         }
 
-
-        vm.getFragmentSignal()
-                .subscribe { switchFragments(it) }
+        onPost<QuestionDetailSignal>()
+                .subscribe {
+                    when (it) {
+                        QuestionDetailSignal.SHOW -> switchToDetail()
+                        QuestionDetailSignal.EDIT -> switchToEdit()
+                    }
+                }
                 .lifecycleAware()
-
     }
 
-    private fun switchFragments(signal: QuestionDetailSignal) {
-        currentFragment = when (signal) {
-            QuestionDetailSignal.SHOW -> QuestionDetailShowFragment()
-            QuestionDetailSignal.EDIT -> QuestionDetailEditFragment()
+    fun switchToDetail() {
+        fragmentTransaction { replace(R.id.questionDetail_fragmentContainer, QuestionDetailFragment().withId()) }
+        editing = false
+    }
+
+    fun switchToEdit() {
+        fragmentTransaction { replace(R.id.questionDetail_fragmentContainer, QuestionFormFragment().withId()) }
+        editing = true
+    }
+
+    fun Fragment.withId(): Fragment{
+        this.arguments = Bundle().apply { putInt("questionId", questionId) }
+        return this
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> return when(editing){
+                true -> {
+                    switchToDetail()
+                    true
+                }
+                false -> {
+                    navigateUp()
+                    true
+                }
+            }
         }
-        fragmentTransaction {
-            replace(R.id.questionDetail_fragmentContainer, currentFragment)
-        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

@@ -3,48 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".question.detail.QuestionDetailEditFragment">
+    tools:context=".question.detail.QuestionDetailFragment">
 
-    <EditText
-        android:id="@+id/questionDetail_nameEdit"
+    <TextView
+        android:id="@+id/questionDetail_name"
         android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Question Name"
-        android:hint="@string/enter_a_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/questionDetail_descriptionEdit"
+    <TextView
+        android:id="@+id/questionDetail_description"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:gravity="top"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="This is a description"
-        android:inputType="textImeMultiLine"
-        android:hint="@string/enter_a_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionDetail_estimateEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/questionDetail_estimate" />
 
-    <EditText
-        android:id="@+id/questionDetail_estimateEdit"
+    <TextView
+        android:id="@+id/questionDetail_estimate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="12sp"
-        android:hint="mins"
-        android:text="0"
-        android:inputType="number"
-        android:maxLength="7"
+        android:text="@string/est"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionDetail_nameEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/questionDetail_name" />
 
 </android.support.constraint.ConstraintLayout>
