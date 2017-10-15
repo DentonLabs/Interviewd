@@ -56,7 +56,7 @@ class QuestionDetailFragment : RxAwareFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.menu_edit -> postToCurrentActivity(QuestionDetailSignal.EDIT)
+            R.id.menu_edit -> postToCurrentActivity(QuestionDetailRouter.EDIT)
         }
 
         return super.onOptionsItemSelected(item)

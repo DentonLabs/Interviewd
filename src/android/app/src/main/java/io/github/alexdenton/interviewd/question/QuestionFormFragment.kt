@@ -12,13 +12,11 @@ import android.widget.EditText
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
-import com.jakewharton.rxbinding2.widget.textChanges
 
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Question
-import io.github.alexdenton.interviewd.question.detail.QuestionDetailSignal
+import io.github.alexdenton.interviewd.question.detail.QuestionDetailRouter
 import io.github.rfonzi.rxaware.RxAwareFragment
-import io.reactivex.Observable
 
 
 /**
@@ -44,7 +42,7 @@ class QuestionFormFragment : RxAwareFragment() {
         descField = view.findViewById(R.id.questionForm_descriptionField)
         submitButton = view.findViewById(R.id.questionForm_submitButton)
 
-        if (arguments.containsKey("questionId")) {
+        if (arguments != null && arguments.containsKey("questionId")) {
             vm.editing = true
             vm.id = arguments.getInt("questionId")
             vm.fetchQuestion()
@@ -57,7 +55,7 @@ class QuestionFormFragment : RxAwareFragment() {
                 .flatMap { vm.submitQuestion(it).toObservable() }
                 .subscribe ({
                     toast("Submitted Question")
-                    if (vm.editing) postToCurrentActivity(QuestionDetailSignal.SHOW) else clearFields()
+                    if (vm.editing) postToCurrentActivity(QuestionDetailRouter.SHOW) else clearFields()
                 },
                         {throwable -> throwable.printStackTrace()})
                 .lifecycleAware()

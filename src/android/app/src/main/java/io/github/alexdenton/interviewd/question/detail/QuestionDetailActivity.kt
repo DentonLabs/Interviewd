@@ -24,11 +24,11 @@ class QuestionDetailActivity : RxAwareActivity() {
             }
         }
 
-        onPost<QuestionDetailSignal>()
+        onPost<QuestionDetailRouter>()
                 .subscribe {
                     when (it) {
-                        QuestionDetailSignal.SHOW -> switchToDetail()
-                        QuestionDetailSignal.EDIT -> switchToEdit()
+                        QuestionDetailRouter.SHOW -> switchToDetail()
+                        QuestionDetailRouter.EDIT -> switchToEdit()
                     }
                 }
                 .lifecycleAware()

@@ -7,18 +7,18 @@
     tools:context=".template.create.templateform.TemplateFormFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/createTemplate_recyclerView"
+        android:id="@+id/templateForm_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/createTemplate_addQuestionButton" />
+        app:layout_constraintTop_toBottomOf="@+id/templateForm_addQuestionButton" />
 
     <EditText
-        android:id="@+id/createTemplate_titleField"
+        android:id="@+id/templateForm_titleField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -28,12 +28,10 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/createTemplate_estDurationText"
+        android:id="@+id/templateForm_estDurationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -42,16 +40,27 @@
         android:text="@string/estimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTemplate_titleField" />
+        app:layout_constraintTop_toBottomOf="@+id/templateForm_titleField" />
 
     <Button
-        android:id="@+id/createTemplate_addQuestionButton"
+        android:id="@+id/templateForm_addQuestionButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/add_question"
+        app:layout_constraintEnd_toStartOf="@+id/templateForm_submitButton"
+        app:layout_constraintTop_toBottomOf="@+id/templateForm_estDurationText" />
+
+    <Button
+        android:id="@+id/templateForm_submitButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createTemplate_estDurationText" />
+        app:layout_constraintTop_toBottomOf="@+id/templateForm_estDurationText" />
 </android.support.constraint.ConstraintLayout>

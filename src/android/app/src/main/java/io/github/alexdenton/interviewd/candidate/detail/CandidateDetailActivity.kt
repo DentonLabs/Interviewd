@@ -24,7 +24,7 @@ class CandidateDetailActivity : RxAwareActivity() {
             }
         }
 
-        onPost<CandidateDetailEvent>()
+        onPost<CandidateDetailRouter>()
                 .subscribe {
                     when (it) {
                         is ShowCandidateDetailFragment -> switchToDetail()

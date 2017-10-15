@@ -1,67 +1,72 @@
 package io.github.alexdenton.interviewd.template.create
 
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.NavUtils
 import android.view.MenuItem
-import com.github.salomonbrys.kodein.LazyKodein
-import com.github.salomonbrys.kodein.android.appKodein
 import io.github.alexdenton.interviewd.R
-import io.github.rfonzi.rxaware.bus.RxBus
-import io.github.rfonzi.rxaware.bus.events.FlushEvent
+import io.github.alexdenton.interviewd.template.create.events.ShowQuestionBankFragment
+import io.github.alexdenton.interviewd.template.create.events.ShowTemplateFormFragment
+import io.github.alexdenton.interviewd.template.create.events.TemplateFormRouter
 import io.github.alexdenton.interviewd.template.create.questionbank.QuestionBankFragment
 import io.github.alexdenton.interviewd.template.create.templateform.TemplateFormFragment
 import io.github.rfonzi.rxaware.RxAwareActivity
+import io.github.rfonzi.rxaware.bus.RxBus
+import io.github.rfonzi.rxaware.bus.events.FlushEvent
 
 class CreateTemplateActivity : RxAwareActivity() {
 
-    val templateFormFragment = TemplateFormFragment()
     val questionBankFragment = QuestionBankFragment()
-
-    lateinit var vm: CreateTemplateViewModel
-
+    val templateFormFragment = TemplateFormFragment()
+    var inQuestionBank = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_template)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-//        RxBus.toObservable(SwitchToQuestionBankEvent::class.java)
-//                .subscribe({ switchToQuestionBank() },
-//                        { throwable -> throwable.printStackTrace() }).lifecycleAware()
-
-        vm = ViewModelProviders.of(this).get(CreateTemplateViewModel::class.java)
-        vm.withKodein(LazyKodein(appKodein))
-
-        fragmentTransaction {
-            add(R.id.createTemplate_fragmentContainer, templateFormFragment)
+        if(savedInstanceState == null){
+            fragmentTransaction {
+                add(R.id.createTemplate_fragmentContainer, templateFormFragment)
+            }
         }
 
+        onPost<TemplateFormRouter>()
+                .subscribe {
+                    when(it) {
+                        is ShowTemplateFormFragment -> switchToForm()
+                        is ShowQuestionBankFragment -> switchToQuestionBank()
+                    }
+                }
+                .lifecycleAware()
+
+    }
 
 
+    fun switchToForm(){
+        fragmentTransaction { replace(R.id.createTemplate_fragmentContainer, templateFormFragment) }
+        inQuestionBank = false
+    }
+
+    fun switchToQuestionBank(){
+        fragmentTransaction { replace(R.id.createTemplate_fragmentContainer, questionBankFragment) }
+        inQuestionBank = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            android.R.id.home -> {
-                if (supportFragmentManager.backStackEntryCount > 0)
-                    supportFragmentManager.popBackStack()
-                else {
-                    leave()
+            android.R.id.home -> return when(inQuestionBank){
+                true -> {
+                    switchToForm()
+                    true
                 }
-                return true
+                false -> {
+                    navigateUp()
+                    RxBus.post(FlushEvent())
+                    true
+                }
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
-
-    private fun leave() {
-        NavUtils.navigateUpFromSameTask(this)
-        RxBus.post(FlushEvent())
-        finish()
-    }
-
 
 }
