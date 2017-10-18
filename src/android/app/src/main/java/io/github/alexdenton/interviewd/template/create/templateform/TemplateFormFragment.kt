@@ -17,7 +17,6 @@ import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Template
 import io.github.alexdenton.interviewd.template.create.events.ToTemplateFormEvent
-import io.github.alexdenton.interviewd.template.create.events.ShowQuestionBankFragment
 import io.github.alexdenton.interviewd.template.create.events.ToQuestionBankEvent
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.github.rfonzi.rxaware.bus.RxBus
@@ -87,7 +86,7 @@ class TemplateFormFragment : RxAwareFragment() {
 
     private fun submitSuccess() {
         toast("Template submitted!")
-        navigateUp()
+        postToCurrentActivity(Leave)
     }
 
 }

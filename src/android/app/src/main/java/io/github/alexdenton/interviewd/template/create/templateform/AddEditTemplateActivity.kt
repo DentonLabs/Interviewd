@@ -1,18 +1,14 @@
-package io.github.alexdenton.interviewd.template.create
+package io.github.alexdenton.interviewd.template.create.templateform
 
 import android.os.Bundle
 import android.view.MenuItem
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.template.create.events.ShowQuestionBankFragment
-import io.github.alexdenton.interviewd.template.create.events.ShowTemplateFormFragment
-import io.github.alexdenton.interviewd.template.create.events.TemplateFormRouter
 import io.github.alexdenton.interviewd.template.create.questionbank.QuestionBankFragment
-import io.github.alexdenton.interviewd.template.create.templateform.TemplateFormFragment
 import io.github.rfonzi.rxaware.RxAwareActivity
 import io.github.rfonzi.rxaware.bus.RxBus
 import io.github.rfonzi.rxaware.bus.events.FlushEvent
 
-class CreateTemplateActivity : RxAwareActivity() {
+class AddEditTemplateActivity : RxAwareActivity() {
 
     val questionBankFragment = QuestionBankFragment()
     val templateFormFragment = TemplateFormFragment()
@@ -20,12 +16,12 @@ class CreateTemplateActivity : RxAwareActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_template)
+        setContentView(R.layout.activity_add_edit_template)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if(savedInstanceState == null){
             fragmentTransaction {
-                add(R.id.createTemplate_fragmentContainer, templateFormFragment)
+                add(R.id.addEditTemplate_fragmentContainer, templateFormFragment)
             }
         }
 
@@ -34,6 +30,7 @@ class CreateTemplateActivity : RxAwareActivity() {
                     when(it) {
                         is ShowTemplateFormFragment -> switchToForm()
                         is ShowQuestionBankFragment -> switchToQuestionBank()
+                        is Leave -> leave()
                     }
                 }
                 .lifecycleAware()
@@ -42,13 +39,18 @@ class CreateTemplateActivity : RxAwareActivity() {
 
 
     fun switchToForm(){
-        fragmentTransaction { replace(R.id.createTemplate_fragmentContainer, templateFormFragment) }
+        fragmentTransaction { replace(R.id.addEditTemplate_fragmentContainer, templateFormFragment) }
         inQuestionBank = false
     }
 
     fun switchToQuestionBank(){
-        fragmentTransaction { replace(R.id.createTemplate_fragmentContainer, questionBankFragment) }
+        fragmentTransaction { replace(R.id.addEditTemplate_fragmentContainer, questionBankFragment) }
         inQuestionBank = true
+    }
+
+    fun leave(){
+        RxBus.post(FlushEvent())
+        onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -59,8 +61,7 @@ class CreateTemplateActivity : RxAwareActivity() {
                     true
                 }
                 false -> {
-                    navigateUp()
-                    RxBus.post(FlushEvent())
+                    leave()
                     true
                 }
             }

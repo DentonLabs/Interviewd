@@ -4,9 +4,9 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.repositories.TemplateRepository
-import io.github.alexdenton.interviewd.template.create.CreateTemplateActivity
 import io.github.alexdenton.interviewd.template.detail.TemplateDetailActivity
 import io.github.alexdenton.interviewd.entities.Template
+import io.github.alexdenton.interviewd.template.create.templateform.AddEditTemplateActivity
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +35,7 @@ class TemplatesViewModel : RxAwareViewModel() {
             .lifecycleAware()
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
-            .subscribe { startActivity(CreateTemplateActivity::class.java) }
+            .subscribe { startActivity(AddEditTemplateActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Template>) = itemClicks
             .subscribe { startActivityAndStore(TemplateDetailActivity::class.java, it.id) }
