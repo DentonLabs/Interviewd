@@ -27,10 +27,6 @@
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".template.create.CreateTemplateActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".dashboard.DashboardActivity" />
-        <activity
             android:name=".candidate.create.CreateCandidateActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
@@ -54,7 +50,7 @@
             android:name=".template.detail.TemplateDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
-        <activity android:name=".template.create.templateform.AddEditTemplateActivity"></activity>
+        <activity android:name="io.github.alexdenton.interviewd.template.templateform.AddEditTemplateActivity" />
     </application>
 
 </manifest>

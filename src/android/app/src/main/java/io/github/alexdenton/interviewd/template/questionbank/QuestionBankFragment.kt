@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.template.create.events.ToQuestionBankEvent
-import io.github.alexdenton.interviewd.template.create.events.ToTemplateFormEvent
+import io.github.alexdenton.interviewd.template.events.ToQuestionBankEvent
+import io.github.alexdenton.interviewd.template.events.ToTemplateFormEvent
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.github.rfonzi.rxaware.bus.RxBus
 

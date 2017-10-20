@@ -8,7 +8,7 @@ import io.github.alexdenton.interviewd.api.repositories.CandidateRepository
 import io.github.alexdenton.interviewd.api.repositories.InterviewRepository
 import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
 import io.github.alexdenton.interviewd.api.repositories.TemplateRepository
-import io.github.alexdenton.interviewd.template.create.templateform.TemplateFormAdapter
+import io.github.alexdenton.interviewd.template.templateform.TemplateFormAdapter
 import io.github.alexdenton.interviewd.entities.Candidate
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.alexdenton.interviewd.entities.Template

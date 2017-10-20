@@ -20,10 +20,10 @@ class TemplateDetailActivity : RxAwareActivity() {
 
         if (savedInstanceState == null) {
             vm.initWith(LazyKodein(appKodein))
-            vm.use(receive() as Int)
+            vm.useId(receive() as Int)
 
             fragmentTransaction {
-                add(R.id.templateDetail_fragmentContainer, TemplateDetailShowFragment())
+                add(R.id.templateDetail_fragmentContainer, TemplateDetailFragment())
             }
         }
 

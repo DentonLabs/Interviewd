@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.template.create.templateform
+package io.github.alexdenton.interviewd.template.templateform
 
 /**
  * Created by ryan on 10/14/17.

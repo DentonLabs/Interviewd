@@ -6,7 +6,7 @@ import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.repositories.TemplateRepository
 import io.github.alexdenton.interviewd.template.detail.TemplateDetailActivity
 import io.github.alexdenton.interviewd.entities.Template
-import io.github.alexdenton.interviewd.template.create.templateform.AddEditTemplateActivity
+import io.github.alexdenton.interviewd.template.templateform.AddEditTemplateActivity
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

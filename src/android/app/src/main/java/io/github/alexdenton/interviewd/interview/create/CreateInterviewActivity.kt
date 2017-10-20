@@ -16,8 +16,8 @@ import com.jakewharton.rxbinding2.support.v7.widget.dataChanges
 import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.textChanges
 import io.github.alexdenton.interviewd.R
-import io.github.alexdenton.interviewd.template.create.templateform.TemplateFormAdapter
-import io.github.alexdenton.interviewd.template.create.templateform.TemplateFormTouchHelper
+import io.github.alexdenton.interviewd.template.templateform.TemplateFormAdapter
+import io.github.alexdenton.interviewd.template.templateform.TemplateFormTouchHelper
 import io.github.alexdenton.interviewd.template.create.questionbank.QuestionBankAdapter
 import io.github.alexdenton.interviewd.entities.Template
 import io.github.alexdenton.interviewd.entities.Question

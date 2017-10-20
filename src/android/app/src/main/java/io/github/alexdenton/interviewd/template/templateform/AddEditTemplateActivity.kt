@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.template.create.templateform
+package io.github.alexdenton.interviewd.template.templateform
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,6 +18,8 @@ class AddEditTemplateActivity : RxAwareActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_template)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        intent.extras?.getInt("editing")?.useAsId()
 
         if(savedInstanceState == null){
             fragmentTransaction {
@@ -68,6 +70,10 @@ class AddEditTemplateActivity : RxAwareActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun Int.useAsId(){
+        templateFormFragment.arguments = Bundle().apply { putInt("editing_template", this@useAsId) }
     }
 
 }

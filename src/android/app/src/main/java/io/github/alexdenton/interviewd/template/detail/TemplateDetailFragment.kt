@@ -2,6 +2,7 @@ package io.github.alexdenton.interviewd.template.detail
 
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,9 +10,10 @@ import android.view.*
 import android.widget.TextView
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Template
+import io.github.alexdenton.interviewd.template.templateform.AddEditTemplateActivity
 import io.github.rfonzi.rxaware.RxAwareFragment
 
-class TemplateDetailShowFragment : RxAwareFragment() {
+class TemplateDetailFragment : RxAwareFragment() {
 
     lateinit var vm: TemplateDetailViewModel
 
@@ -21,7 +23,7 @@ class TemplateDetailShowFragment : RxAwareFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_template_detail_show, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_template_detail, container, false)
         (activity as TemplateDetailActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         vm = ViewModelProviders.of(activity).get(TemplateDetailViewModel::class.java)
@@ -30,13 +32,16 @@ class TemplateDetailShowFragment : RxAwareFragment() {
         templateEst = view.findViewById(R.id.templateDetail_estimate)
         questionRecyclerView = view.findViewById(R.id.templateDetail_recyclerView)
 
-        vm.getTemplateObservable()
-                .subscribe { setupTemplate(it) }
-                .lifecycleAware()
-
         setHasOptionsMenu(true)
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.fetchTemplate(vm.id)
+                .subscribe { template -> setupTemplate(template) }
+                .lifecycleAware()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -46,7 +51,12 @@ class TemplateDetailShowFragment : RxAwareFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId){
-            R.id.menu_edit -> vm.beginEditingTemplate()
+            R.id.menu_edit -> {
+                startActivity(Intent(context, AddEditTemplateActivity::class.java)
+                        .apply {
+                            putExtra("editing", vm.id)
+                        })
+            }
         }
 
         return super.onOptionsItemSelected(item)

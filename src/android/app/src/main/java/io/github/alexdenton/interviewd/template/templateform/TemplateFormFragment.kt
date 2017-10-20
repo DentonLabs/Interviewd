@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.template.create.templateform
+package io.github.alexdenton.interviewd.template.templateform
 
 
 import android.arch.lifecycle.ViewModelProviders
@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -16,8 +18,8 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Template
-import io.github.alexdenton.interviewd.template.create.events.ToTemplateFormEvent
-import io.github.alexdenton.interviewd.template.create.events.ToQuestionBankEvent
+import io.github.alexdenton.interviewd.template.events.ToQuestionBankEvent
+import io.github.alexdenton.interviewd.template.events.ToTemplateFormEvent
 import io.github.rfonzi.rxaware.RxAwareFragment
 import io.github.rfonzi.rxaware.bus.RxBus
 
@@ -46,7 +48,7 @@ class TemplateFormFragment : RxAwareFragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_template_form, container, false)
-        vm = ViewModelProviders.of(this).get(TemplateFormViewModel::class.java)
+        vm = ViewModelProviders.of(activity).get(TemplateFormViewModel::class.java)
         vm.withKodein(LazyKodein(appKodein))
 
         titleField = view.findViewById(R.id.templateForm_titleField)
@@ -54,6 +56,14 @@ class TemplateFormFragment : RxAwareFragment() {
         recyclerView = view.findViewById(R.id.templateForm_recyclerView)
         addQuestionButton = view.findViewById(R.id.templateForm_addQuestionButton)
         submitButton = view.findViewById(R.id.templateForm_submitButton)
+
+        arguments?.getInt("editing_template")?.apply {
+            vm.fetchTemplate(this)
+                    .subscribe { template -> setupTemplate(template) }
+                    .lifecycleAware()
+            arguments = null
+        }
+
         touchHelper = TemplateFormTouchHelper(adapter)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -61,7 +71,7 @@ class TemplateFormFragment : RxAwareFragment() {
         touchHelper.attachToRecyclerView(recyclerView)
 
         submitButton.clicks()
-                .map { Template(titleField.text.toString(), adapter.bankedQuestions) }
+                .map { Template(titleField.text.toString(), adapter.bankedQuestions, vm.templateId) }
                 .flatMap { vm.submitTemplate(it).toObservable() }
                 .subscribe { submitSuccess() }
                 .lifecycleAware()
@@ -73,13 +83,15 @@ class TemplateFormFragment : RxAwareFragment() {
                 }
                 .lifecycleAware()
 
-        RxBus.toObservable(ToTemplateFormEvent::class.java)
-                .subscribe { adapter.setBankedQuestions(it.checkedQuestions) }
+        vm.getChosenQuestions()
+                .subscribe { adapter.setBankedQuestions(it) }
                 .lifecycleAware()
 
         retainInstance = true
         setHasOptionsMenu(true)
 
+        RxBus.toObservable(ToTemplateFormEvent::class.java)
+                .subscribe { vm.useChosenQuestions(it.checkedQuestions) }
 
         return view
     }
@@ -87,6 +99,14 @@ class TemplateFormFragment : RxAwareFragment() {
     private fun submitSuccess() {
         toast("Template submitted!")
         postToCurrentActivity(Leave)
+    }
+
+    private fun setupTemplate(template: Template) {
+        titleField.setText(template.name)
+        estText.text = resources.getString(R.string.est, template.questions.sumBy { it.timeEstimate })
+        vm.useChosenQuestions(template.questions)
+        vm.templateId = template.id
+        vm.editing = true
     }
 
 }

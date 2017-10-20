@@ -1,11 +1,11 @@
-package io.github.alexdenton.interviewd.template.create.templateform
+package io.github.alexdenton.interviewd.template.templateform
 
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.ViewGroup
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import io.github.alexdenton.interviewd.R
