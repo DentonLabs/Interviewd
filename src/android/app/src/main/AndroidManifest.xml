@@ -31,7 +31,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".interview.create.CreateInterviewActivity"
+            android:name=".interview.addedit.AddEditInterviewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity

@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.interview.create
+package io.github.alexdenton.interviewd.interview.addedit
 
 import android.content.Context
 import android.widget.ArrayAdapter

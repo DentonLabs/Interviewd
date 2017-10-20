@@ -5,7 +5,7 @@ import com.github.salomonbrys.kodein.instance
 import com.jakewharton.rxrelay2.PublishRelay
 import io.github.alexdenton.interviewd.api.repositories.InterviewRepository
 import io.github.alexdenton.interviewd.interview.conduct.ConductInterviewActivity
-import io.github.alexdenton.interviewd.interview.create.CreateInterviewActivity
+import io.github.alexdenton.interviewd.interview.addedit.AddEditInterviewActivity
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
@@ -35,7 +35,7 @@ class InterviewsViewModel : RxAwareViewModel() {
             .lifecycleAware()
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks
-            .subscribe { startActivity(CreateInterviewActivity::class.java) }
+            .subscribe { startActivity(AddEditInterviewActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Interview>) = itemClicks
             .subscribe { startActivityAndStore(ConductInterviewActivity::class.java, it) }

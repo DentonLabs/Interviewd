@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.interview.create
+package io.github.alexdenton.interviewd.interview.addedit
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
