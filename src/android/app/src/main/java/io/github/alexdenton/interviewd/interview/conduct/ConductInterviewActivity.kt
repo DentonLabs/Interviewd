@@ -1,9 +1,12 @@
 package io.github.alexdenton.interviewd.interview.conduct
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.constraint.Group
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Chronometer
 import android.widget.ImageButton
@@ -14,6 +17,7 @@ import com.jakewharton.rxbinding2.support.v4.view.pageSelections
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Interview
+import io.github.alexdenton.interviewd.interview.addedit.AddEditInterviewActivity
 import io.github.rfonzi.rxaware.RxAwareActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,6 +36,7 @@ class ConductInterviewActivity : RxAwareActivity() {
     lateinit var timer: Chronometer
     lateinit var startButton: ImageButton
     lateinit var playGroup: Group
+    lateinit var viewPagerAdapter: QuestionPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +57,10 @@ class ConductInterviewActivity : RxAwareActivity() {
 
         if(savedInstanceState == null){
             vm.initWith(LazyKodein(appKodein))
-            vm.useInterview(receive() as Interview)
+            vm.useId(receive() as Int)
         }
 
-        val viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, vm.interview.questions)
-        questionViewPager.adapter = viewPagerAdapter
+        viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, mutableListOf())
 
         vm.getNextQuestionStringObservable()
                 .subscribeOn(Schedulers.io())
@@ -72,11 +76,32 @@ class ConductInterviewActivity : RxAwareActivity() {
                 .subscribe { startInterview() }
                 .lifecycleAware()
 
-        vm.exposeStartClicks(startButton.clicks())
-        vm.exposeNextClicks(nextQuestionButton.clicks())
-        vm.exposeCurrentPage(Observable.concat(Observable.just(vm.currentPage), questionViewPager.pageSelections().skipInitialValue()))
+        startButton.clicks()
+                .subscribe {
+                    vm.inProgress = true
+                    startInterview()
+                }
 
-        setupStaticInfo(vm.interview)
+        nextQuestionButton.clicks()
+                .subscribe {
+                    if(vm.currentPage == viewPagerAdapter.questions.size - 1) {
+                        toast("Finished the interview")
+                        navigateUp()
+                    }
+                    else {
+                        questionViewPager.currentItem = vm.currentPage + 1
+                    }
+                }
+
+        questionViewPager.pageSelections().skipInitialValue()
+                .subscribe { when(it){
+                    viewPagerAdapter.questions.size - 1 -> updateNextQuestion("Finish interview")
+                    else -> updateNextQuestion(viewPagerAdapter.questions[it + 1].name)
+                }
+                    vm.currentPage = it }
+                .lifecycleAware()
+
+
     }
 
     override fun onPause() {
@@ -86,6 +111,11 @@ class ConductInterviewActivity : RxAwareActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        vm.fetchInterview(vm.interviewId)
+                .subscribe { interview -> setupInterview(interview) }
+                .lifecycleAware()
+
         if (playGroup.visibility == View.VISIBLE) timer.start()
     }
 
@@ -103,6 +133,15 @@ class ConductInterviewActivity : RxAwareActivity() {
 
     private fun updateNextQuestion(nextQuestionString: String) {
         nextQuestionName.text = nextQuestionString
+    }
+
+    private fun setupInterview(interview: Interview) {
+        setupStaticInfo(interview)
+        vm.candidateId = interview.candidate.id
+        viewPagerAdapter.questions.clear()
+        viewPagerAdapter.questions.addAll(interview.questions)
+        viewPagerAdapter.notifyDataSetChanged()
+        questionViewPager.adapter = viewPagerAdapter
     }
 
     fun setupStaticInfo(interview: Interview){
@@ -130,6 +169,7 @@ class ConductInterviewActivity : RxAwareActivity() {
         questionViewPager.currentItem = 0
         questionViewPager.swipeEnabled = false
         setupTimer()
+        invalidateOptionsMenu()
     }
 
     fun pauseInterview(){
@@ -142,5 +182,24 @@ class ConductInterviewActivity : RxAwareActivity() {
         questionViewPager.swipeEnabled = false
         setupTickListener()
         timer.start()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if(!vm.inProgress) menuInflater?.inflate(R.menu.menu_edit, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menu_edit -> {
+                startActivity(Intent(baseContext, AddEditInterviewActivity::class.java)
+                        .apply {
+                            putExtra("interviewId", vm.interviewId)
+                            putExtra("candidateId", vm.candidateId)
+                        })
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

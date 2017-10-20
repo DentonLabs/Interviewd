@@ -31,10 +31,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity
-            android:name=".interview.addedit.AddEditInterviewActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".dashboard.DashboardActivity" />
-        <activity
             android:name=".interview.conduct.ConductInterviewActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
@@ -51,6 +47,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".dashboard.DashboardActivity" />
         <activity android:name="io.github.alexdenton.interviewd.template.templateform.AddEditTemplateActivity" />
+        <activity android:name=".interview.addedit.AddEditInterviewActivity" />
     </application>
 
 </manifest>

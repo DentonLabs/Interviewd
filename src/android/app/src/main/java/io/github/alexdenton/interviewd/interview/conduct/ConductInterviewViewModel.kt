@@ -7,6 +7,9 @@ import io.github.alexdenton.interviewd.api.repositories.InterviewRepository
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.rfonzi.rxaware.RxAwareViewModel
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by ryan on 9/27/17.
@@ -14,8 +17,10 @@ import io.reactivex.Observable
 class ConductInterviewViewModel : RxAwareViewModel() {
 
     private lateinit var interviewRepo: InterviewRepository
-    lateinit var interview: Interview
 
+
+    var interviewId = 0
+    var candidateId = 0
     var currentPage = 0
     var inProgress = false
     private val nextQuestionString: PublishRelay<String> = PublishRelay.create()
@@ -30,29 +35,21 @@ class ConductInterviewViewModel : RxAwareViewModel() {
         interviewRepo = kodein.invoke().instance()
     }
 
-    fun useInterview(interview: Interview) {
-        this.interview = interview
-    }
+    fun useId(id: Int) { interviewId = id }
+
+    fun fetchInterview(id: Int) = interviewRepo.getInterview(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
     fun exposeCurrentPage(pageSelections: Observable<Int>) = pageSelections
             .subscribe {
-                when(it){
-                    interview.questions.size - 1 -> nextQuestionString.accept("Finish interview")
-                    else -> nextQuestionString.accept(interview.questions[it + 1].name)
-                }
-                currentPage = it
+
             }
             .lifecycleAware()
 
     fun exposeNextClicks(clicks: Observable<Unit>) = clicks
             .subscribe {
-                if(currentPage == interview.questions.size - 1) {
-                    toast("Finished the interview")
-                    navigateUp()
-                }
-                else {
-                    nextPageSignal.accept(currentPage + 1)
-                }
+
             }
             .lifecycleAware()
 

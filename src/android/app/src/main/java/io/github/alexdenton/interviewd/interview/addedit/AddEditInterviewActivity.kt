@@ -15,6 +15,7 @@ import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.view.clicks
 import io.github.alexdenton.interviewd.R
+import io.github.alexdenton.interviewd.entities.Candidate
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.alexdenton.interviewd.entities.Question
 import io.github.alexdenton.interviewd.entities.Template
@@ -47,6 +48,16 @@ class AddEditInterviewActivity : RxAwareActivity() {
 
         vm = ViewModelProviders.of(this).get(AddEditInterviewViewModel::class.java)
         vm.initWith(LazyKodein(appKodein))
+
+        intent.extras?.apply {
+            vm.editing = true
+            vm.interviewId = getInt("interviewId")
+            vm.candidateId = getInt("candidateId")
+
+            vm.fetchInterview()
+                    .subscribe { interview -> setupInterview(interview)  }
+                    .lifecycleAware()
+        }
 
         nameEditText = findViewById(R.id.addEditInterview_interviewNameEditText)
         candidateSpinner = findViewById(R.id.addEditInterview_candidateSpinner)
@@ -84,8 +95,12 @@ class AddEditInterviewActivity : RxAwareActivity() {
                 .lifecycleAware()
 
         vm.fetchCandidates()
-                .subscribe { candidates -> candidateSpinnerAdapter.setCandidates(candidates) }
+                .subscribe { candidates ->
+                    candidateSpinnerAdapter.setCandidates(candidates)
+                    candidateSpinner.setSelection(candidates.indexOfFirst { it.id == vm.candidateId })
+                }
                 .lifecycleAware()
+
     }
 
     private fun buildDialogs() {
@@ -130,13 +145,18 @@ class AddEditInterviewActivity : RxAwareActivity() {
         chosenQuestionsAdapter.setBankedQuestions(questions)
     }
 
-    fun getInterview() = Interview(0, getSelectedCandidate(), nameEditText.text.toString(), chosenQuestionsAdapter.bankedQuestions)
+    fun setupInterview(interview: Interview) {
+        nameEditText.setText(interview.name)
+        chosenQuestionsAdapter.setBankedQuestions(interview.questions)
+    }
+
+    fun getInterview() = Interview(vm.interviewId, getSelectedCandidate(), nameEditText.text.toString(), chosenQuestionsAdapter.bankedQuestions)
 
     fun getSelectedCandidate() = candidateSpinnerAdapter.candidates[candidateSpinner.selectedItemPosition]
 
     fun onSubmitSuccess() {
         toast("Inteview submitted")
-        navigateUp()
+        onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -154,5 +174,4 @@ class AddEditInterviewActivity : RxAwareActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
 }

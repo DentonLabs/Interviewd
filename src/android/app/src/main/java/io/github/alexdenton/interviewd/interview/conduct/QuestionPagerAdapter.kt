@@ -9,7 +9,7 @@ import io.github.alexdenton.interviewd.entities.Question
 /**
  * Created by ryan on 9/27/17.
  */
-class QuestionPagerAdapter(fm: FragmentManager, val questions: List<Question>) : FragmentStatePagerAdapter(fm){
+class QuestionPagerAdapter(fm: FragmentManager, val questions: MutableList<Question>) : FragmentStatePagerAdapter(fm){
     override fun getItem(position: Int): Fragment {
         val fragment = QuestionPageFragment()
         val bundle = Bundle()

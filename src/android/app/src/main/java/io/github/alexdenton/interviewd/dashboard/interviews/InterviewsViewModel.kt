@@ -38,5 +38,5 @@ class InterviewsViewModel : RxAwareViewModel() {
             .subscribe { startActivity(AddEditInterviewActivity::class.java) }
 
     fun exposeItemClicks(itemClicks: Observable<Interview>) = itemClicks
-            .subscribe { startActivityAndStore(ConductInterviewActivity::class.java, it) }
+            .subscribe { startActivityAndStore(ConductInterviewActivity::class.java, it.id) }
 }
