@@ -83,6 +83,27 @@ class DemoApi(val context: Context) : InterviewdApiService {
         return Single.just(toAdd)
     }
 
+    override fun deleteQuestion(id: Int): Single<QuestionDto> {
+        val reader = context.openFileInput(questionsFilename)
+        var json = reader.bufferedReader().readText()
+        reader.close()
+
+        if(json == "") json = "[]"
+
+        var list: List<QuestionDto> = gson.fromJson(json, object : TypeToken<List<QuestionDto>>() {}.type)
+
+        val mutableList = list.toMutableList()
+        val toDelete = mutableList.find { it.id == id }
+        mutableList.remove(toDelete)
+        list = mutableList.toList()
+
+        val writer = OutputStreamWriter(context.openFileOutput(questionsFilename, Context.MODE_PRIVATE))
+        gson.toJson(list, writer)
+        writer.close()
+
+        return Single.just(toDelete)
+    }
+
     override fun patchQuestion(id: Int, patch: QuestionDto): Single<QuestionDto> {
         val reader = context.openFileInput(questionsFilename)
         var json = reader.bufferedReader().readText()

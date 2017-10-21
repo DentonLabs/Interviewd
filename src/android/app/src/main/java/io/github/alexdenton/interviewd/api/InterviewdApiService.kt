@@ -21,6 +21,9 @@ interface InterviewdApiService {
     @POST("/questions")
     fun createQuestion(@Body question: QuestionDto): Single<QuestionDto>
 
+    @DELETE("/questions/{id}")
+    fun deleteQuestion(@Path("id") id: Int): Single<QuestionDto>
+
     @PATCH("/questions/{id}")
     fun patchQuestion(@Path("id") id: Int, @Body patch: QuestionDto): Single<QuestionDto>
 

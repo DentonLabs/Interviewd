@@ -32,5 +32,9 @@ class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
             = client.patchQuestion(question.id, question.toDto())
             .map { it.toQuestion() }
 
+    override fun deleteQuestion(id: Int): Single<Question>
+            = client.deleteQuestion(id)
+            .map { it.toQuestion() }
+
     fun Question.toDto() = QuestionDto(id, name, description, timeEstimate)
 }

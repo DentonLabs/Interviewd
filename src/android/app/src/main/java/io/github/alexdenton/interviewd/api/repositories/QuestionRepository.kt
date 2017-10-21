@@ -11,4 +11,5 @@ interface QuestionRepository {
     fun getAllQuestions(): Single<List<Question>>
     fun createQuestion(question: Question): Single<Question>
     fun updateQuestion(question: Question): Single<Question>
+    fun deleteQuestion(id: Int): Single<Question>
 }
