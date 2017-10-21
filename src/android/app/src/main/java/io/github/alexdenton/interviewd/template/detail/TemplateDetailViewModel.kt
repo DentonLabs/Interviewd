@@ -29,4 +29,8 @@ class TemplateDetailViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun deleteTemplate() = templatesRepo.deleteTemplate(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }

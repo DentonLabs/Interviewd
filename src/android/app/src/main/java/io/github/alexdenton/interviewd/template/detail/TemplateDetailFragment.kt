@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Template
 import io.github.alexdenton.interviewd.template.templateform.AddEditTemplateActivity
@@ -57,6 +58,7 @@ class TemplateDetailFragment : RxAwareFragment() {
                             putExtra("editing", vm.id)
                         })
             }
+            R.id.menu_delete -> showDeleteConfirmation()
         }
 
         return super.onOptionsItemSelected(item)
@@ -69,6 +71,24 @@ class TemplateDetailFragment : RxAwareFragment() {
 
         templateName.text = template.name
         templateEst.text = resources.getString(R.string.est, template.questions.sumBy { it.timeEstimate })
+    }
+
+    fun showDeleteConfirmation() = MaterialDialog.Builder(context)
+            .content("Are you sure you want to delete the ${templateName.text} template?")
+            .positiveText("Okay")
+            .negativeText("Cancel")
+            .onPositive { dialog, which ->
+                vm.deleteTemplate()
+                        .subscribe { success -> onDeleteTemplate(success) }
+                        .lifecycleAware()
+            }
+            .onNegative { dialog, which -> dialog.dismiss() }
+            .build()
+            .show()
+
+    fun onDeleteTemplate(template: Template) {
+        toast("Deleted ${template.name} template")
+        navigateUp()
     }
 
 }
