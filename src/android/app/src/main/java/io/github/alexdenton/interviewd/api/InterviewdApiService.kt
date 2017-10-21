@@ -51,6 +51,9 @@ interface InterviewdApiService {
     @POST("/candidates")
     fun createCandidate(@Body candidate: CandidateDto): Single<CandidateDto>
 
+    @DELETE("/candidates")
+    fun deleteCandidate(@Path("id") id: Int): Single<CandidateDto>
+
     @PATCH("/candidates/{id}")
     fun patchCandidate(@Path("id") id: Int, @Body patch: CandidateDto): Single<CandidateDto>
 

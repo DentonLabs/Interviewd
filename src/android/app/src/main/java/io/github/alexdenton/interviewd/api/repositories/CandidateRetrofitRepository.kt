@@ -30,5 +30,9 @@ class CandidateRetrofitRepository(val context: Context) : CandidateRepository {
             = client.patchCandidate(candidate.id, candidate.toDto())
             .map { it.toCandidate() }
 
+    override fun deleteCandidate(id: Int): Single<Candidate>
+            = client.deleteCandidate(id)
+            .map { it.toCandidate() }
+
     fun Candidate.toDto() = CandidateDto(id, firstName, lastName)
 }

@@ -11,4 +11,5 @@ interface CandidateRepository {
     fun getAllCandidates(): Single<List<Candidate>>
     fun createCandidate(candidate: Candidate): Single<Candidate>
     fun updateCandidate(candidate: Candidate): Single<Candidate>
+    fun deleteCandidate(id: Int): Single<Candidate>
 }
