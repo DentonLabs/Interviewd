@@ -18,15 +18,19 @@ import io.reactivex.schedulers.Schedulers
  */
 class QuestionDetailViewModel : RxAwareViewModel() {
 
+    var questionId = 0
+
     private lateinit var questionRepo: QuestionRepository
-    private val question: BehaviorRelay<Question> = BehaviorRelay.create()
-    fun getQuestionObservable(): Observable<Question> = question
 
     fun init(kodein: LazyKodein) {
         questionRepo = kodein.invoke().instance()
     }
 
-    fun getQuestion(id: Int): Single<Question> = questionRepo.getQuestion(id)
+    fun getQuestion(): Single<Question> = questionRepo.getQuestion(questionId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun deleteQuestion(): Single<Question> = questionRepo.deleteQuestion(questionId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

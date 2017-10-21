@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 
@@ -27,10 +28,11 @@ class QuestionDetailFragment : RxAwareFragment() {
         vm = ViewModelProviders.of(this).get(QuestionDetailViewModel::class.java)
         vm.init(LazyKodein(appKodein))
 
-        if(arguments.containsKey("questionId")){
-            vm.getQuestion(arguments.getInt("questionId"))
-                    .subscribe ({ setupText(it) },
-                            {throwable -> throwable.printStackTrace()})
+        if (arguments.containsKey("questionId")) {
+            vm.questionId = arguments.getInt("questionId")
+            vm.getQuestion()
+                    .subscribe({ setupText(it) },
+                            { throwable -> throwable.printStackTrace() })
                     .lifecycleAware()
         }
 
@@ -55,11 +57,30 @@ class QuestionDetailFragment : RxAwareFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
+        when (item?.itemId) {
             R.id.menu_edit -> postToCurrentActivity(QuestionDetailRouter.EDIT)
+            R.id.menu_delete -> showDeleteConfirmation()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showDeleteConfirmation() = MaterialDialog.Builder(context)
+            .content("Are you sure you want to delete ${nameText.text}?")
+            .positiveText("Okay")
+            .negativeText("Cancel")
+            .onPositive { dialog, which ->
+                vm.deleteQuestion()
+                        .subscribe { success -> onDeleteQuestion(success) }
+                        .lifecycleAware()
+            }
+            .onNegative { dialog, which -> dialog.dismiss() }
+            .build()
+            .show()
+
+    fun onDeleteQuestion(question: Question) {
+        toast("Deleted ${question.name}")
+        navigateUp()
     }
 
 }
