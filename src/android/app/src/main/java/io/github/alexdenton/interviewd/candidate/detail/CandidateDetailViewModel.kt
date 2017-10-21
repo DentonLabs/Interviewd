@@ -25,6 +25,10 @@ class CandidateDetailViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun deleteCandidate() = candidateRepo.deleteCandidate(candidateId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
     fun startEditingCandidate() = postToCurrentActivity(ShowCandidateFormFragment)
 
 }

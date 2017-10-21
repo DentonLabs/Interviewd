@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 
@@ -60,9 +61,28 @@ class CandidateDetailFragment : RxAwareFragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_edit -> vm.startEditingCandidate()
+            R.id.menu_delete -> showDeleteConfirmation()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showDeleteConfirmation() = MaterialDialog.Builder(context)
+            .content("Are you sure you want to delete ${firstName.text} ${lastName.text}?")
+            .positiveText("Okay")
+            .negativeText("Cancel")
+            .onPositive { dialog, which ->
+                vm.deleteCandidate()
+                        .subscribe { success -> onDeleteCandidate(success) }
+                        .lifecycleAware()
+            }
+            .onNegative { dialog, which -> dialog.dismiss() }
+            .build()
+            .show()
+
+    fun onDeleteCandidate(candidate: Candidate){
+        toast("Deleted ${candidate.firstName} ${candidate.lastName}")
+        navigateUp()
     }
 
 }
