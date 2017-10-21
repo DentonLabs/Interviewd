@@ -34,6 +34,10 @@ class InterviewRetrofitRepository(val context: Context) : InterviewRepository {
             = client.patchInterview(interview.id, interview.toDto())
             .map { it.toInterview() }
 
+    override fun deleteInterview(id: Int): Single<Interview>
+            = client.deleteInterview(id)
+            .map { it.toInterview() }
+
 
     fun Interview.toDto() = InterviewDto(id, candidate.toDto(), name, questions.map { it.toDto() }, status)
 

@@ -66,6 +66,9 @@ interface InterviewdApiService {
     @POST("/interviews")
     fun createInterview(@Body interview: InterviewDto): Single<InterviewDto>
 
+    @DELETE("/interviews/{id}")
+    fun deleteInterview(@Path("id") id: Int): Single<InterviewDto>
+
     @PATCH("/interviews/{id}")
     fun patchInterview(@Path("id") id: Int, @Body patch: InterviewDto): Single<InterviewDto>
 }
