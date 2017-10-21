@@ -31,6 +31,10 @@ class TemplateRetrofitRepository(context: Context) : TemplateRepository {
             = client.patchTemplate(template.id, template.toDto())
             .map { it.toTemplateBlocking() }
 
+    override fun deleteTemplate(id: Int): Single<Template>
+            = client.deleteTemplate(id)
+            .map { it.toTemplateBlocking() }
+
     fun List<Question>.toIdList() = map { it.id }
     fun Template.toDto() = TemplateDto(name, questions.toIdList(), id)
     fun TemplateDto.toTemplateBlocking() = Template(name, questionIds.map { client.getQuestion(it).blockingGet().toQuestion() }, id)

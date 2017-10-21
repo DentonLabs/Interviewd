@@ -36,6 +36,9 @@ interface InterviewdApiService {
     @POST("/templates")
     fun createTemplate(@Body template: TemplateDto): Single<TemplateDto>
 
+    @DELETE("/templates/{id}")
+    fun deleteTemplate(@Path("id") id: Int): Single<TemplateDto>
+
     @PATCH("/templates/{id}")
     fun patchTemplate(@Path("id") id: Int, @Body patch: TemplateDto): Single<TemplateDto>
 
