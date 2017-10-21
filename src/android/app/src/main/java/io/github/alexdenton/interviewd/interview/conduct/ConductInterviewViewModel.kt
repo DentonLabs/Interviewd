@@ -41,6 +41,10 @@ class ConductInterviewViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun deleteInterview() = interviewRepo.deleteInterview(interviewId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
     fun exposeCurrentPage(pageSelections: Observable<Int>) = pageSelections
             .subscribe {
 

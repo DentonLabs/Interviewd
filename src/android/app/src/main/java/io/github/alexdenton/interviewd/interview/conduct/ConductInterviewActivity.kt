@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Chronometer
 import android.widget.ImageButton
 import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.github.salomonbrys.kodein.LazyKodein
 import com.github.salomonbrys.kodein.android.appKodein
 import com.jakewharton.rxbinding2.support.v4.view.pageSelections
@@ -19,7 +20,6 @@ import io.github.alexdenton.interviewd.R
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.alexdenton.interviewd.interview.addedit.AddEditInterviewActivity
 import io.github.rfonzi.rxaware.RxAwareActivity
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -198,8 +198,28 @@ class ConductInterviewActivity : RxAwareActivity() {
                             putExtra("candidateId", vm.candidateId)
                         })
             }
+            R.id.menu_delete -> showDeleteConfirmation()
+
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showDeleteConfirmation() = MaterialDialog.Builder(this)
+            .content("Are you sure you want to delete ${candidateNameText.text}'s ${interviewTitleText.text} interview?")
+            .positiveText("Okay")
+            .negativeText("Cancel")
+            .onPositive { dialog, which ->
+                vm.deleteInterview()
+                        .subscribe { success -> onDeleteInterview(success) }
+                        .lifecycleAware()
+            }
+            .onNegative { dialog, which -> dialog.dismiss() }
+            .build()
+            .show()
+
+    fun onDeleteInterview(interview: Interview){
+        toast("Deleted ${interview.candidate.firstName}'s ${interview.name} interview")
+        navigateUp()
     }
 }
