@@ -1,12 +1,11 @@
 package io.github.alexdenton.interviewd.retrofit.repositories
 
-import io.github.alexdenton.interviewd.retrofit.dto.QuestionDto
 import android.content.Context
-import io.github.alexdenton.interviewd.api.InterviewdApi
 import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
-import io.github.alexdenton.interviewd.retrofit.RetrofitFactory
 import io.github.alexdenton.interviewd.entities.Question
 import io.github.alexdenton.interviewd.retrofit.InterviewdApiRetrofit
+import io.github.alexdenton.interviewd.retrofit.RetrofitFactory
+import io.github.alexdenton.interviewd.retrofit.dto.QuestionDto
 import io.reactivex.Single
 
 /**

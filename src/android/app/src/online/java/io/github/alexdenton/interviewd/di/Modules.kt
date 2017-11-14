@@ -4,7 +4,10 @@ import android.content.Context
 import com.github.salomonbrys.kodein.Kodein
 import com.github.salomonbrys.kodein.bind
 import com.github.salomonbrys.kodein.instance
-import io.github.alexdenton.interviewd.api.repositories.*
+import io.github.alexdenton.interviewd.api.repositories.CandidateRepository
+import io.github.alexdenton.interviewd.api.repositories.InterviewRepository
+import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
+import io.github.alexdenton.interviewd.api.repositories.TemplateRepository
 import io.github.alexdenton.interviewd.retrofit.repositories.CandidateRetrofitRepository
 import io.github.alexdenton.interviewd.retrofit.repositories.InterviewRetrofitRepository
 import io.github.alexdenton.interviewd.retrofit.repositories.QuestionRetrofitRepository

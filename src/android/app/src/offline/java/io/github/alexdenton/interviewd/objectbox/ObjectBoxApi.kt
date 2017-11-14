@@ -44,7 +44,7 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun getTemplate(id: Int): Single<TemplateEntity> {
+    override fun getTemplate(id: Long): Single<TemplateEntity> {
         return Single.never()
     }
 
@@ -52,11 +52,11 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun deleteTemplate(id: Int): Single<TemplateEntity> {
+    override fun deleteTemplate(id: Long): Single<TemplateEntity> {
         return Single.never()
     }
 
-    override fun patchTemplate(id: Int, patch: TemplateEntity): Single<TemplateEntity> {
+    override fun patchTemplate(id: Long, patch: TemplateEntity): Single<TemplateEntity> {
         return Single.never()
     }
 
@@ -64,7 +64,7 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun getCandidate(id: Int): Single<CandidateEntity> {
+    override fun getCandidate(id: Long): Single<CandidateEntity> {
         return Single.never()
     }
 
@@ -72,11 +72,11 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun deleteCandidate(id: Int): Single<CandidateEntity> {
+    override fun deleteCandidate(id: Long): Single<CandidateEntity> {
         return Single.never()
     }
 
-    override fun patchCandidate(id: Int, patch: CandidateEntity): Single<CandidateEntity> {
+    override fun patchCandidate(id: Long, patch: CandidateEntity): Single<CandidateEntity> {
         return Single.never()
     }
 
@@ -84,7 +84,7 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun getInterview(id: Int): Single<InterviewEntity> {
+    override fun getInterview(id: Long): Single<InterviewEntity> {
         return Single.never()
     }
 
@@ -92,11 +92,11 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
         return Single.never()
     }
 
-    override fun deleteInterview(id: Int): Single<InterviewEntity> {
+    override fun deleteInterview(id: Long): Single<InterviewEntity> {
         return Single.never()
     }
 
-    override fun patchInterview(id: Int, patch: InterviewEntity): Single<InterviewEntity> {
+    override fun patchInterview(id: Long, patch: InterviewEntity): Single<InterviewEntity> {
         return Single.never()
     }
 }

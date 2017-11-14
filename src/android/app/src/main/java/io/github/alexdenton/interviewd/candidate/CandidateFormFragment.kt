@@ -39,7 +39,7 @@ class CandidateFormFragment : RxAwareFragment() {
         vm.withKodein(LazyKodein(appKodein))
 
         if(arguments?.containsKey("candidateId") == true){
-            vm.editing(arguments.getInt("candidateId"))
+            vm.editing(arguments.getLong("candidateId"))
             vm.fetchCandidate()
                     .subscribe {candidate -> setCandidate(candidate) }
                     .lifecycleAware()

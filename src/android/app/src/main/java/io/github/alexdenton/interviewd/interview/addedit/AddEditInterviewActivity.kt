@@ -51,8 +51,8 @@ class AddEditInterviewActivity : RxAwareActivity() {
 
         intent.extras?.apply {
             vm.editing = true
-            vm.interviewId = getInt("interviewId")
-            vm.candidateId = getInt("candidateId")
+            vm.interviewId = getLong("interviewId")
+            vm.candidateId = getLong("candidateId")
 
             vm.fetchInterview()
                     .subscribe { interview -> setupInterview(interview)  }

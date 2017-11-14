@@ -7,7 +7,7 @@ package io.github.alexdenton.interviewd.entities
 data class Template(
         val name: String,
         val questions: List<Question>,
-        val id: Int = 0
+        val id: Long = 0
 ){
     override fun toString(): String = name
 }

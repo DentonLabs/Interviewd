@@ -7,7 +7,7 @@ import io.github.alexdenton.interviewd.entities.InterviewStatus
  * Created by ryan on 9/9/17.
  */
 data class InterviewDto (
-        val id: Int,
+        val id: Long,
         val candidate: CandidateDto,
         val name: String,
         val questions: List<QuestionDto>,

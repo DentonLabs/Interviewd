@@ -9,7 +9,7 @@ import io.reactivex.Single
  * Created by ryan on 11/14/17.
  */
 class TemplateObjectboxRepository(val client: InterviewdObjectboxApi) : TemplateRepository {
-    override fun getTemplate(id: Int): Single<Template> {
+    override fun getTemplate(id: Long): Single<Template> {
         return Single.never()
     }
 
@@ -25,7 +25,7 @@ class TemplateObjectboxRepository(val client: InterviewdObjectboxApi) : Template
         return Single.never()
     }
 
-    override fun deleteTemplate(id: Int): Single<Template> {
+    override fun deleteTemplate(id: Long): Single<Template> {
         return Single.never()
     }
 }

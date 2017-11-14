@@ -23,31 +23,31 @@ interface InterviewdObjectboxApi {
 
     fun getTemplates(): Single<List<TemplateEntity>>
 
-    fun getTemplate(id: Int): Single<TemplateEntity>
+    fun getTemplate(id: Long): Single<TemplateEntity>
 
     fun createTemplate(template: TemplateEntity): Single<TemplateEntity>
 
-    fun deleteTemplate(id: Int): Single<TemplateEntity>
+    fun deleteTemplate(id: Long): Single<TemplateEntity>
 
-    fun patchTemplate(id: Int, patch: TemplateEntity): Single<TemplateEntity>
+    fun patchTemplate(id: Long, patch: TemplateEntity): Single<TemplateEntity>
 
     fun getCandidates(): Single<List<CandidateEntity>>
 
-    fun getCandidate(id: Int): Single<CandidateEntity>
+    fun getCandidate(id: Long): Single<CandidateEntity>
 
     fun createCandidate(candidate: CandidateEntity): Single<CandidateEntity>
 
-    fun deleteCandidate(id: Int): Single<CandidateEntity>
+    fun deleteCandidate(id: Long): Single<CandidateEntity>
 
-    fun patchCandidate(id: Int, patch: CandidateEntity): Single<CandidateEntity>
+    fun patchCandidate(id: Long, patch: CandidateEntity): Single<CandidateEntity>
 
     fun getInterviews(): Single<List<InterviewEntity>>
 
-    fun getInterview(id: Int): Single<InterviewEntity>
+    fun getInterview(id: Long): Single<InterviewEntity>
 
-   fun createInterview(interview: InterviewEntity): Single<InterviewEntity>
+    fun createInterview(interview: InterviewEntity): Single<InterviewEntity>
 
-    fun deleteInterview(id: Int): Single<InterviewEntity>
+    fun deleteInterview(id: Long): Single<InterviewEntity>
 
-    fun patchInterview(id: Int, patch: InterviewEntity): Single<InterviewEntity>
+    fun patchInterview(id: Long, patch: InterviewEntity): Single<InterviewEntity>
 }

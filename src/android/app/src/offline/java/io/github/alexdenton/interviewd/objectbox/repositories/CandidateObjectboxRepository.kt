@@ -9,7 +9,7 @@ import io.reactivex.Single
  * Created by ryan on 11/14/17.
  */
 class CandidateObjectboxRepository(client: InterviewdObjectboxApi) : CandidateRepository {
-    override fun getCandidate(id: Int): Single<Candidate> {
+    override fun getCandidate(id: Long): Single<Candidate> {
         return Single.never()
     }
 
@@ -25,7 +25,7 @@ class CandidateObjectboxRepository(client: InterviewdObjectboxApi) : CandidateRe
         return Single.never()
     }
 
-    override fun deleteCandidate(id: Int): Single<Candidate> {
+    override fun deleteCandidate(id: Long): Single<Candidate> {
         return Single.never()
     }
 }

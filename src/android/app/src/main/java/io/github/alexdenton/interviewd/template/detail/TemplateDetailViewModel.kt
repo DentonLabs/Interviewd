@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class TemplateDetailViewModel : RxAwareViewModel() {
 
-    var id = 0
+    var id: Long = 0
 
     lateinit var templatesRepo: TemplateRepository
     lateinit var questionsRepo: QuestionRepository
@@ -23,9 +23,9 @@ class TemplateDetailViewModel : RxAwareViewModel() {
         questionsRepo = kodein.invoke().instance()
     }
 
-    fun useId(id: Int){ this.id = id }
+    fun useId(id: Long){ this.id = id }
 
-    fun fetchTemplate(id: Int) = templatesRepo.getTemplate(id)
+    fun fetchTemplate(id: Long) = templatesRepo.getTemplate(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

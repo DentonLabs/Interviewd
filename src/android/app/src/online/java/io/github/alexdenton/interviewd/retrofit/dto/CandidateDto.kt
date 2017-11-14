@@ -6,7 +6,7 @@ import io.github.alexdenton.interviewd.entities.Candidate
  * Created by ryan on 8/28/17.
  */
 class CandidateDto(
-        val id: Int,
+        val id: Long,
         val firstName: String,
         val lastName: String
 ){

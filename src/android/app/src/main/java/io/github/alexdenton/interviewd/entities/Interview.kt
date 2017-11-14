@@ -4,7 +4,7 @@ package io.github.alexdenton.interviewd.entities
  * Created by ryan on 7/24/17.
  */
 data class Interview(
-        val id: Int = 0,
+        val id: Long = 0,
         val candidate: Candidate,
         val name: String,
         val questions: List<Question>,

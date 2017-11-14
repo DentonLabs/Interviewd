@@ -19,8 +19,8 @@ class ConductInterviewViewModel : RxAwareViewModel() {
     private lateinit var interviewRepo: InterviewRepository
 
 
-    var interviewId = 0
-    var candidateId = 0
+    var interviewId: Long = 0
+    var candidateId: Long = 0
     var currentPage = 0
     var inProgress = false
     private val nextQuestionString: PublishRelay<String> = PublishRelay.create()
@@ -35,9 +35,9 @@ class ConductInterviewViewModel : RxAwareViewModel() {
         interviewRepo = kodein.invoke().instance()
     }
 
-    fun useId(id: Int) { interviewId = id }
+    fun useId(id: Long) { interviewId = id }
 
-    fun fetchInterview(id: Int) = interviewRepo.getInterview(id)
+    fun fetchInterview(id: Long) = interviewRepo.getInterview(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
