@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class QuestionDetailViewModel : RxAwareViewModel() {
 
-    var questionId = 0
+    var questionId: Long = 0
 
     private lateinit var questionRepo: QuestionRepository
 

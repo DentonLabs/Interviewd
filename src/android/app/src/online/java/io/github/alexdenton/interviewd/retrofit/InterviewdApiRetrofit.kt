@@ -1,31 +1,32 @@
-package io.github.alexdenton.interviewd.api
+package io.github.alexdenton.interviewd.retrofit
 
-import io.github.alexdenton.interviewd.api.dto.CandidateDto
-import io.github.alexdenton.interviewd.api.dto.InterviewDto
-import io.github.alexdenton.interviewd.api.dto.QuestionDto
-import io.github.alexdenton.interviewd.api.dto.TemplateDto
+import io.github.alexdenton.interviewd.retrofit.dto.CandidateDto
+import io.github.alexdenton.interviewd.retrofit.dto.InterviewDto
+import io.github.alexdenton.interviewd.retrofit.dto.QuestionDto
+import io.github.alexdenton.interviewd.retrofit.dto.TemplateDto
 import io.reactivex.Single
 import retrofit2.http.*
 
 /**
- * Created by ryan on 8/11/17.
+ * Created by ryan on 11/14/17.
  */
-interface InterviewdApiService {
+
+interface InterviewdApiRetrofit {
 
     @GET("/questions")
     fun getQuestions(): Single<List<QuestionDto>>
 
     @GET("/questions/{id}")
-    fun getQuestion(@Path("id") id: Int): Single<QuestionDto>
+    fun getQuestion(@Path("id") id: Long): Single<QuestionDto>
 
     @POST("/questions")
     fun createQuestion(@Body question: QuestionDto): Single<QuestionDto>
 
     @DELETE("/questions/{id}")
-    fun deleteQuestion(@Path("id") id: Int): Single<QuestionDto>
+    fun deleteQuestion(@Path("id") id: Long): Single<QuestionDto>
 
     @PATCH("/questions/{id}")
-    fun patchQuestion(@Path("id") id: Int, @Body patch: QuestionDto): Single<QuestionDto>
+    fun patchQuestion(@Path("id") id: Long, @Body patch: QuestionDto): Single<QuestionDto>
 
     @GET("/templates")
     fun getTemplates(): Single<List<TemplateDto>>
@@ -71,4 +72,5 @@ interface InterviewdApiService {
 
     @PATCH("/interviews/{id}")
     fun patchInterview(@Path("id") id: Int, @Body patch: InterviewDto): Single<InterviewDto>
+
 }

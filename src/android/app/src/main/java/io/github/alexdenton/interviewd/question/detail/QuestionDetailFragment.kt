@@ -29,7 +29,7 @@ class QuestionDetailFragment : RxAwareFragment() {
         vm.init(LazyKodein(appKodein))
 
         if (arguments.containsKey("questionId")) {
-            vm.questionId = arguments.getInt("questionId")
+            vm.questionId = arguments.getLong("questionId")
             vm.getQuestion()
                     .subscribe({ setupText(it) },
                             { throwable -> throwable.printStackTrace() })

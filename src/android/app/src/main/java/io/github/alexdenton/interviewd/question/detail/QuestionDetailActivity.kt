@@ -9,14 +9,14 @@ import io.github.rfonzi.rxaware.RxAwareActivity
 
 class QuestionDetailActivity : RxAwareActivity() {
 
-    var questionId = 0
+    var questionId: Long = 0
     var editing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        questionId = receive() as Int
+        questionId = receive() as Long
 
         if (savedInstanceState == null){
             fragmentTransaction {
@@ -45,7 +45,7 @@ class QuestionDetailActivity : RxAwareActivity() {
     }
 
     fun Fragment.withId(): Fragment{
-        this.arguments = Bundle().apply { putInt("questionId", questionId) }
+        this.arguments = Bundle().apply { putLong("questionId", questionId) }
         return this
     }
 

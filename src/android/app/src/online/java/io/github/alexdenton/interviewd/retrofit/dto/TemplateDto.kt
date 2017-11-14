@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.api.dto
+package io.github.alexdenton.interviewd.retrofit.dto
 
 /**
  * Created by ryan on 8/14/17.

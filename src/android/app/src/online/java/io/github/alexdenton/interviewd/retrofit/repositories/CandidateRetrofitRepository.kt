@@ -1,10 +1,12 @@
-package io.github.alexdenton.interviewd.api.repositories
+package io.github.alexdenton.interviewd.retrofit.repositories
 
 import android.content.Context
-import io.github.alexdenton.interviewd.api.InterviewdApiService
-import io.github.alexdenton.interviewd.api.RetrofitFactory
-import io.github.alexdenton.interviewd.api.dto.CandidateDto
+import io.github.alexdenton.interviewd.api.InterviewdApi
+import io.github.alexdenton.interviewd.retrofit.RetrofitFactory
+import io.github.alexdenton.interviewd.retrofit.dto.CandidateDto
+import io.github.alexdenton.interviewd.api.repositories.CandidateRepository
 import io.github.alexdenton.interviewd.entities.Candidate
+import io.github.alexdenton.interviewd.retrofit.InterviewdApiRetrofit
 import io.reactivex.Single
 
 /**
@@ -12,7 +14,7 @@ import io.reactivex.Single
  */
 class CandidateRetrofitRepository(val context: Context) : CandidateRepository {
 
-    val client: InterviewdApiService = RetrofitFactory(context).create(RetrofitFactory.Mode.Demo)
+    val client: InterviewdApiRetrofit = RetrofitFactory(context).create(RetrofitFactory.Mode.Local)
 
     override fun getCandidate(id: Int): Single<Candidate>
             = client.getCandidate(id)

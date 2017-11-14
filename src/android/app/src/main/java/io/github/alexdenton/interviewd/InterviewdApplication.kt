@@ -2,7 +2,7 @@ package io.github.alexdenton.interviewd
 
 import android.app.Application
 import com.github.salomonbrys.kodein.*
-import io.github.alexdenton.interviewd.api.repositories.*
+import io.github.alexdenton.interviewd.di.getApiModule
 
 /**
  * Created by ryan on 8/24/17.
@@ -10,9 +10,6 @@ import io.github.alexdenton.interviewd.api.repositories.*
 class InterviewdApplication : Application(), KodeinAware {
 
     override val kodein by Kodein.lazy {
-        bind<QuestionRepository>() with instance(QuestionRetrofitRepository(applicationContext))
-        bind<TemplateRepository>() with instance(TemplateRetrofitRepository(applicationContext))
-        bind<CandidateRepository>() with instance(CandidateRetrofitRepository(applicationContext))
-        bind<InterviewRepository>() with instance(InterviewRetrofitRepository(applicationContext))
+        import(getApiModule(applicationContext))
     }
 }

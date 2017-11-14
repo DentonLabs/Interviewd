@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.api.dto
+package io.github.alexdenton.interviewd.retrofit.dto
 
 import io.github.alexdenton.interviewd.entities.Interview
 import io.github.alexdenton.interviewd.entities.InterviewStatus
