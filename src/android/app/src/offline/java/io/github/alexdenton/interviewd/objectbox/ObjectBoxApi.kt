@@ -13,6 +13,7 @@ import io.reactivex.Single
 class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
 
     val questionBox = boxStore.boxFor(QuestionEntity::class.java)
+    val candidateBox = boxStore.boxFor(CandidateEntity::class.java)
 
     override fun getQuestions(): Single<List<QuestionEntity>> {
         return Single.just(questionBox.all)
@@ -61,23 +62,27 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
     }
 
     override fun getCandidates(): Single<List<CandidateEntity>> {
-        return Single.never()
+        return Single.just(candidateBox.all)
     }
 
     override fun getCandidate(id: Long): Single<CandidateEntity> {
-        return Single.never()
+        return Single.just(candidateBox[id])
     }
 
     override fun createCandidate(candidate: CandidateEntity): Single<CandidateEntity> {
-        return Single.never()
+        candidateBox.put(candidate)
+        return Single.just(candidate)
     }
 
     override fun deleteCandidate(id: Long): Single<CandidateEntity> {
-        return Single.never()
+        val candidateEntity = candidateBox.get(id)
+        candidateBox.remove(id)
+        return Single.just(candidateEntity)
     }
 
     override fun patchCandidate(id: Long, patch: CandidateEntity): Single<CandidateEntity> {
-        return Single.never()
+        candidateBox.put(patch)
+        return Single.just(patch)
     }
 
     override fun getInterviews(): Single<List<InterviewEntity>> {
