@@ -29,15 +29,24 @@
     },
     {
       "id": "2:5297474839699354173",
-      "lastPropertyId": "1:778415436534894466",
+      "lastPropertyId": "2:962684263104041806",
       "name": "TemplateEntity",
       "properties": [
         {
           "id": "1:778415436534894466",
           "name": "id"
+        },
+        {
+          "id": "2:962684263104041806",
+          "name": "name"
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "1:7643937152218553767",
+          "name": "questions"
+        }
+      ]
     },
     {
       "id": "3:8291817475767270775",
@@ -74,7 +83,7 @@
   ],
   "lastEntityId": "4:8571356272881846474",
   "lastIndexId": "0:0",
-  "lastRelationId": "0:0",
+  "lastRelationId": "1:7643937152218553767",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,

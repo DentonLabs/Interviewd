@@ -10,22 +10,25 @@ import io.reactivex.Single
  */
 class TemplateObjectboxRepository(val client: InterviewdObjectboxApi) : TemplateRepository {
     override fun getTemplate(id: Long): Single<Template> {
-        return Single.never()
+        return client.getTemplate(id).map { it.toTemplate() }
     }
 
     override fun getAllTemplates(): Single<List<Template>> {
-        return Single.never()
+        return client.getTemplates().map { it.map { it.toTemplate() } }
     }
 
     override fun createTemplate(template: Template): Single<Template> {
-        return Single.never()
+        return client.createTemplate(template.toEntity()).map { it.toTemplate() }
     }
 
     override fun updateTemplate(template: Template): Single<Template> {
-        return Single.never()
+        return client.getTemplate(template.id)
+                .flatMap { client.patchTemplate(it.id, it.updateFrom(template)) }
+                .map { it.toTemplate() }
     }
 
     override fun deleteTemplate(id: Long): Single<Template> {
-        return Single.never()
+        return client.deleteTemplate(id).map { it.toTemplate() }
     }
+
 }

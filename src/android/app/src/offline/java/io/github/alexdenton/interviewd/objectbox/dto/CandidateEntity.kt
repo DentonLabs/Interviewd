@@ -10,7 +10,7 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class CandidateEntity(
-        @Id var id: Long,
+        @Id var id: Long = 0,
         val firstName: String,
         val lastName: String
 ){

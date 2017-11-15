@@ -3,7 +3,6 @@ package io.github.alexdenton.interviewd.objectbox.repositories
 import io.github.alexdenton.interviewd.api.repositories.CandidateRepository
 import io.github.alexdenton.interviewd.entities.Candidate
 import io.github.alexdenton.interviewd.objectbox.InterviewdObjectboxApi
-import io.github.alexdenton.interviewd.objectbox.dto.CandidateEntity
 import io.reactivex.Single
 
 /**
@@ -19,16 +18,15 @@ class CandidateObjectboxRepository(val client: InterviewdObjectboxApi) : Candida
     }
 
     override fun createCandidate(candidate: Candidate): Single<Candidate> {
-        return client.createCandidate(candidate.toCandidateEntity()).map { it.toCandidate() }
+        return client.createCandidate(candidate.toEntity()).map { it.toCandidate() }
     }
 
     override fun updateCandidate(candidate: Candidate): Single<Candidate> {
-        return client.patchCandidate(candidate.id, candidate.toCandidateEntity()).map { it.toCandidate() }
+        return client.patchCandidate(candidate.id, candidate.toEntity()).map { it.toCandidate() }
     }
 
     override fun deleteCandidate(id: Long): Single<Candidate> {
         return client.deleteCandidate(id).map { it.toCandidate() }
     }
 
-    private fun Candidate.toCandidateEntity() = CandidateEntity(id, firstName, lastName)
 }

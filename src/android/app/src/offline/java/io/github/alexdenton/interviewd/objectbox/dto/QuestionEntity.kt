@@ -10,7 +10,7 @@ import io.objectbox.annotation.Id
 
 @Entity
 data class QuestionEntity(
-        @Id var id: Long,
+        @Id var id: Long = 0,
         val name: String,
         val description: String,
         val estimate: Int

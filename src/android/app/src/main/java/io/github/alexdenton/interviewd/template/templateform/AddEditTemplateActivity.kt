@@ -19,7 +19,7 @@ class AddEditTemplateActivity : RxAwareActivity() {
         setContentView(R.layout.activity_add_edit_template)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        intent.extras?.getInt("editing")?.useAsId()
+        intent.extras?.getLong("editing_template")?.useAsId()
 
         if(savedInstanceState == null){
             fragmentTransaction {
@@ -72,8 +72,8 @@ class AddEditTemplateActivity : RxAwareActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun Int.useAsId(){
-        templateFormFragment.arguments = Bundle().apply { putInt("editing_template", this@useAsId) }
+    fun Long.useAsId(){
+        templateFormFragment.arguments = Bundle().apply { putLong("editing_template", this@useAsId) }
     }
 
 }

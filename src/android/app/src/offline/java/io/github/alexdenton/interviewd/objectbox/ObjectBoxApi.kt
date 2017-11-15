@@ -14,6 +14,7 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
 
     val questionBox = boxStore.boxFor(QuestionEntity::class.java)
     val candidateBox = boxStore.boxFor(CandidateEntity::class.java)
+    val templateBox = boxStore.boxFor(TemplateEntity::class.java)
 
     override fun getQuestions(): Single<List<QuestionEntity>> {
         return Single.just(questionBox.all)
@@ -42,23 +43,31 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
     }
 
     override fun getTemplates(): Single<List<TemplateEntity>> {
-        return Single.never()
+        return Single.just(templateBox.all)
     }
 
     override fun getTemplate(id: Long): Single<TemplateEntity> {
-        return Single.never()
+        val entity = templateBox[id]
+        return if(entity == null)
+            Single.error(Exception("Template not found"))
+        else
+            Single.just(entity)
     }
 
     override fun createTemplate(template: TemplateEntity): Single<TemplateEntity> {
-        return Single.never()
+        templateBox.put(template)
+        return Single.just(template)
     }
 
     override fun deleteTemplate(id: Long): Single<TemplateEntity> {
-        return Single.never()
+        val templateEntity = templateBox.get(id)
+        templateBox.remove(id)
+        return Single.just(templateEntity)
     }
 
     override fun patchTemplate(id: Long, patch: TemplateEntity): Single<TemplateEntity> {
-        return Single.never()
+        templateBox.put(patch)
+        return Single.just(patch)
     }
 
     override fun getCandidates(): Single<List<CandidateEntity>> {

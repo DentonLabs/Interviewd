@@ -3,7 +3,6 @@ package io.github.alexdenton.interviewd.objectbox.repositories
 import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
 import io.github.alexdenton.interviewd.entities.Question
 import io.github.alexdenton.interviewd.objectbox.InterviewdObjectboxApi
-import io.github.alexdenton.interviewd.objectbox.dto.QuestionEntity
 import io.reactivex.Single
 
 /**
@@ -31,5 +30,5 @@ class QuestionObjectboxRepository(val client: InterviewdObjectboxApi) : Question
         return client.deleteQuestion(id).map { it.toQuestion() }
     }
 
-    fun Question.toEntity() = QuestionEntity(id, name, description, timeEstimate)
+
 }
