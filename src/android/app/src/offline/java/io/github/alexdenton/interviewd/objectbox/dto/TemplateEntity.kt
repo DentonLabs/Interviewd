@@ -11,7 +11,7 @@ import io.objectbox.relation.ToMany
 @Entity
 data class TemplateEntity(
         @Id var id: Long = 0,
-        var name: String
+        var name: String = ""
 ){
     lateinit var questions: ToMany<QuestionEntity>
 }

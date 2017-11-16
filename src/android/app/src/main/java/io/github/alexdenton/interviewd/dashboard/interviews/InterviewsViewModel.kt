@@ -31,7 +31,9 @@ class InterviewsViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list -> interviews.accept(list) },
-                    { throwable -> throwable.printStackTrace() })
+                    { throwable ->
+                        throwable.printStackTrace()
+                    })
             .lifecycleAware()
 
     fun exposeAddFab(clicks: Observable<Unit>) = clicks

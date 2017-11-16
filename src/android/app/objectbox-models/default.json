@@ -50,15 +50,29 @@
     },
     {
       "id": "3:8291817475767270775",
-      "lastPropertyId": "1:5124791964945329672",
+      "lastPropertyId": "3:7132269971893467497",
       "name": "InterviewEntity",
       "properties": [
         {
           "id": "1:5124791964945329672",
           "name": "id"
+        },
+        {
+          "id": "2:7697233118811205956",
+          "name": "name"
+        },
+        {
+          "id": "3:7132269971893467497",
+          "indexId": "1:5856004513252565349",
+          "name": "candidateId"
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "id": "2:3871073152866221666",
+          "name": "questions"
+        }
+      ]
     },
     {
       "id": "4:8571356272881846474",
@@ -82,8 +96,8 @@
     }
   ],
   "lastEntityId": "4:8571356272881846474",
-  "lastIndexId": "0:0",
-  "lastRelationId": "1:7643937152218553767",
+  "lastIndexId": "1:5856004513252565349",
+  "lastRelationId": "2:3871073152866221666",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,

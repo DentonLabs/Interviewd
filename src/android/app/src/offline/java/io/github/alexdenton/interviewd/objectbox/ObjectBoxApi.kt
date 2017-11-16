@@ -15,6 +15,7 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
     val questionBox = boxStore.boxFor(QuestionEntity::class.java)
     val candidateBox = boxStore.boxFor(CandidateEntity::class.java)
     val templateBox = boxStore.boxFor(TemplateEntity::class.java)
+    val interviewBox = boxStore.boxFor(InterviewEntity::class.java)
 
     override fun getQuestions(): Single<List<QuestionEntity>> {
         return Single.just(questionBox.all)
@@ -95,22 +96,30 @@ class ObjectBoxApi(boxStore: BoxStore) : InterviewdObjectboxApi {
     }
 
     override fun getInterviews(): Single<List<InterviewEntity>> {
-        return Single.never()
+        return Single.just(interviewBox.all)
     }
 
     override fun getInterview(id: Long): Single<InterviewEntity> {
-        return Single.never()
+        val entity = interviewBox[id]
+        return if(entity == null)
+            Single.error(Exception("Interview not found"))
+        else
+            Single.just(entity)
     }
 
     override fun createInterview(interview: InterviewEntity): Single<InterviewEntity> {
-        return Single.never()
+        interviewBox.put(interview)
+        return Single.just(interview)
     }
 
     override fun deleteInterview(id: Long): Single<InterviewEntity> {
-        return Single.never()
+        val entity = interviewBox.get(id)
+        interviewBox.remove(id)
+        return Single.just(entity)
     }
 
     override fun patchInterview(id: Long, patch: InterviewEntity): Single<InterviewEntity> {
-        return Single.never()
+        interviewBox.put(patch)
+        return Single.just(patch)
     }
 }
