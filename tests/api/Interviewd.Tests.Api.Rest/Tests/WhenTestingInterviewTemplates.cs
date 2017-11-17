@@ -5,7 +5,7 @@ using Interviewd.Application.Dto;
 using Interviewd.Tests.Api.Rest.LikenessExtensions;
 using NUnit.Framework;
 
-namespace Interviewd.Tests.Api.Rest
+namespace Interviewd.Tests.Api.Rest.Tests
 {
     [TestFixture]
     public class WhenTestingInterviewTemplates : WhenTesting
@@ -68,8 +68,7 @@ namespace Interviewd.Tests.Api.Rest
             var updatedInterviewTemplateDto = Mapper.Map<InterviewTemplateDto>(
                 await Arranger.GetInterviewTemplate(interviewTemplateDto.Id));
 
-            interviewTemplateDto
-                .ToLikeness()
+            SemanticComparisonExtensions.ToLikeness<InterviewTemplateDto>(interviewTemplateDto)
                 .Without(o => o.QuestionIds)
                 .ShouldEqual(updatedInterviewTemplateDto);
         }
@@ -83,7 +82,7 @@ namespace Interviewd.Tests.Api.Rest
                 .AwaitGetSuccessfulResponse<IEnumerable<InterviewTemplateDto>>();
 
             responseInteviewTemplateDtos
-                .CompareCollectionsUsingLikeness(
+                .CompareCollectionsUsingLikeness<InterviewTemplateDto, InterviewTemplateDto>(
                     Mapper.Map<IEnumerable<InterviewTemplateDto>>(dbInterviewTemplates));
         }
     }

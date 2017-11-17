@@ -6,7 +6,7 @@ using Interviewd.Domain.Model;
 using Interviewd.Tests.Api.Rest.LikenessExtensions;
 using NUnit.Framework;
 
-namespace Interviewd.Tests.Api.Rest
+namespace Interviewd.Tests.Api.Rest.Tests
 {
     [TestFixture]
     public class WhenTestingCandidates : WhenTesting
@@ -32,9 +32,9 @@ namespace Interviewd.Tests.Api.Rest
 
             var responseCandidates = Mapper.Map<IEnumerable<Candidate>>(responseCandidateDtos);
 
-            responseCandidates = responseCandidates.Where(rc => dbCandidates.Any(dc => dc.Id == rc.Id));
+            responseCandidates = Enumerable.Where<Candidate>(responseCandidates, rc => dbCandidates.Any(dc => dc.Id == rc.Id));
 
-            Assert.IsTrue(responseCandidates.CompareCollectionsUsingLikeness(dbCandidates));
+            Assert.IsTrue(LikenessCompareExtensions.CompareCollectionsUsingLikeness<Candidate, Candidate>(responseCandidates, dbCandidates));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace Interviewd.Tests.Api.Rest
 
             var updatedCandidateDto = Mapper.Map<CandidateDto>(await Arranger.GetCandidate(candidateDto.Id));
 
-            candidateDto.ToLikeness(true)
+            SemanticComparisonExtensions.ToLikeness<CandidateDto>(candidateDto, true)
                 .ShouldEqual(updatedCandidateDto);
         }
     }

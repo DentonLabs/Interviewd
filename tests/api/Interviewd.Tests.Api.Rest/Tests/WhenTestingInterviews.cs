@@ -5,7 +5,7 @@ using Interviewd.Application.Dto;
 using Interviewd.Tests.Api.Rest.LikenessExtensions;
 using NUnit.Framework;
 
-namespace Interviewd.Tests.Api.Rest
+namespace Interviewd.Tests.Api.Rest.Tests
 {
     public class WhenTestingInterviews : WhenTesting
     {
@@ -32,7 +32,7 @@ namespace Interviewd.Tests.Api.Rest
 
             var dbInterviewTemplateDto = Mapper.Map<IEnumerable<QuestionDto>>(dbInterviewTemplate.Questions);
 
-            Assert.IsTrue(responseInterview.Questions.CompareCollectionsUsingLikeness(dbInterviewTemplateDto));
+            Assert.IsTrue(responseInterview.Questions.CompareCollectionsUsingLikeness<QuestionDto, QuestionDto>(dbInterviewTemplateDto));
         }
 
         [Test]
@@ -82,10 +82,10 @@ namespace Interviewd.Tests.Api.Rest
 
             responseInterviewDtos = responseInterviewDtos.Where(i => dbInterviews.Any(di => di.Id == i.Id));
 
-            Assert.IsTrue(responseInterviewDtos.CompareCollectionsUsingLikeness(
+            Assert.IsTrue(responseInterviewDtos.CompareCollectionsUsingLikeness<InterviewDto, InterviewDto>(
                 Mapper.Map<IEnumerable<InterviewDto>>(dbInterviews),
                 i => i
-                    .WithInnerLikeness(o => o.Candidate, o => o.Candidate)
+                    .WithInnerLikeness<InterviewDto, InterviewDto, CandidateDto, CandidateDto>(o => o.Candidate, o => o.Candidate)
                     .Without(o => o.Questions)));
         }
     }
