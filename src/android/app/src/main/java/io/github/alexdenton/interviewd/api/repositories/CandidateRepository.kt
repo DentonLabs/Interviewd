@@ -7,9 +7,9 @@ import io.reactivex.Single
  * Created by ryan on 8/28/17.
  */
 interface CandidateRepository {
-    fun getCandidate(id: Int): Single<Candidate>
+    fun getCandidate(id: Long): Single<Candidate>
     fun getAllCandidates(): Single<List<Candidate>>
     fun createCandidate(candidate: Candidate): Single<Candidate>
     fun updateCandidate(candidate: Candidate): Single<Candidate>
-    fun deleteCandidate(id: Int): Single<Candidate>
+    fun deleteCandidate(id: Long): Single<Candidate>
 }

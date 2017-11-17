@@ -55,7 +55,7 @@ class TemplateDetailFragment : RxAwareFragment() {
             R.id.menu_edit -> {
                 startActivity(Intent(context, AddEditTemplateActivity::class.java)
                         .apply {
-                            putExtra("editing", vm.id)
+                            putExtra("editing_template", vm.id)
                         })
             }
             R.id.menu_delete -> showDeleteConfirmation()
@@ -71,6 +71,7 @@ class TemplateDetailFragment : RxAwareFragment() {
 
         templateName.text = template.name
         templateEst.text = resources.getString(R.string.est, template.questions.sumBy { it.timeEstimate })
+
     }
 
     fun showDeleteConfirmation() = MaterialDialog.Builder(context)

@@ -17,7 +17,7 @@ class QuestionFormViewModel : RxAwareViewModel() {
 
     private lateinit var questionRepo: QuestionRepository
     var editing = false
-    var id = 0
+    var id: Long = 0
 
     fun withKodein(kodein: LazyKodein) {
         questionRepo = kodein.invoke().instance()

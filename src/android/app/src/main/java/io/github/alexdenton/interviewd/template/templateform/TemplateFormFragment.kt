@@ -57,7 +57,7 @@ class TemplateFormFragment : RxAwareFragment() {
         addQuestionButton = view.findViewById(R.id.templateForm_addQuestionButton)
         submitButton = view.findViewById(R.id.templateForm_submitButton)
 
-        arguments?.getInt("editing_template")?.apply {
+        arguments?.getLong("editing_template")?.apply {
             vm.fetchTemplate(this)
                     .subscribe { template -> setupTemplate(template) }
                     .lifecycleAware()

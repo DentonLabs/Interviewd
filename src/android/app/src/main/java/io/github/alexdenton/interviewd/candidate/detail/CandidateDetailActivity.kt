@@ -9,14 +9,14 @@ import io.github.rfonzi.rxaware.RxAwareActivity
 
 class CandidateDetailActivity : RxAwareActivity() {
 
-    var candidateId = 0
+    var candidateId: Long = 0
     var editing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_candidate_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        candidateId = receive() as Int
+        candidateId = receive() as Long
 
         if (savedInstanceState == null) {
             fragmentTransaction {
@@ -49,7 +49,7 @@ class CandidateDetailActivity : RxAwareActivity() {
     }
 
     fun Fragment.withId(): Fragment{
-        this.arguments = Bundle().apply { putInt("candidateId", candidateId) }
+        this.arguments = Bundle().apply { putLong("candidateId", candidateId) }
         return this
     }
 

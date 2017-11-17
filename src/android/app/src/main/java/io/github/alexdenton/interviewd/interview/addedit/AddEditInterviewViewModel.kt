@@ -21,8 +21,8 @@ import io.reactivex.schedulers.Schedulers
 class AddEditInterviewViewModel : RxAwareViewModel() {
 
     var editing = false
-    var interviewId = 0
-    var candidateId = 0
+    var interviewId: Long = 0
+    var candidateId: Long = 0
 
     lateinit var questionRepo: QuestionRepository
     lateinit var candidateRepo: CandidateRepository

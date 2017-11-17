@@ -14,9 +14,9 @@ class CandidateDetailViewModel : RxAwareViewModel() {
 
     lateinit var candidateRepo: CandidateRepository
 
-    var candidateId = 0
+    var candidateId: Long = 0
 
-    fun initWith(kodein: LazyKodein, id: Int){
+    fun initWith(kodein: LazyKodein, id: Long){
         candidateRepo = kodein.invoke().instance()
         candidateId = id
     }

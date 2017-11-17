@@ -1,10 +1,11 @@
-package io.github.alexdenton.interviewd.api.repositories
+package io.github.alexdenton.interviewd.retrofit.repositories
 
-import io.github.alexdenton.interviewd.api.dto.QuestionDto
 import android.content.Context
-import io.github.alexdenton.interviewd.api.InterviewdApiService
-import io.github.alexdenton.interviewd.api.RetrofitFactory
+import io.github.alexdenton.interviewd.api.repositories.QuestionRepository
 import io.github.alexdenton.interviewd.entities.Question
+import io.github.alexdenton.interviewd.retrofit.InterviewdApiRetrofit
+import io.github.alexdenton.interviewd.retrofit.RetrofitFactory
+import io.github.alexdenton.interviewd.retrofit.dto.QuestionDto
 import io.reactivex.Single
 
 /**
@@ -14,9 +15,9 @@ import io.reactivex.Single
 
 class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
 
-    val client: InterviewdApiService = RetrofitFactory(context).create(RetrofitFactory.Mode.Demo)
+    val client: InterviewdApiRetrofit = RetrofitFactory(context).create(RetrofitFactory.Mode.Local)
 
-    override fun getQuestion(id: Int): Single<Question>
+    override fun getQuestion(id: Long): Single<Question>
             = client.getQuestion(id)
             .map { it.toQuestion() }
 
@@ -32,7 +33,7 @@ class QuestionRetrofitRepository(val context: Context) : QuestionRepository {
             = client.patchQuestion(question.id, question.toDto())
             .map { it.toQuestion() }
 
-    override fun deleteQuestion(id: Int): Single<Question>
+    override fun deleteQuestion(id: Long): Single<Question>
             = client.deleteQuestion(id)
             .map { it.toQuestion() }
 

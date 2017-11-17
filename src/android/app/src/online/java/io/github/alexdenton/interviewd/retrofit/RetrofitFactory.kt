@@ -1,4 +1,4 @@
-package io.github.alexdenton.interviewd.api
+package io.github.alexdenton.interviewd.retrofit
 
 import android.content.Context
 import retrofit2.Retrofit
@@ -13,10 +13,9 @@ class RetrofitFactory(val context: Context) {
     private val normal: String = "Not yet implemented" // TODO: Replace this with the server's domain name once it goes public
     private val local = "http://192.168.86.26:9005"
 
-    fun create(mode: Mode): InterviewdApiService = when (mode) {
+    fun create(mode: Mode): InterviewdApiRetrofit = when (mode) {
         Mode.Normal -> createRetrofitClient(normal)
         Mode.Local -> createRetrofitClient(local)
-        Mode.Demo -> DemoApi(context)
     }
 
     private fun createRetrofitClient(url: String) = Retrofit.Builder()
@@ -24,9 +23,10 @@ class RetrofitFactory(val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-            .create(InterviewdApiService::class.java)
+            .create(InterviewdApiRetrofit::class.java)
 
     enum class Mode {
-        Normal, Local, Demo
+        Normal, Local
     }
+
 }

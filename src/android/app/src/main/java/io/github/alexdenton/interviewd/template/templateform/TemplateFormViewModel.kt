@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class TemplateFormViewModel : RxAwareViewModel() {
 
     var editing = false
-    var templateId = 0
+    var templateId: Long = 0
 
     lateinit var questionRepo: QuestionRepository
     lateinit var templateRepo: TemplateRepository
@@ -43,7 +43,7 @@ class TemplateFormViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun fetchTemplate(id: Int) = templateRepo.getTemplate(id)
+    fun fetchTemplate(id: Long) = templateRepo.getTemplate(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

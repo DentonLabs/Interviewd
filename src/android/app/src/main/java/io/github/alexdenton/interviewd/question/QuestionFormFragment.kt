@@ -44,7 +44,7 @@ class QuestionFormFragment : RxAwareFragment() {
 
         if (arguments != null && arguments.containsKey("questionId")) {
             vm.editing = true
-            vm.id = arguments.getInt("questionId")
+            vm.id = arguments.getLong("questionId")
             vm.fetchQuestion()
                     .subscribe {question -> setFields(question)  }
                     .lifecycleAware()

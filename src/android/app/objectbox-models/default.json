@@ -1,0 +1,109 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4134741833104333849",
+      "lastPropertyId": "4:467398226592505181",
+      "name": "QuestionEntity",
+      "properties": [
+        {
+          "id": "1:6819803923978544311",
+          "name": "id"
+        },
+        {
+          "id": "2:5017069055202711999",
+          "name": "name"
+        },
+        {
+          "id": "3:496455435655374296",
+          "name": "description"
+        },
+        {
+          "id": "4:467398226592505181",
+          "name": "estimate"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:5297474839699354173",
+      "lastPropertyId": "2:962684263104041806",
+      "name": "TemplateEntity",
+      "properties": [
+        {
+          "id": "1:778415436534894466",
+          "name": "id"
+        },
+        {
+          "id": "2:962684263104041806",
+          "name": "name"
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:7643937152218553767",
+          "name": "questions"
+        }
+      ]
+    },
+    {
+      "id": "3:8291817475767270775",
+      "lastPropertyId": "3:7132269971893467497",
+      "name": "InterviewEntity",
+      "properties": [
+        {
+          "id": "1:5124791964945329672",
+          "name": "id"
+        },
+        {
+          "id": "2:7697233118811205956",
+          "name": "name"
+        },
+        {
+          "id": "3:7132269971893467497",
+          "indexId": "1:5856004513252565349",
+          "name": "candidateId"
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:3871073152866221666",
+          "name": "questions"
+        }
+      ]
+    },
+    {
+      "id": "4:8571356272881846474",
+      "lastPropertyId": "3:6523613156118929918",
+      "name": "CandidateEntity",
+      "properties": [
+        {
+          "id": "1:1608799546017135686",
+          "name": "id"
+        },
+        {
+          "id": "2:8207374294834818740",
+          "name": "firstName"
+        },
+        {
+          "id": "3:6523613156118929918",
+          "name": "lastName"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:8571356272881846474",
+  "lastIndexId": "1:5856004513252565349",
+  "lastRelationId": "2:3871073152866221666",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

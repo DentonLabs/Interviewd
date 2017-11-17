@@ -31,7 +31,7 @@ class CandidateDetailFragment : RxAwareFragment() {
         vm = ViewModelProviders.of(this).get(CandidateDetailViewModel::class.java)
 
         if (arguments?.containsKey("candidateId") == true) {
-            vm.initWith(LazyKodein(appKodein), arguments.getInt("candidateId"))
+            vm.initWith(LazyKodein(appKodein), arguments.getLong("candidateId"))
         } else {
             throw IllegalStateException("Candidate id not found")
         }

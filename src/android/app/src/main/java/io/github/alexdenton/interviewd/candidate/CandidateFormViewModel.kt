@@ -17,7 +17,7 @@ class CandidateFormViewModel : RxAwareViewModel() {
     lateinit var candidateRepo: CandidateRepository
 
     var editing = false
-    var candidateId = 0
+    var candidateId: Long = 0
 
     fun withKodein(kodein: LazyKodein) {
         candidateRepo = kodein.invoke().instance()
@@ -40,7 +40,7 @@ class CandidateFormViewModel : RxAwareViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun editing(id: Int) {
+    fun editing(id: Long) {
         candidateId = id
         editing = true
     }

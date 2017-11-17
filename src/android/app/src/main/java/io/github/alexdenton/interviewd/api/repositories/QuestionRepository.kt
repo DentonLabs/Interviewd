@@ -7,9 +7,9 @@ import io.reactivex.Single
  * Created by ryan on 8/11/17.
  */
 interface QuestionRepository {
-    fun getQuestion(id: Int): Single<Question>
+    fun getQuestion(id: Long): Single<Question>
     fun getAllQuestions(): Single<List<Question>>
     fun createQuestion(question: Question): Single<Question>
     fun updateQuestion(question: Question): Single<Question>
-    fun deleteQuestion(id: Int): Single<Question>
+    fun deleteQuestion(id: Long): Single<Question>
 }

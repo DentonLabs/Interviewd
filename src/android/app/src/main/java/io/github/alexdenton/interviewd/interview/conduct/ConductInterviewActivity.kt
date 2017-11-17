@@ -57,7 +57,7 @@ class ConductInterviewActivity : RxAwareActivity() {
 
         if(savedInstanceState == null){
             vm.initWith(LazyKodein(appKodein))
-            vm.useId(receive() as Int)
+            vm.useId(receive() as Long)
         }
 
         viewPagerAdapter = QuestionPagerAdapter(supportFragmentManager, mutableListOf())
