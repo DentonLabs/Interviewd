@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
-using ServiceProviderServiceExtensions = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions;
 
 namespace Interviewd.Tests.Api.Rest.Tests
 {
@@ -51,14 +50,14 @@ namespace Interviewd.Tests.Api.Rest.Tests
                 .AddSingleton<ApiClient, ApiClient>()
                 .BuildServiceProvider();
 
-            var appSettings = ServiceProviderServiceExtensions.GetService<IOptions<AppSettings>>().Value;
+            var appSettings = ServiceProvider.GetService<IOptions<AppSettings>>().Value;
 
             HttpClient = new HttpClient();
             HttpClient.BaseAddress = new Uri(appSettings.ApiUri);
 
-            Arranger = ServiceProviderServiceExtensions.GetService<Arranger>();
-            Stubber = ServiceProviderServiceExtensions.GetService<Stubber>();
-            ApiClient = ServiceProviderServiceExtensions.GetService<ApiClient>();
+            Arranger = ServiceProvider.GetService<Arranger>();
+            Stubber = ServiceProvider.GetService<Stubber>();
+            ApiClient = ServiceProvider.GetService<ApiClient>();
 
             _Fixture = new Fixture();
 
