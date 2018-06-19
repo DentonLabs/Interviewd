@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
     <AssemblyName>Interviewd.Domain</AssemblyName>
     <PackageId>Interviewd.Domain</PackageId>
-    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -16,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\Interviewd.Infrastructure.Abstraction\Interviewd.Infrastructure.Abstraction.csproj" />
     <ProjectReference Include="..\Interviewd.Application\Interviewd.Application.csproj" />
   </ItemGroup>
 

@@ -1,3 +1,23 @@
+# Visual Studio Code
+.vscode/
+
+# Android Studio build files
+src/android/*/build/
+src/android/build/
+src/android/captures/
+src/android/.navigation/
+
+# Android Studio local config files
+src/android/local.properties
+src/android/local.gradle
+
+# Android Gradle generated files
+src/android/.gradle/
+
+# Android Studio user config files
+src/android/.idea/
+src/android/**/*.iml
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

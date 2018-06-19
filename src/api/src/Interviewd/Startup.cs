@@ -1,6 +1,9 @@
-﻿using Interviewd.Application;
+﻿using AutoMapper;
+using Interviewd.Application;
+using Interviewd.Configuration;
 using Interviewd.Domain;
 using Interviewd.Infrastructure;
+using Interviewd.Infrastructure.Abstraction;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +20,7 @@ namespace Interviewd
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
 
             Configuration = builder.Build();
         }
@@ -31,9 +34,16 @@ namespace Interviewd
             services.Configure<AppSettings>(Configuration);
 
             services.AddMvc();
+            services.AddAutoMapper();
 
+            services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
+            services.AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>();
             services.AddSingleton<IQuestionManager, QuestionManager>();
             services.AddSingleton<IQuestionRepository, QuestionRepository>();
+            services.AddSingleton<ICandidateManager, CandidateManager>();
+            services.AddSingleton<ICandidateRepository, CandidateRepository>();
+            services.AddSingleton<IInterviewManager, InterviewManager>();
+            services.AddSingleton<IInterviewRepository, InterviewRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +56,6 @@ namespace Interviewd
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
             app.UseMvc();
         }
     }

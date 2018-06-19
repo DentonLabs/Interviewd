@@ -1,44 +1,67 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Interviewd.Application.Dto;
+using Interviewd.Domain.Model;
+using Jmansar.SemanticComparisonExtensions;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
-using Ploeh.SemanticComparison;
-using Ploeh.SemanticComparison.Fluent;
-using Shouldly;
 
 namespace Interviewd.Tests.Api
 {
+    [TestFixture]
     public class WhenTestingQuestions : WhenTesting
     {
         [Test]
         public async Task ShouldBeAbleToCreateAQuestion()
         {
-            var expectedQuestion = Fixture.Create<Question>();
+            var requestQuestion = Stubber.StubQuestionDto();
 
-            var httpResponseMessage = await HttpClient.PostAsync(
-                ApiRoutes.QuestionsRoute,
-                expectedQuestion.ToStringContent());
+            var responseQuestion = await ApiClient.PostQuestion(requestQuestion)
+                .AwaitGetSuccessfulResponse<QuestionDto>();
 
-            var actualQuestion = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<Question>();
-
-            Assert.AreEqual(actualQuestion, expectedQuestion);
+            responseQuestion.ToLikeness().ShouldEqual(requestQuestion);
         }
 
         [Test]
         public async Task ShouldBeAbleToGetAQuestion()
         {
-            var expectedQuestion = await QuestionService.InsertQuestion(Fixture.Create<Question>());
+            var dbQuestion = await Arranger.CreateQuestion();
 
-            var httpResponseMessage = await HttpClient.GetAsync(
-                $"{ApiRoutes.QuestionsRoute}/{expectedQuestion.Id}");
+            var responseQuestionDto = await ApiClient.GetQuestion(dbQuestion.Id)
+                .AwaitGetSuccessfulResponse<QuestionDto>();
 
-            var actualQuestion = await httpResponseMessage
-                .EnsureSuccessStatusCode()
-                .GetLikenessContent<Question>();
+            responseQuestionDto.ToLikeness(true).ShouldEqual(Mapper.Map<QuestionDto>(dbQuestion));
+        }
 
-            Assert.AreEqual(actualQuestion, expectedQuestion);
+        [Test]
+        public async Task ShouldBeAbleToGetAllQuestions()
+        {
+            var dbQuestions = await Arranger.CreateQuestions();
+
+            var responseQuestionDtos = await ApiClient.GetAllQuestions()
+                .AwaitGetSuccessfulResponse<IEnumerable<QuestionDto>>();
+
+            var responseQuestions = Mapper.Map<IEnumerable<Question>>(responseQuestionDtos);
+
+            responseQuestions = responseQuestions.Where(rq => dbQuestions.Any(dq => dq.Id == rq.Id));
+
+            Assert.IsTrue(responseQuestions.CompareCollectionsUsingLikeness(dbQuestions));
+        }
+
+        [Test]
+        public async Task ShouldBeABleToUpdateQuestion()
+        {
+            var questionDto = Mapper.Map<QuestionDto>(await Arranger.CreateQuestion());
+
+            var questionPatchRequest = Stubber.StubQuestionPatchRequest();
+            questionPatchRequest.ApplyTo(questionDto);
+
+            await ApiClient.PatchQuestion(questionDto.Id, questionPatchRequest);
+
+            var updatedQuestionDto = Mapper.Map<QuestionDto>(await Arranger.GetQuestion(questionDto.Id));
+
+            questionDto.ToLikeness(true).ShouldEqual(updatedQuestionDto);
         }
     }
 }

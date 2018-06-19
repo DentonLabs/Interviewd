@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Interviewd.Common;
 using Ploeh.SemanticComparison;
 using Ploeh.SemanticComparison.Fluent;
 
@@ -14,6 +15,18 @@ namespace Interviewd.Tests.Api
                 .AsSource()
                 .OfLikeness<T>()
                 .Without(t => t.Id);
+        }
+
+        public static Likeness<T, T> ToLikeness<T>(this T value, bool compareId = false) where T : IIdentifiable
+        {
+            var likeness = value.AsSource().OfLikeness<T>();
+
+            if (!compareId)
+            {
+                likeness = likeness.Without(o => o.Id);
+            }
+
+            return likeness;
         }
     }
 }

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\api\src\Interviewd.Application.Dto\Interviewd.Application.Dto.csproj" />
+    <ProjectReference Include="..\Interviewd.Domain.Model\Interviewd.Domain.Model.csproj" />
+    <ProjectReference Include="..\Interviewd.Infrastructure\Interviewd.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

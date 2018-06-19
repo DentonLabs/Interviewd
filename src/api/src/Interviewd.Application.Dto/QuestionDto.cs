@@ -1,6 +1,8 @@
-﻿namespace Interviewd.Application.Dto
+﻿using Interviewd.Common;
+
+namespace Interviewd.Application.Dto
 {
-    public class QuestionDto
+    public class QuestionDto : IIdentifiable
     {
         public string Id { get; set; }
 
