@@ -12,7 +12,7 @@ namespace Interviewd
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://*:9005")
+                //.UseUrls("http://*:9005")
                 .Build();
 
             host.Run();

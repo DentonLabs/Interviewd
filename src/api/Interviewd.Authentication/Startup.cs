@@ -18,8 +18,8 @@ namespace Interviewd.Authentication
         {
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddInMemoryIdentityResources(new List<IdentityResource>())
-                .AddInMemoryClients(new List<Client>());
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
