@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Common", "..\..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Mapping", "..\..\shared\Interviewd.Mapping\Interviewd.Mapping.csproj", "{20D07993-4D20-48E3-AEA3-EA4551CC0A8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Authentication", "Interviewd.Authentication\Interviewd.Authentication.csproj", "{70EAA566-2BAC-42FC-B467-B526BAA39C40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{20D07993-4D20-48E3-AEA3-EA4551CC0A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20D07993-4D20-48E3-AEA3-EA4551CC0A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20D07993-4D20-48E3-AEA3-EA4551CC0A8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
