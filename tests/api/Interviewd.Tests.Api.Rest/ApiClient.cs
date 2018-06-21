@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 using Interviewd.Application.Dto;
 using Interviewd.Configuration;
 using Microsoft.AspNetCore.JsonPatch;
@@ -16,6 +17,15 @@ namespace Interviewd.Tests.Api.Rest
         {
             _HttpClient = new HttpClient();
             _HttpClient.BaseAddress = new Uri(appSettings.Value.ApiUri);
+            _HttpClient.SetBearerToken(GetAuthToken().Result);
+        }
+
+        private async Task<string> GetAuthToken()
+        {
+            var discoveryReponse = await DiscoveryClient.GetAsync("http://localhost:5000");
+            var tokenClient = new TokenClient(discoveryReponse.TokenEndpoint, "client", "secret");
+            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("interviewd");
+            return tokenResponse.AccessToken;
         }
 
         public async Task<HttpResponseMessage> PostQuestion(QuestionDto questionDto)
