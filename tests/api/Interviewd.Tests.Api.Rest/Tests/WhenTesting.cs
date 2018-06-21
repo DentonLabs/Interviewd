@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using AutoFixture;
 using AutoMapper;
 using Interviewd.Configuration;
 using Interviewd.Infrastructure;
@@ -9,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
-using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api.Rest.Tests
 {

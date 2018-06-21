@@ -1,6 +1,6 @@
-﻿using Interviewd.Application.Dto;
+﻿using AutoFixture;
+using Interviewd.Application.Dto;
 using Microsoft.AspNetCore.JsonPatch;
-using Ploeh.AutoFixture;
 
 namespace Interviewd.Tests.Api.Rest
 {
