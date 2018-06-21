@@ -33,8 +33,19 @@ namespace Interviewd
 
             services.Configure<AppSettings>(Configuration);
 
-            services.AddMvc();
+            services.AddMvcCore()
+                .AddAuthorization()
+                .AddJsonFormatters();
+
             services.AddAutoMapper();
+
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "interviewd";
+                });
 
             services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
             services.AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>();
@@ -56,6 +67,7 @@ namespace Interviewd
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

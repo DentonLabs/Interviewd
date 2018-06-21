@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using Interviewd.Application;
 using Interviewd.Application.Dto;
 using Interviewd.Domain.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interviewd.Controllers
 {
     [Route("interviews")]
+    [Authorize]
     public class InterviewsController : Controller
     {
         private readonly IInterviewManager _InterviewManager;
