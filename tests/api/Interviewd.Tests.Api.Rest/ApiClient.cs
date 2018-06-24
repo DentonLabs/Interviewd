@@ -17,23 +17,30 @@ namespace Interviewd.Tests.Api.Rest
         {
             _HttpClient = new HttpClient();
             _HttpClient.BaseAddress = new Uri(appSettings.Value.ApiUri);
-            _HttpClient.SetBearerToken(GetClientCredentialsAuthToken().Result);
+            _HttpClient.SetBearerToken(GetResourceOwnerAuthToken("alex", "password").Result);
         }
 
         private async Task<string> GetClientCredentialsAuthToken()
         {
-            var discoveryReponse = await DiscoveryClient.GetAsync("http://localhost:5000");
-            var tokenClient = new TokenClient(
-                discoveryReponse.TokenEndpoint, 
-                "client-credentials", 
-                "client-credentials-secret");
+            var tokenClient = await GetTokenClient("client-credentials", "client-credentials-secret");
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("interviewd");
             return tokenResponse.AccessToken;
         }
 
-        private async Task<string> GetResourceOwnerAuthToken()
+        private async Task<string> GetResourceOwnerAuthToken(string username, string password)
         {
-            return string.Empty;
+            var tokenClient = await GetTokenClient("resource-owner", "resource-owner-secret");
+            var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(username, password, "interviewd");
+            return tokenResponse.AccessToken;
+        }
+
+        private async Task<TokenClient> GetTokenClient(string clientId, string clientSecret)
+        {
+            var discoveryReponse = await DiscoveryClient.GetAsync("http://localhost:5000");
+            return new TokenClient(
+                discoveryReponse.TokenEndpoint, 
+                "resource-owner", 
+                "resource-owner-secret");
         }
 
         public async Task<HttpResponseMessage> PostQuestion(QuestionDto questionDto)
