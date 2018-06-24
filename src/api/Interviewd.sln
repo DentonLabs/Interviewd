@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Common", "..\..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Mapping", "..\..\shared\Interviewd.Mapping\Interviewd.Mapping.csproj", "{20D07993-4D20-48E3-AEA3-EA4551CC0A8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Authentication", "Interviewd.Authentication\Interviewd.Authentication.csproj", "{70EAA566-2BAC-42FC-B467-B526BAA39C40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Authentication", "Interviewd.Authentication\Interviewd.Authentication.csproj", "{70EAA566-2BAC-42FC-B467-B526BAA39C40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Client", "Interviewd.Client\Interviewd.Client.csproj", "{F2B8CEDA-CF69-433B-9902-F189A6D51215}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70EAA566-2BAC-42FC-B467-B526BAA39C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
