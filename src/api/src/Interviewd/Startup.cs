@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
 using Interviewd.Application;
 using Interviewd.Configuration;
 using Interviewd.Domain;
@@ -31,6 +32,8 @@ namespace Interviewd
         {
             services.AddOptions();
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.Configure<AppSettings>(Configuration);
 
             services.AddMvcCore()
@@ -39,12 +42,29 @@ namespace Interviewd
 
             services.AddAutoMapper();
 
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+            //services.AddAuthentication("Bearer")
+            //    .AddIdentityServerAuthentication(options =>
+            //    {
+            //        options.Authority = "http://localhost:5000";
+            //        options.RequireHttpsMetadata = false;
+            //        options.ApiName = "interviewd";
+            //    });
+
+            services.AddAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:5000";
+                    options.DefaultScheme = "cookies";
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddCookie("Cookies")
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.SignInScheme = "Cookies";
+
+                    options.Authority = "http;//localhost:5000";
                     options.RequireHttpsMetadata = false;
-                    options.ApiName = "interviewd";
+
+                    options.ClientId = "interviewd";
+                    options.SaveTokens = true;
                 });
 
             services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
