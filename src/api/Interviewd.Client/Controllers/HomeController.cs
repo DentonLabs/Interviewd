@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Interviewd.Client.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Interviewd.Client.Controllers
@@ -29,6 +30,12 @@ namespace Interviewd.Client.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+        public async Task Logout()
+        {
+            await HttpContext.SignOutAsync("Cookies");
+            await HttpContext.SignOutAsync("oidc");
         }
 
         public IActionResult Error()

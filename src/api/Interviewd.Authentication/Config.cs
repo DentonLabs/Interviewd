@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
@@ -66,13 +67,25 @@ namespace Interviewd.Authentication
                 {
                     SubjectId = "1",
                     Username = "alex",
-                    Password = "password"
+                    Password = "password",
+
+                    Claims = new List<Claim>
+                    {
+                        new Claim("name", "Alex"),
+                        new Claim("website", "https://alexrdenton.com")
+                    }
                 },
                 new TestUser
                 {
                     SubjectId = "2",
                     Username = "erin",
-                    Password = "password"
+                    Password = "password",
+
+                    Claims = new List<Claim>
+                    {
+                        new Claim("name", "Erin"),
+                        new Claim("website", "https://erinfonzidenton.com")
+                    }
                 }
             };
         }
