@@ -17,15 +17,23 @@ namespace Interviewd.Tests.Api.Rest
         {
             _HttpClient = new HttpClient();
             _HttpClient.BaseAddress = new Uri(appSettings.Value.ApiUri);
-            _HttpClient.SetBearerToken(GetAuthToken().Result);
+            _HttpClient.SetBearerToken(GetClientCredentialsAuthToken().Result);
         }
 
-        private async Task<string> GetAuthToken()
+        private async Task<string> GetClientCredentialsAuthToken()
         {
             var discoveryReponse = await DiscoveryClient.GetAsync("http://localhost:5000");
-            var tokenClient = new TokenClient(discoveryReponse.TokenEndpoint, "client", "secret");
+            var tokenClient = new TokenClient(
+                discoveryReponse.TokenEndpoint, 
+                "client-credentials", 
+                "client-credentials-secret");
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("interviewd");
             return tokenResponse.AccessToken;
+        }
+
+        private async Task<string> GetResourceOwnerAuthToken()
+        {
+            return string.Empty;
         }
 
         public async Task<HttpResponseMessage> PostQuestion(QuestionDto questionDto)

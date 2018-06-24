@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using IdentityServer4.Models;
+using IdentityServer4.Test;
 
 namespace Interviewd.Authentication
 {
@@ -19,13 +20,42 @@ namespace Interviewd.Authentication
             {
                 new Client
                 {
-                    ClientId = "client",
+                    ClientId = "client-credentials",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("client-credentials-secret".Sha256())
                     },
                     AllowedScopes = { "interviewd" }
+                },
+                new Client
+                {
+                    ClientId = "resource-owner",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets =
+                    {
+                        new Secret("resource-owner-secret".Sha256())
+                    },
+                    AllowedScopes = {"interviewd" }
+                }
+            };
+        }
+
+        public static List<TestUser> GetUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId = "1",
+                    Username = "alex",
+                    Password = "password"
+                },
+                new TestUser
+                {
+                    SubjectId = "2",
+                    Username = "erin",
+                    Password = "password"
                 }
             };
         }
