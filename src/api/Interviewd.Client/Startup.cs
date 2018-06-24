@@ -40,7 +40,14 @@ namespace Interviewd.Client
                     options.RequireHttpsMetadata = false;
 
                     options.ClientId = "mvc";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code_id_token";
+
                     options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.Scope.Add("interviewd");
+                    options.Scope.Add("offline_access");
                 });
         }
 
