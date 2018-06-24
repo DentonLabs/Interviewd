@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Authentication",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Client", "Interviewd.Client\Interviewd.Client.csproj", "{F2B8CEDA-CF69-433B-9902-F189A6D51215}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interviewd.Iam", "Interviewd.Iam\Interviewd.Iam.csproj", "{719209BD-CFA4-4CEF-B9E6-3F84548CC423}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2B8CEDA-CF69-433B-9902-F189A6D51215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{719209BD-CFA4-4CEF-B9E6-3F84548CC423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{719209BD-CFA4-4CEF-B9E6-3F84548CC423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{719209BD-CFA4-4CEF-B9E6-3F84548CC423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{719209BD-CFA4-4CEF-B9E6-3F84548CC423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
