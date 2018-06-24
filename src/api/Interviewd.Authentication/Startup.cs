@@ -20,6 +20,7 @@ namespace Interviewd.Authentication
 
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
                 .AddTestUsers(Config.GetUsers());
