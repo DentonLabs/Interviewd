@@ -41,7 +41,7 @@ namespace Interviewd.Client
 
                     options.ClientId = "mvc";
                     options.ClientSecret = "secret";
-                    options.ResponseType = "code_id_token";
+                    options.ResponseType = "code id_token";
 
                     options.SaveTokens = true;
                     options.GetClaimsFromUserInfoEndpoint = true;
