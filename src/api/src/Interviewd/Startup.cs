@@ -42,30 +42,40 @@ namespace Interviewd
 
             services.AddAutoMapper();
 
-            //services.AddAuthentication("Bearer")
-            //    .AddIdentityServerAuthentication(options =>
-            //    {
-            //        options.Authority = "http://localhost:5000";
-            //        options.RequireHttpsMetadata = false;
-            //        options.ApiName = "interviewd";
-            //    });
-
-            services.AddAuthentication(options =>
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
                 {
-                    options.DefaultScheme = "cookies";
-                    options.DefaultChallengeScheme = "oidc";
-                })
-                .AddCookie("Cookies")
-                .AddOpenIdConnect("oidc", options =>
-                {
-                    options.SignInScheme = "Cookies";
-
-                    options.Authority = "http;//localhost:5000";
+                    options.Authority = "http://localhost:5000";
                     options.RequireHttpsMetadata = false;
-
-                    options.ClientId = "interviewd";
-                    options.SaveTokens = true;
+                    options.ApiName = "interviewd";
                 });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5003")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultScheme = "cookies";
+            //        options.DefaultChallengeScheme = "oidc";
+            //    })
+            //    .AddCookie("Cookies")
+            //    .AddOpenIdConnect("oidc", options =>
+            //    {
+            //        options.SignInScheme = "Cookies";
+
+            //        options.Authority = "http;//localhost:5000";
+            //        options.RequireHttpsMetadata = false;
+
+            //        options.ClientId = "interviewd";
+            //        options.SaveTokens = true;
+            //    });
 
             services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
             services.AddSingleton<IInterviewTemplateRepository, InterviewTemplateRepository>();
@@ -87,6 +97,7 @@ namespace Interviewd
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("default");
             app.UseAuthentication();
             app.UseMvc();
         }
