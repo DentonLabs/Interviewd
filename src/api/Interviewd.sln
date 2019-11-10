@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{13F6BDA1-144A-4A1B-9F06-987F009760C7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93F66F1E-4A2C-4373-8C1B-D7CB63ACCECD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd", "src\Interviewd\Interviewd.csproj", "{42ED50C8-1F9B-4BD5-8AF6-95F6B43BCA89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interviewd.Service.Rest", "src\Interviewd.Service.Rest\Interviewd.Service.Rest.csproj", "{68D1B361-ECF2-4C4F-B890-7CAF4B949016}"

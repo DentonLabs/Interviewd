@@ -4,8 +4,12 @@ using Interviewd.Configuration;
 using Interviewd.Domain;
 using Interviewd.Infrastructure;
 using Interviewd.Infrastructure.Abstraction;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -33,7 +37,26 @@ namespace Interviewd
 
             services.Configure<AppSettings>(Configuration);
 
-            services.AddMvc();
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie()
+                .AddOpenIdConnect(options =>
+                {
+                    options.Authority = Configuration["auth:oidc:authority"];
+                    options.ClientId = Configuration["auth:oidc:clientid"];
+                });
+
+            services.AddMvc(o =>
+            {
+                var authPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+
+                o.Filters.Add(new AuthorizeFilter(authPolicy));
+            });
             services.AddAutoMapper();
 
             services.AddSingleton<IInterviewTemplateManager, InterviewTemplateManager>();
@@ -56,6 +79,7 @@ namespace Interviewd
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
